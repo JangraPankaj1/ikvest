@@ -1,0 +1,307 @@
+@media (min-width: 1500px) {
+  .bck-img-inr {
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+  }
+  .bck-img-inr::after {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .bck-img-inr {
+    background-size: 100%;
+    padding: 60px 0 40px;
+    background-image: url("../images/for-mob-bg.png");
+    background-position: top;
+  }
+  .bck-img-inr::after {
+    width: 10rem;
+    height: 130px;
+    z-index: 1;
+  }
+  .bck-img-inr .container-fluid {
+    padding: 0 20px;
+  }
+  .lft-side-login h1 {
+    font-size: 28px;
+  }
+  .lft-side-login h4 {
+    font-size: 14px;
+  }
+  .lft-side-login .inr-plus-login {
+    margin-top: 10px;
+  }
+  .lft-side-login .inr-plus-login h2 {
+    font-size: 28px;
+  }
+  .right-login-form {
+    max-width: 100%;
+    margin-top: 20px;
+    background: #fff;
+    padding: 40px 20px;
+    border-radius: 10px;
+  }
+  .right-login-form button {
+    margin-top: 30px;
+  }
+  .right-login-form img.icon-logo-top {
+    width: 50px;
+    top: auto;
+    right: 30px;
+    margin-top: -20px;
+  }
+  .right-login-form h2 {
+    font-size: 28px;
+    line-height: 36px;
+    margin-bottom: 20px;
+  }
+  .right-login-form .sign-up-form .fst-name {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  .right-login-form .or-google img {
+    width: 30px;
+  }
+  .right-login-form h5 {
+    margin: 10px 0 15px;
+    font-size: 16px;
+  }
+  .right-login-form .otp-fields {
+    max-width: 65%;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 575px) {
+  .bck-img-inr {
+    background-size: cover;
+    background-image: url("../images/for-mob-bg.png");
+  }
+  .lft-side-login h1 {
+    color: #fff;
+  }
+  .lft-side-login h4 {
+    color: #fff;
+  }
+  .lft-side-login .inr-plus-login h2 {
+    color: #ffffff;
+  }
+  .right-login-form {
+    margin-top: 20px;
+  }
+  .right-login-form img.icon-logo-top {
+    top: auto;
+  }
+  .right-login-form .otp-fields input {
+    width: 30px;
+    height: 30px;
+  }
+  .right-login-form p {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .bck-img-inr {
+    padding: 0px;
+    background-position: 75% center;
+  }
+  .bck-img-inr::after {
+    width: 7rem;
+    height: 100px;
+    z-index: 1;
+  }
+  .bck-img-inr .container-fluid {
+    padding: 0 20px;
+  }
+  .bck-img-inr .lft-side-login h1 {
+    font-size: 32px;
+  }
+  .bck-img-inr .lft-side-login h4 {
+    font-size: 16px;
+    max-width: 80%;
+  }
+  .bck-img-inr .lft-side-login .inr-plus-login h2 {
+    font-size: 32px;
+  }
+  .bck-img-inr .right-login-form {
+    padding: 40px 20px;
+    background: #fff;
+    width: 100%;
+    max-width: 100%;
+  }
+  .bck-img-inr .right-login-form h2 {
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 23px;
+  }
+  .bck-img-inr .right-login-form .sign-up-form {
+    gap: 10px;
+  }
+  .bck-img-inr .right-login-form .sign-up-form input {
+    padding: 10px 20px;
+  }
+  .bck-img-inr .right-login-form .apperance-icon::after {
+    top: 26px;
+  }
+  .bck-img-inr .right-login-form .apperance-icon select {
+    padding: 10px 20px;
+  }
+  .bck-img-inr .right-login-form button {
+    margin-top: 20px;
+    padding: 10px 20px;
+  }
+  .bck-img-inr .right-login-form .or-google img {
+    width: 40px;
+  }
+  .bck-img-inr .right-login-form img.icon-logo-top {
+    top: 10px;
+    width: 40px;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1320px) {
+  .bck-img-inr {
+    padding: 0px 0;
+  }
+  .bck-img-inr::after {
+    width: 15rem;
+    height: 200px;
+  }
+  .bck-img-inr .lft-side-login h1 {
+    font-size: 40px;
+  }
+  .bck-img-inr .lft-side-login h4 {
+    font-size: 20px;
+  }
+  .bck-img-inr .lft-side-login .inr-plus-login h2 {
+    font-size: 40px;
+  }
+  .bck-img-inr .right-login-form {
+    padding: 50px 0;
+  }
+  .bck-img-inr .right-login-form h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  .bck-img-inr .right-login-form button {
+    padding: 10px 20px;
+    margin-top: 30px;
+  }
+  .bck-img-inr .right-login-form .or-google img {
+    width: 40px;
+  }
+}
+@media (min-width: 950px) and (max-width: 1024px) {
+  .bck-img-inr .right-login-form {
+    background: transparent;
+    padding-left: 40px !important;
+  }
+}
+@media (min-width: 1025px) {
+  .verification .bck-img-inr {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  .verification .row {
+    height: 100%;
+  }
+}
+@media (max-width: 415px) {
+  .verification .bck-img-inr::after {
+    z-index: -1;
+  }
+  .verification .bck-img-inr .right-login-form {
+    background: transparent;
+    padding: 40px 0;
+  }
+  .verification .bck-img-inr .otp-fields {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 767px) {
+  .verification .bck-img-inr::after {
+    z-index: -1;
+  }
+  .forget .bck-img-inr::after {
+    z-index: -1;
+  }
+  .forget .bck-img-inr .row .right-login-form h2 {
+    font-size: 26px;
+    margin: 11px 0;
+  }
+  .forget .bck-img-inr .row .right-login-form p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+  .Welcome .bck-img-inr {
+    padding: 40px 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .verification .bck-img-inr::after {
+    z-index: -1;
+  }
+  .forget .bck-img-inr .row .right-login-form h2 {
+    font-size: 32px;
+  }
+  .forget .bck-img-inr .row .right-login-form p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  .Welcome .bck-img-inr {
+    padding: 60px 0;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .verification .bck-img-inr {
+    height: 100vh;
+    background-position: 60% center;
+  }
+  .verification .bck-img-inr ::after {
+    z-index: -1;
+  }
+  .verification .bck-img-inr .row {
+    height: 100vh;
+  }
+  .verification .bck-img-inr .row .right-login-form {
+    padding: 40px 20px;
+    background: transparent;
+    width: 100%;
+    max-width: 100%;
+  }
+  .verification .bck-img-inr .row .right-login-form p {
+    font-size: 16px;
+  }
+}
+@media (max-width: 350px) {
+  .verification .bck-img-inr::after {
+    z-index: -1;
+  }
+  .verification .bck-img-inr .right-login-form {
+    height: auto;
+  }
+}
+@media (min-width: 768px) and (max-width: 850px) {
+  .verification .bck-img-inr {
+    background-position: 60% center;
+  }
+  .verification .bck-img-inr .row .right-login-form .otp-fields input {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1200px) {
+  .verification .bck-img-inr {
+    background-position: 60% center;
+  }
+}
+@media (min-width: 1920px) {
+  .bck-img-inr .container-fluid {
+    padding: 0 80px;
+    max-width: 1920px;
+  }
+}/*# sourceMappingURL=responsive-style.css.map */
