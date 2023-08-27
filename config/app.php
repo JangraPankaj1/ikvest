@@ -184,6 +184,9 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Ferdous\OtpValidator\OtpValidatorServiceProvider::class,
 
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
+
 
         /*
          * Package Service Providers...
@@ -213,7 +216,9 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'OtpValidator' => Ferdous\OtpValidator\OtpValidatorServiceProvider::class
+        'OtpValidator' => Ferdous\OtpValidator\OtpValidatorServiceProvider::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),

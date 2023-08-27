@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.without-header')
+@section('main-content-without-header')
 
-<head>
-    <title>IKVest</title>
-    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
-    <link href="{!! asset('css/bootstrap.min.css') !!}" rel="stylesheet">
-    <script src="{!! asset('js') !!}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="{!! asset('css/responsive-style.css') !!}" rel="stylesheet">
-</head>
-
-<body>
-
-    <div class="wrapper">
+   
+   <div class="wrapper">
         <section class="verification">
             <div class="bck-img-inr">
                 <div class="container-fluid">
@@ -68,12 +58,12 @@
             </div>
         </section>
     </div>
-</body>
-</html>
+@endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-
 <script>
+
+    //otp verification
 
     $(document).ready(function(){
         $('#verificationForm').submit(function(e){
@@ -81,16 +71,34 @@
 
             var formData = $(this).serialize();
             console.log(formData);
+            
 
             $.ajax({
+               
                 url:"{{ route('verifiedOtp') }}",
                 type:"POST",
+                // '_token': '{{ csrf_token() }}', // Add the CSRF token
+                
                 data: formData,
+                
                 success:function(res){
+                    
                     if(res.success){
-                        alert(res.msg);
-                    // Navigate to the "/login" URL
-                    window.location.href = "/login";
+                        console.log(res.role);
+                        var dashboardRoute = '';
+
+                        if(res.role =='2'){
+                             // Code to execute for role 2 headfamily
+                             dashboardRoute  = '{{ route("head-family.dashboard") }}'; // Redirect to a specific route for role 2
+
+                        }else if(res.role =='3'){
+                             // Code to execute for role 3 familyMember
+                             dashboardRoute  = '{{ route("family-member.dashboard") }}'; // Redirect to a specific route for role 3
+                        }
+                        else{
+                            dashboardRoute  = '{{ route("super-admin.dashboard") }}'; // Redirect to admin dashboard
+                        }
+                        window.location.href = dashboardRoute;
                     }
                     else{
                         $('#message_error').text(res.msg);
@@ -161,12 +169,12 @@
     }
 
     timer();
-
 </script>
 
-<script>
 
-document.addEventListener("DOMContentLoaded", function() {
+<script>
+    //otp auto culser move code
+    document.addEventListener("DOMContentLoaded", function() {
     const otpInputs = document.querySelectorAll(".otp-input");
 
     otpInputs.forEach((input, index) => {
@@ -190,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
 
 </script>
 

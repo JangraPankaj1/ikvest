@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>IKVest</title>
-    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
-    <link href="{!! asset('css/bootstrap.min.css') !!}" rel="stylesheet">
-    <script src="{!! asset('js') !!}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="{!! asset('css/responsive-style.css') !!}" rel="stylesheet">
-</head>
-
-<body>
+@extends('layouts.without-header')
+@section('main-content-without-header')
     <div class="wrapper">
         <section class="Welcome">
             <div class="bck-img-inr">
@@ -30,7 +20,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="right-login-form">
-                                <img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" />
+                            <a href="{{ route('login') }}"><img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" /></a>
                                  <h2>Welcome </h2>
                               
                                     @if ($errors->any())
@@ -78,6 +68,4 @@
             </div>
         </section>
     </div>
-</body>
-
-</html>
+@endsection

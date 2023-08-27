@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>IKVest</title>
-    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
-    <link href="{!! asset('css/bootstrap.min.css') !!}" rel="stylesheet">
-    <script src="{!! asset('js') !!}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="{!! asset('css/responsive-style.css') !!}" rel="stylesheet">
-</head>
 
-<body>
+@extends('layouts.without-header')
+@section('main-content-without-header')
+
     <div class="wrapper">
         <section class="Welcome">
             <div class="bck-img-inr">
@@ -31,7 +23,7 @@
                         <div class="col-md-5">
                             <div class="right-login-form">
                                 <img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" />
-                                <h2>Welcome Admin </h2>
+                                <h2>Welcome Admin</h2>
                               
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
@@ -47,7 +39,7 @@
                                             {{ session()->get("message") }}
                                         </div>
                                     @endif
-                                <form class="formLogin" action="{{ route('admin.login.post') }}" method="post">
+                                <form class="formLogin" action="{{ route('login.post') }}" method="post">
                                     @csrf
 
                                     <div class="sign-up-form">
@@ -86,6 +78,5 @@
             </div>
         </section>
     </div>
-</body>
-
-</html>
+    
+@endsection

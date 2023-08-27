@@ -57,7 +57,10 @@
                             <div class="social-icon-ftr adders-ftr">
                                 <h4>Socials</h4>
                                 <a href="#">
-                                    <img src="{{ asset('web-images/social-icons.svg')}}" /> </a>
+                                    <img src="{{ asset('web-images/facebook.svg')}}" /> </a>
+                                    <img src="{{ asset('web-images/twitter.svg')}}" /> </a>
+                                    <img src="{{ asset('web-images/instagram.svg')}}" /> </a>
+                                    <img src="{{ asset('web-images/pinterest.svg')}}" /> </a>
                             </div>
                         </div>
                     </div>
@@ -82,3 +85,17 @@
             </div>
         </footer>
         <!-----------------end Footer --------------------->
+
+        <!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper(".testimonial", {
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+    });
+</script>

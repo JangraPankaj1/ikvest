@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>IKVest</title>
-    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
-    <link href="{!! asset('css/bootstrap.min.css') !!}" rel="stylesheet">
-    <script src="{!! asset('js') !!}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="{!! asset('css/responsive-style.css') !!}" rel="stylesheet">
+@extends('layouts.without-header')
+@section('main-content-without-header')
 
-</head>
-
-<body>
     <div class="wrapper">
         <section class="forget">
             <div class="bck-img-inr">
@@ -31,7 +21,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="right-login-form">
-                                <img src="images/IkVest-Logo.svg" class="icon-logo-top" />
+                            <a href="{{ route('login') }}"><img src="images/IkVest-Logo.svg" class="icon-logo-top" /></a>
                                 <h2>Forgot Password</h2>
                                 <p>Enter your registered Email ID and we will send you a link to change your password
                                 </p>
@@ -74,9 +64,7 @@
             </div>
         </section>
     </div>
-</body>
-
-</html>
+@endsection
 @push("js")
 <script>
     $("#thisForm").submit(function() {

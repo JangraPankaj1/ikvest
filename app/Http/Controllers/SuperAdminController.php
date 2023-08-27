@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class SuperAdminController extends Controller
 {
     //
+    
     public function dashboard()
     {
         return view('super-admin.dashboard');

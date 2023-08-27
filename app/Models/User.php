@@ -22,9 +22,13 @@ class User extends Authenticatable
         'f_name',
         'l_name',
         'role',
+        'profile_pic',
+        'image_path',
         'social_id',
         'social_type',
+        'status',
         'email',
+        'is_verified'
 
     ];
 
@@ -43,10 +47,5 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-    protected $appends = [
-        'profile_photo_url',
-    ];
+
 }

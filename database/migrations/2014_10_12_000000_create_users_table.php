@@ -18,13 +18,14 @@ return new class extends Migration
             $table->string('f_name')->nullable();
             $table->string('l_name')->nullable();
             $table->string('role')->nullable();
+            $table->text('profile_pic')->nullable();
+            $table->text('image_path')->nullable();
+
             $table->string('social_id')->nullable();
             $table->string('social_type')->nullable();
             $table->string('status')->nullable();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->integer('is_verified')->default(0);
-
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();

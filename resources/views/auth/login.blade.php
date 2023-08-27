@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>IKVest</title>
-    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
-    <link href="{!! asset('css/bootstrap.min.css') !!}" rel="stylesheet">
-    <script src="{!! asset('js') !!}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="{!! asset('css/responsive-style.css') !!}" rel="stylesheet">
-</head>
 
-<body>
+@extends('layouts.without-header')
+@section('main-content-without-header')
+
     <div class="wrapper">
         <section class="Welcome">
             <div class="bck-img-inr">
@@ -30,7 +22,7 @@
                         </div>
                         <div class="col-md-5">
                             <div class="right-login-form">
-                                <img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" />
+                             <a href="{{ route('home') }}"> <img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" /></a>
                                 <h2>Welcome </h2>
                               
                                     @if ($errors->any())
@@ -58,7 +50,7 @@
                                             <input type="password" name="password" placeholder="Enter your password" />
                                         </label>
                                         <div class="check-in-pass">
-                                            <label><input type="checkbox" name="checkbox"> Remember me</label>
+                                            <label><input type="checkbox" name="remember"> Remember me</label>
                                             <a href="{{ route('forget.password') }}">Forgot password?</a>
                                         </div>
                                     </div>
@@ -67,14 +59,13 @@
                                             <p>or</p>
                                             <a  href="{{ url('auth/facebook') }}">
                                                 <img src=" {{ asset('images/Facebook.svg') }}" />
-
                                             </a>
 
                                             <a href="{{ route('auth.google') }}" id="google-login-link">
                                                 <img src="{{ asset('images/google.svg') }}" data-text="signup_with" style="margin-left: 3em;" alt="Signup with Google" id="google-login-button" disabled>
                                             </a>
                                         </div>
-                                        <div class="mt-5">
+                                     <div class="mt-5">
                                         <p>Already have an account? <a href="{{ route('register') }}" class="create_now">Register</a></p>
                                     </div>
                                   </form>
@@ -86,6 +77,5 @@
             </div>
         </section>
     </div>
-</body>
-
-</html>
+    
+@endsection

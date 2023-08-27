@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>IKVest</title>
 
-    <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
-    <link href="{!! asset('css/bootstrap.min.css') !!}" rel="stylesheet">
-    <script src="{!! asset('js') !!}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="{!! asset('css/responsive-style.css') !!}" rel="stylesheet">
-</head>
+@extends('layouts.without-header')
+@section('main-content-without-header')
 
-<body>
-    <div class="wrapper">
+   <div class="wrapper">
         <section>
             <div class="bck-img-inr">
                 <div class="container-fluid">
@@ -48,25 +39,27 @@
                                     @csrf
 
                                     <div class="sign-up-form">
+                                        <div class="fst-name">
                                         <label>First Name
-                                            <input type="text"  placeholder="First Name" name="f_name" class="form-control"
-                                                value="{{ old('f_name') }}" />
+                                            <input type="text"  placeholder="First Name" name="first_name" class="form-control"
+                                                value="{{ old('first_name') }}" />
                                             <div class="error">
-                                                @error('f_name')
+                                                @error('first_name')
                                                     {{ $message }}
                                                 @enderror
                                             </div>   
                                         </label>
 
                                         <label>Last Name
-                                            <input type="text" placeholder="Last Name" name="l_name" class="form-control"
-                                                value="{{ old('l_name') }}" />
+                                            <input type="text" placeholder="Last Name" name="last_name" class="form-control"
+                                                value="{{ old('last_name') }}" />
                                             <div class="error">
-                                                @error('l_name')
+                                                @error('last_name')
                                                     {{ $message }}
                                                 @enderror
                                             </div>   
                                         </label>
+                                        </div>
                                         <label>Email
                                             <input type="text" name="email" placeholder="Email Address" class="form-control"
                                                 value="{{ old('email') }}" />
@@ -90,7 +83,7 @@
                                         </div>
                                         </div>
                                         <label>Password
-                                            <input type="password" class="form-control" name="password" placeholder="Password" />
+                                            <input type="password" class="form-control" name="password" placeholder="Password"  id="password"/>
                                                 <div class="error">
                                                     @error('password')
                                                         {{ $message }}
@@ -132,5 +125,5 @@
             </div>
         </section>
     </div>
-</body>
-</html>
+
+@endsection

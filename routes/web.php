@@ -25,11 +25,7 @@ Route::get('/verification/{id}',[AuthController::class,'verification']);
 Route::post('/verified',[AuthController::class,'verifiedOtp'])->name('verifiedOtp');
 Route::get('/resend-otp',[AuthController::class,'resendOtp'])->name('resendOtp');
   
-// ********** jquery routes *********
 
-// Route::get('head-family/dashboard', [AuthController::class, 'headFamilyDashboard'])->name('head-family.dashboard');
-// Route::get('family-member/dashboard', [AuthController::class, 'familyMemberDashboard'])->name('family-member.dashboard');
-// Route::get('admin/dashboard', [AuthController::class, 'adminDashboard'])->name('admin.dashboard');
 
 
 // ********** login & registration *********
@@ -38,8 +34,8 @@ Route::post('login', [AuthController::class, 'postLogin'])->name('login.post');
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'postRegister'])->name('register.post');
 Route::get('user/verify/{token}', [AuthController::class, 'verifyEmail'])->name('user.verify');
-Route::get('page/error', [AuthController::class, 'showErrorPage'])->name('page.error');
 
+// ********** Manage Passwords *********
 
 Route::get('forget-password', [AuthController::class, 'forgetPasswordForm'])->name('forget.password');
 Route::post('forget-password', [AuthController::class, 'forgetPasswordPost'])->name('forget.password.post');
@@ -49,13 +45,14 @@ Route::post('reset-password', [AuthController::class, 'resetPasswordPost'])->nam
 Route::middleware('auth:web')->group(function(){
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-        Route::get('change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
-        Route::post('change-password', [AuthController::class, 'changePasswordPost'])->name('password.change.post');
+        // Route::get('change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
+        // Route::post('change-password', [AuthController::class, 'changePasswordPost'])->name('password.change.post');
         
 });
 
  // ********** Social login *********
 
+    // ********** for login page *********
     Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
     Route::any('callback/google', [GoogleController::class, 'handleGoogleCallback']);
 
@@ -67,25 +64,62 @@ Route::middleware('auth:web')->group(function(){
     });
 
 
-    // ********** Admin Routes *********
-    
-     Route::group(['prefix' => 'admin','middleware'=>['web','isSuperAdmin']],function(){
 
-        // Route::get('login', [SuperAdminController::class, 'index'])->name('admin.login');
-        // Route::post('login', [SuperAdminController::class, 'postLogin'])->name('admin.login.post');  
-        Route::get('/dashboard',[SuperAdminController::class,'dashboard']);   
+
+    // Route::get('login', [SuperAdminController::class, 'index'])->name('admin.login');
+    // Route::post('login', [SuperAdminController::class, 'postLogin'])->name('admin.login.post'); 
+
+
+// ********** Super Admin Routes *********
+    
+    Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],function(){
+         
+        Route::get('/dashboard',[SuperAdminController::class,'dashboard'])->name('super-admin.dashboard');
        
     });
 
+
 // ********** Head family Routes *********
     Route::group(['prefix' => 'head-family','middleware'=>['web','headFamily']],function(){
-        Route::get('/dashboard',[HeadFamilyController::class,'dashboard']);
-    });
+
+        Route::get('/dashboard',[HeadFamilyController::class,'dashboard'])->name('head-family.dashboard');
+        Route::get('/password-change',[HeadFamilyController::class,'changePassword'])->name('change.password');
+        Route::post('/password-change',[HeadFamilyController::class,'changePasswordPost'])->name('password.change.post');
+        Route::get('/profile-update',[HeadFamilyController::class,'profileUpdate'])->name('profile.page');
+        Route::post('/profile-update',[HeadFamilyController::class,'profileUpdatePost'])->name('profile.post');
+        Route::get('/add-event',[HeadFamilyController::class,'eventPage'])->name('event.page');
+        Route::post('/add-event',[HeadFamilyController::class,'eventPagePost'])->name('event.post');
+
+        Route::any('/all-event',[HeadFamilyController::class,'allEvents'])->name('get.events');
     
+        Route::get('/edit-event/{id}', [HeadFamilyController::class, 'editEvent'])->name('edit-event');
+        Route::put('/edit-event/{id}', [HeadFamilyController::class, 'updateEvent'])->name('update.event');
+
+        Route::get('/delete-event/{id}', [HeadFamilyController::class, 'deleteEvent'])->name('delete-event');
+
+
+        // Route::get('delete-records','StudDeleteController@index');
+        // Route::get('delete/{id}','StudDeleteController@destroy');
+
+
+    });
+
+
+
 // ********** Family Member Routes *********
     Route::group(['prefix' => 'family-member','middleware'=>['web','familyMember']],function(){
-        Route::get('/dashboard',[FamilyMemberController::class,'dashboard']);
+
+         Route::get('/dashboard',[FamilyMemberController::class,'dashboard'])->name('family-member.dashboard');
+        //  Route::get('/', function () {
+        //     return redirect()->refresh();
+
+        //  });
+
+
+
     });
-    
+
+
+    // ********** Email otp template *********
    Route::get('emails.otp_verify', [AuthController::class, 'emailVerifyPage'])->name('emails.otp_verify');
 

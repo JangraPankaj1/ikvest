@@ -20,6 +20,6 @@ class FamilyMemberAuthentication
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

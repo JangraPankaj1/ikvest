@@ -1,8 +1,10 @@
-@extends('layouts.master')
 
-@section('main-content')
-    <h2 class="mb-4">Family Member</h2>
+<h2 class="mb-4">Family Member</h2>
 
-@endsection
+<div>Welcome , {{ Auth::user()->f_name }} </div>
+<li>
+    <a class="custom-btn" href="{{ route('logout') }}">Logout</a>
+</li>
+
 
 

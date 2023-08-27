@@ -8,11 +8,11 @@ use App\Models\Role;
 
 class FamilyMemberController extends Controller
 {
-    //
+    
     public function dashboard()
     {
         return view('family-member.dashboard');
-
     }
 
+    
 }

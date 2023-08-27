@@ -57,14 +57,18 @@ class AuthController extends Controller
         } else {
             $user = User::where('email', $request->email)->first();
             if ($user->is_verified =='1') { // verified user
-                $credentials = $request->only('email', 'password');
-                if (Auth::attempt($credentials)) {
+                $email = $request->email;
+                $password = $request->password;
+                $remember = $request->has('remember_me') ? true : false; 
+
+                // $credentials = $request->only('email', 'password',$remember_me);
+                if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
+
+                // if (Auth::attempt($credentials)) {
 
                     $route = $this->redirectDash();
                      return redirect($route);
 
-                    // $user = Auth::user();
-                    // return redirect()->intended('dashboard');
                 } else {
                     return back()->withInput()->withErrors([
                         'message' => 'The provided credentials do not match with our records.',
@@ -75,14 +79,14 @@ class AuthController extends Controller
         }
     }
 
-    public function redirectDash()
 
+    public function redirectDash()
      {
 
         $redirect = '';
 
         if(Auth::user() && Auth::user()->role == 1){
-            $redirect = '/admin/dashboard';
+            $redirect = '/super-admin/dashboard';
         }
         else if(Auth::user() && Auth::user()->role == 2){
             $redirect = '/head-family/dashboard';
@@ -111,31 +115,24 @@ class AuthController extends Controller
     }
 
     // routes from verification page 
+
     // public function headFamilyDashboard()
     // {
-    //     $title = "Register";
-    //     return view('head-family.dashboard', compact('title'));
+    //     return view('head-family.dashboard');
     // }
     // public function familyMemberDashboard()
     // {
-    //     $title = "Register";
-    //     return view('family-member.dashboard', compact('title'));
+
+    //     return view('family-member.dashboard');
     // }
     // public function adminDashboard()
     // {
-    //     $title = "Register";
-    //     return view('admin.dashboard', compact('title'));
+
+    //     return view('super-admin.dashboard');
     // }
 
-//end
-    // public function loadDashboard()
-    // {
-    //     $email = Auth::user();
-    //     if(Auth::user()){
-    //         return view('dashboard');
-    //     }
-    //     return redirect('/');
-    // }
+   //end
+ 
 
     public function emailVerifyPage()
     {
@@ -152,9 +149,9 @@ class AuthController extends Controller
 
         $request->validate(
             [
-                'f_name'           => 'required|max:255',
-                'l_name'           => 'required|max:255',
-                'email'          => 'required|email|unique:users|max:255',
+                'first_name'          => 'required|max:255',
+                'last_name'          => 'required|max:255',
+                'email' => 'required|email|unique:users|max:255|ends_with:.com',
                 'role'           => 'required',
                 'password'       => 'required|min:6',
                 'confirm_password' => 'required|same:password',
@@ -164,8 +161,8 @@ class AuthController extends Controller
         try {
             
             $user = new User;
-            $user->f_name     = $request->f_name;
-            $user->l_name     = $request->l_name;
+            $user->f_name     = $request->first_name;
+            $user->l_name     = $request->last_name;
 
             $user->email    = $request->email;
             $user->role     = $request->role;
@@ -175,9 +172,6 @@ class AuthController extends Controller
 
             return redirect("/verification/".$user->id)->with('message', 'Enter the code from the email we send to' .'  '  .$user->email  );
 
-
-      
-            
         } catch (Exception $e) {
             dd($e->getMessage());
             return redirect("register")->withErrors($e->getMessage());
@@ -185,7 +179,7 @@ class AuthController extends Controller
     }
 
     public function sendOtp($user)
-    {
+     {
         $otp = rand(100000,999999);
         $time = time();
 
@@ -198,10 +192,16 @@ class AuthController extends Controller
             ]
         );
 
-        $data['email'] = $user->email;
-        $data['title'] = 'Mail Verification';
+          $f_name =$user->f_name;
+          $l_name =$user->l_name;
+          $full_name = $f_name . ' ' . $l_name;
 
-        $data['body'] = 'Your OTP is:- '.$otp;
+
+        $data['email'] = $user->email;
+        $data['title'] = 'Email Verification';
+        
+
+        $data['body'] = 'Hi, '. $full_name.', Your OTP is:- '.$otp;
 
         Mail::send('mailVerification',['data'=>$data],function($message) use ($data){
             $message->to($data['email'])->subject($data['title']);
@@ -224,6 +224,8 @@ class AuthController extends Controller
 
     public function verifiedOtp(Request $request)
      {
+
+
         $otp = implode("", $request->otp);
 
         $user = User::where('email',$request->email)->first();
@@ -241,6 +243,8 @@ class AuthController extends Controller
                 User::where('id',$user->id)->update([
                     'is_verified' => 1
                 ]);
+
+                Auth::loginUsingId($user->id);              
                 return response()->json(['success' => true,'msg'=> 'Mail has been verified','role'=>$user->role]);
             }
             else{
@@ -267,42 +271,6 @@ class AuthController extends Controller
            return response()->json(['success' => true,'msg'=> 'OTP has been sent']);
        }
    }
-
-
-    public function showErrorPage()
-    {
-        $title = "Error";
-        return view('error_page', compact('title'));
-    }
-    public function changePasswordForm()
-    {
-        $title = "Change Password";
-        return view('Auth.change_password', compact('title'));
-    }
-
-    public function changePasswordPost(Request $request)
-     {
-        $request->validate([
-            'current_password'  => 'required',
-            'new_password'      => 'required|min:6',
-            'confirm_password' => 'required|same:new_password|min:6',
-        ]);
-
-        if (!(Hash::check($request->current_password, Auth::user()->password))) {
-
-            return redirect()->back()->with("error", "Your current password does not match with the password you entered.");
-        }
-
-        if (strcmp($request->current_password, $request->new_password) == 0) {
-            // Current password and new password same
-            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
-        }
-
-        $user = User::find(Auth::user()->id);
-        $user->password = Hash::make($request->new_password);
-        $user->save();
-        return redirect()->back()->with("success", "Password successfully changed!");
-    }
 
     public function forgetPasswordForm()
     {
