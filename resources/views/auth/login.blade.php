@@ -24,7 +24,7 @@
                             <div class="right-login-form">
                              <a href="{{ route('home') }}"> <img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" /></a>
                                 <h2>Welcome </h2>
-                              
+
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
@@ -69,7 +69,7 @@
                                         <p>Already have an account? <a href="{{ route('register') }}" class="create_now">Register</a></p>
                                     </div>
                                   </form>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -77,5 +77,5 @@
             </div>
         </section>
     </div>
-    
+
 @endsection

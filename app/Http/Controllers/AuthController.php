@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Models\EmailVerification;
 use Mail;
 
-
 use App\Models\VerifyUser;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -31,7 +30,7 @@ class AuthController extends Controller
      * @return response()
      */
     public function index(){
-        $title = "Login Ho Gya";
+        $title = "Login";
         return view('auth.login', compact('title'));
     }
 
@@ -40,7 +39,6 @@ class AuthController extends Controller
      *
      * @return response()
      */
-
 
      public function postLogin(Request $request)
      {
@@ -144,6 +142,24 @@ class AuthController extends Controller
      *
      * @return response()
      */
+
+     //generate random token
+     function generateRandomString($length) {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $string = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $string;
+    }
+
+    public function generateRandomToken()
+    {
+       return $this->generateRandomString(10); // Change the length as needed
+    }
+
     public function postRegister(Request $request)
      {
 
@@ -160,12 +176,14 @@ class AuthController extends Controller
 
         try {
 
+            $token = $this->generateRandomToken();
+
             $user = new User;
             $user->f_name     = $request->first_name;
             $user->l_name     = $request->last_name;
-
             $user->email    = $request->email;
             $user->role     = $request->role;
+            $user->remember_token = $token;
 
             $user->password =  Hash::make($request->password);
             $user->save();
@@ -177,6 +195,46 @@ class AuthController extends Controller
             return redirect("register")->withErrors($e->getMessage());
         }
     }
+
+    //update family member data
+    public function updateRegisterByFamilyMember(Request $request)
+      {
+
+        $request->validate(
+           [
+               'first_name'          => 'required|max:255',
+               'last_name'          => 'required|max:255',
+               'password'       => 'required|min:6',
+               'confirm_password' => 'required|same:password',
+           ]
+       );
+
+       try {
+
+        $user = User::where('email', $request->email)->first();
+        if($user->email){
+
+            $user->f_name     = $request->first_name;
+            $user->l_name     = $request->last_name;
+            $user->status     = '1';
+            $user->password =  Hash::make($request->password);
+            $user->update();
+            auth()->login($user);
+            return redirect('/family-member/dashboard')->with('message', 'Welcome to your dashboard!');
+
+
+        }else{
+            return back()->with('message', 'you are not registered');
+        }
+
+        // return redirect('/family-member/dashboard')->with('message', 'welcome to your dashboard!'); //    Auth::loginUsingId($user->id);
+
+        } catch (Exception $e) {
+           dd($e->getMessage());
+           return redirect("login")->withErrors($e->getMessage());
+       }
+   }
+
 
     public function sendOtp($user)
      {
@@ -225,9 +283,7 @@ class AuthController extends Controller
     public function verifiedOtp(Request $request)
      {
 
-
         $otp = implode("", $request->otp);
-
         $user = User::where('email',$request->email)->first();
         $otpData = EmailVerification::where('otp',$otp)->first();
         if(!$otpData){
@@ -241,7 +297,9 @@ class AuthController extends Controller
 
             if($currentTime >= $time && $time >= $currentTime - (90+5)){//90 seconds
                 User::where('id',$user->id)->update([
-                    'is_verified' => 1
+                    'is_verified' => 1,
+                    'status' => 1
+
                 ]);
 
                 Auth::loginUsingId($user->id);
@@ -278,6 +336,7 @@ class AuthController extends Controller
         return view('auth.forget_password', compact('title'));
     }
 
+
     public function forgetPasswordPost(Request $request)
      {
 
@@ -303,12 +362,34 @@ class AuthController extends Controller
 
     }
 
+    // php artisan make:migration create_invite_members_table
+
+
     public function resetPasswordForm($token)
     {
 
         $title = "Reset Password";
         return view('auth.reset_password_form', ['token' => $token], compact('title'));
     }
+
+    //********invite family member**************
+
+    public function inviteLink($token)
+    {
+            $userEmail = DB::table('users')->where(['remember_token' => $token])->first();
+            if ($userEmail !== null) {
+
+                 $email = $userEmail->email;
+                 $title = "Register";
+            return view('auth.register', ['token' => $token,'email'=>$email], compact('title'));
+        }else{
+            return view('invite-error');
+
+        }
+
+    }
+
+    //******** reset password by dashboard **************
 
     public function resetPasswordPost(Request $request)
      {
@@ -325,7 +406,7 @@ class AuthController extends Controller
                 'token' => $request->token
             ])
             ->first();
-//  dd($verifyToken->email);
+            //  dd($verifyToken->email);
 
         if (!$verifyToken) {
             return back()->withInput()->with('error', 'Invalid Token!');
@@ -346,4 +427,8 @@ class AuthController extends Controller
 
         return redirect('login');
     }
+
+
+
+
 }

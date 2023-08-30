@@ -1,7 +1,28 @@
 
+
 @extends('layouts.without-header')
 @section('main-content-without-header')
 
+<!-- <ul id="myUL">
+  <li><span class="caret">Family Tree</span>
+    <ul class="nested">
+      <li>Water <input type="radio" id="html" name="fav_language" value="HTML">
+<label for="html"> </label></li>
+        <ul class="nested">
+          <li>Black Tea <input type="radio" id="html" name="fav_language" value="HTML">
+<label for="html"> HTML </label></li>
+        </ul>
+        <ul class="nested">
+         <ul class="nested">
+          <li>Black Tea <input type="radio" id="html" name="fav_language" value="HTML">
+<label for="html">HTML</label></li>
+        </ul>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+ -->
    <div class="wrapper">
         <section>
             <div class="bck-img-inr">
@@ -33,12 +54,13 @@
                         </div>
                         <div class="col-md-5">
                             <div class="right-login-form">
-                               <a href="{{ route('home') }}"> <img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" /></a>
+                               <a href="{{ route('head-family.dashboard') }}"> <img src="{{ asset('images/IkVest-Logo.svg') }} " class="icon-logo-top" /></a>
 
-                                <h2>Sign up</h2>
-                                <form id = "thisForm" class="formRegister" action="{{ route('register.update') }}" method="post">
+                                <h2>Add family Member</h2>
+                                <form id = "thisForm" class="formRegister" action="{{ route('invite.member.post') }}" method="post">
                                     @csrf
-                                <input type="hidden" name="email" value={{$email}} >
+                                       <input type="hidden" name="head_family_id" value="null">
+
                                     <div class="sign-up-form">
                                         <div class="fst-name">
                                         <label>First Name
@@ -63,61 +85,27 @@
                                         </div>
                                         <label>Email
                                             <input type="text" name="email" placeholder="Email Address" class="form-control"
-                                                value="{{ $email }}" disabled/>
+                                                value="{{ old('email') }}" />
                                             <div class="error">
                                                 @error('email')
                                                     {{ $message }}
                                                 @enderror
                                             </div>
                                         </label>
-                                        <!-- <div class="apperance-icon">
+                                        <div class="apperance-icon">
                                             <label>Role</label>
                                             <select name="role" id="role"   class="form-control">
-                                                <option value="{{ old('role') }}">Select Role</option>
-                                                <option value="2">Head Family </option>
-                                                <option value="3">Family Members</option> -->
-                                            <!-- </select> -->
-                                        <!-- <div class="error">ead-family/add-family-member
+                                                <option value="3">Family Member</option>
+                                            </select>
+                                        <div class="error">
                                             @error('role')
                                                 {{ $message }}
                                             @enderror
-                                        </div> -->
-                                        <!-- </div> -->
-                                        <label>Password
-                                            <input type="password" class="form-control" name="password" placeholder="Password"  id="password"/>
-                                                <div class="error">
-                                                    @error('password')
-                                                        {{ $message }}
-                                                    @enderror
-                                                </div>
-                                        </label>
-                                        <label>Confirm Password
-                                            <input type="password" class="form-control" name="confirm_password"
-                                                placeholder="Confirm Password" />
-                                            <div class="error">
-                                                @error('confirm_password')
-                                                    {{ $message }}
-                                                @enderror
-                                            </div>
-                                        </label>
+                                        </div>
+                                        </div>
                                     </div>
-                                    <button type="submit" class="submit-btn">Create My Account</button>
-                                    <!-- <div class="or-google">ead-family/add-family-member
-                                        <p>or</p>
-                                        <a  href="{{ url('auth/facebook') }}">
-                                            <img src=" {{ asset('images/Facebook.svg') }}" />
+                                    <button type="submit" class="submit-btn">Send Invite</button>
 
-                                        </a>
-
-                                        <a href="{{ route('auth.google') }}" id="google-login-link">
-                                            <img src="{{ asset('images/google.svg') }}" data-text="signup_with" style="margin-left: 3em;" alt="Signup with Google" id="google-login-button" disabled>
-                                        </a>
-
-                                    </div> -->
-
-                                    <!-- <div class="mt-5">
-                                        <p>Already have an account? <a href="{{ route('login') }}" class="create_now">Login</a></p>
-                                    </div> -->
                                 </form>
                             </div>
                         </div>
@@ -128,3 +116,14 @@
     </div>
 
 @endsection
+
+
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@
                         <div class="col-md-12">
                             <div class="inner-banner">
                                 <h1>About Us</h1>
-                                <p><span>Home</span> >> About us</p>
+                                <p><a href="{{ route('home') }}"><span>Home</span> </a>>> About us</p>
                             </div>
                         </div>
                     </div>
@@ -143,6 +143,6 @@
                     </div>
                 </div>
             </section>
-        </div>  
+        </div>
     </div>
 @endsection

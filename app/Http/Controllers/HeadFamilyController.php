@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Event;
 use DataTables;
 use DateTime;
+use Illuminate\Support\Facades\Crypt;
 
 
 use Illuminate\Support\Facades\Hash;
@@ -17,54 +18,134 @@ use Illuminate\Support\Facades\Session;
 use Mail;
 use Exception;
 use App\Models\PasswordReset;
-use App\Mail\VerifyEmail;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
 
 class HeadFamilyController extends Controller
 {
     //
     public function dashboard()
     {
-       
+
         return view('head-family.dashboard');
     }
 
+
     public function changePassword()
     {
-       
+
         return view('head-family.change-password');
     }
 
     public function eventPage()
     {
-       
+
         return view('head-family.add-event');
     }
-    
+
     public function profileUpdate()
-    {      
+    {
         return view('head-family.profile');
     }
+
+    public function addFamilyMember()
+     {
+        return view('head-family.add-family-member');
+     }
+
+     public function addVideos()
+     {
+        return view('head-family.add-video');
+     }
+
+// random generate string tokens
+     function generateRandomString($length) {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $string = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        return $string;
+    }
+
+    public function generateRandomToken()
+    {
+       return $this->generateRandomString(10); // Change the length as needed
+    }
+
+
+
+     // ********* Invite Family Member *******
+
+     public function invitefamilyMember(Request $request)
+       {
+
+        $request->validate(
+            [
+                'first_name'  => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'email' => 'required|email|unique:users|max:255|ends_with:.com',
+                'role' => 'required',
+            ]
+        );
+        try {
+
+            if ($request['head_family_id'] !== null) {
+                  $headFamilyId = $request->head_family_id ;
+            }else{
+                  $headFamilyId = Auth::user()->id;
+            }
+
+            $token = $this->generateRandomToken();
+            $addedByHead = Auth::user()->id;
+
+            $user = new User;
+            $user->f_name     = $request->first_name;
+            $user->l_name     = $request->last_name;
+            $user->email      = $request->email;
+            $user->role       = $request->role;
+
+            $user->parent_id =  $addedByHead;
+            $user->head_family_id  =  $headFamilyId;
+            $user->remember_token  = $token;
+            $user->save();
+
+            $email = $request->email;
+
+            $fName = $request->first_name;
+            $lName = $request->last_name;
+            $fullName = $fName.''.$lName;
+
+            Mail::send('emails.invite_link', ['token' => $token, 'fullName' => $fullName], function ($message) use ($email) {
+
+                $message->to($email);
+                $message->subject('invite link');
+            });
+
+            return back()->with('message','Member Invite Successfully');
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            return redirect("head-family/dashboard")->withErrors($e->getMessage());
+        }
+
+    }
+
 
     // ********* Add Event *******
 
     public function eventPagePost(Request $request)
       {
-       
+
        $request->validate(
            [
                'event_name'  => 'required|max:255',
                'description' => 'required|max:255',
                'Date_time'    =>  'required',
                'placeLocation'  => 'required',
-              
+
            ]
        );
 
@@ -84,7 +165,7 @@ class HeadFamilyController extends Controller
                 $event->place    = $request->placeLocation;
                 $event->date_time = $formattedDatetime;
                 $event->save();
-                
+
                 return back()->with('message','Event Added Successfully');
 
 
@@ -93,10 +174,10 @@ class HeadFamilyController extends Controller
            return redirect("register")->withErrors($e->getMessage());
        }
    }
-    
+
 // *********profile update*******
    public function profileUpdatePost(Request $request){
-        
+
     $validatedData = $request->validate([
         'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
        ]);
@@ -104,31 +185,32 @@ class HeadFamilyController extends Controller
     if ($request->hasFile('image')) {
 
        $profileName = $request->file('image')->getClientOriginalName();
-       $path = $request->file('image')->store('public/images');
+       $request->file('image')->move(public_path('images'), $profileName);
+       $email = auth()->user()->email;
+
        $User = User::find(Auth::user()->id);
        $User->f_name = $request->input('f_name');
        $User->l_name = $request->input('l_name');
-       $User->email = $request->input('email');
+       $User->email = $email;
        $User->profile_pic = $profileName;
-       $User->image_path = $path;
+       $User->image_path = 'images/' . $profileName;
        $User->update();
        return back()->with('message','Profile Updated');
 
 
     }else{
 
+       $email = auth()->user()->email;
         $User = User::find(Auth::user()->id);
         $User->f_name = $request->input('f_name');
         $User->l_name = $request->input('l_name');
-        $User->email = $request->input('email');
-   
+        $User->email =  $email;
+
         $User->update();
         return back()->with('message','Profile Updated');
 
     }
 
-       
-        
  }
 
  // **********allEvents**********
@@ -136,7 +218,7 @@ class HeadFamilyController extends Controller
   {
 
      try{
-        
+
         if ($request->ajax()) {
 
             $data = Event::select('*');
@@ -150,7 +232,7 @@ class HeadFamilyController extends Controller
 
                         $editRoute =   route('edit-event', ['id' => $row->id]);
                         $deleteRoute = route('delete-event', ['id' => $row->id]);
-    
+
                         $actionBtn = '<a href="' . $editRoute . '" class="edit btn btn-success btn-sm">Edit</a>';
                         $actionBtn .= ' <a href="' . $deleteRoute . '" class="delete btn btn-danger btn-sm">Delete</a>';
 
@@ -160,7 +242,7 @@ class HeadFamilyController extends Controller
                     ->rawColumns(['action'])
                     ->make(true);
         }
-          
+
         return view('head-family/all-event');
 
     }catch (Exception $e) {
@@ -168,7 +250,7 @@ class HeadFamilyController extends Controller
             return back()->withErrors($e->getMessage());
 
     }
-    
+
  }
 
 
@@ -208,7 +290,7 @@ class HeadFamilyController extends Controller
         $student->delete();
         return back()->with('message','Event Deleted');
     }
-  
+
 
 // **********profile password update**********
     public function changePasswordPost(Request $request)

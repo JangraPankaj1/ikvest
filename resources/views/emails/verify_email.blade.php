@@ -19,5 +19,4 @@
     <h4>Thank you for Registering.</h4>
 
 </body>
-
 </html>

@@ -182,7 +182,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Ferdous\OtpValidator\OtpValidatorServiceProvider::class,
 
         Yajra\DataTables\DataTablesServiceProvider::class,
 
@@ -222,7 +221,7 @@ return [
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
-    
 
-    
+
+
 ];

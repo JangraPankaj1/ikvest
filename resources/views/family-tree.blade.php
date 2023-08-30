@@ -2,7 +2,7 @@
 @section('main-content')
 
  <div class="wrapper">
-        
+
         <section>
             <div class="main-back-bnr">
                 <div class="container">
@@ -10,7 +10,7 @@
                         <div class="col-md-12">
                             <div class="inner-banner">
                                 <h1>Family Tree</h1>
-                                <p><span>Home</span> >> Family Tree</p>
+                                <p><a href="{{ route('home') }}"><span>Home</span> </a>>> Family Tree</p>
                             </div>
                         </div>
                     </div>

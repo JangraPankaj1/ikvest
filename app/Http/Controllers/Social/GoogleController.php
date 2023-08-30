@@ -1,7 +1,7 @@
 <?php
-  
+
 namespace App\Http\Controllers\Social;
-  
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 use Exception;
- 
+
 class GoogleController extends Controller
 {
     /**
@@ -18,7 +18,7 @@ class GoogleController extends Controller
      *
      * @return void
      */
- 
+
     // ********** for login page *********
 
    public function redirectToGoogle()
@@ -33,19 +33,14 @@ class GoogleController extends Controller
 
             $user = Socialite::driver('google')->user();
             $finduser = User::where('social_id', $user->id)->first();
-            
-            if ($finduser !== null && $finduser->is_verified == '1'){  
-                
+
+            if ($finduser !== null && $finduser->is_verified == '1'){
+
                 Auth::login($finduser, true);
                     return redirect('family-member/dashboard');
             }
 
-            if($finduser){
-
-                Auth::login($finduser, true);
-                   return redirect('family-member/dashboard');
-   
-            }else{
+           else{
               // Access additional values from the query parameters
             //   $value1 = $request->query('value1');
 
@@ -57,14 +52,11 @@ class GoogleController extends Controller
 
                 $newUser->social_type ='google';
                 $newUser->is_verified ='1';
-
-
                 $newUser->save();
                 Auth::login($newUser, true);
-
-                 return redirect('family-member/dashboard');
+                return redirect('family-member/dashboard');
             }
-     
+
         } catch (Exception $e) {
             dd($e->getMessage());
         }
@@ -85,16 +77,16 @@ class GoogleController extends Controller
 
 //           $user = Socialite::driver('google')->user();
 //           $finduser = User::where('social_id', $user->id)->first();
-          
-//           if ($finduser !== null && $finduser->is_verified == '1')   {  
-              
+
+//           if ($finduser !== null && $finduser->is_verified == '1')   {
+
 //                   return redirect('family-member/dashboard');
 //           }
 
 //           if($finduser){
 //               Auth::login($finduser, true);
 //                  return redirect('family-member/dashboard');
- 
+
 //           }else{
 //             // Access additional values from the query parameters
 //           //   $value1 = $request->query('value1');
@@ -114,7 +106,7 @@ class GoogleController extends Controller
 
 //               return redirect('family-member/dashboard');
 //           }
-   
+
 //       } catch (Exception $e) {
 //           dd($e->getMessage());
 //       }

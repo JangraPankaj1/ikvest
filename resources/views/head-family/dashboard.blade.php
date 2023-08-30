@@ -17,6 +17,12 @@
 <li>
     <a class="custom-btn" href="{{ route('get.events') }}">Events</a>
 </li>
+<li>
+    <a class="custom-btn" href="{{ route('add.family.member') }}">Add family Member</a>
+</li>
+<li>
+    <a class="custom-btn" href="{{ route('add.videos') }}">Add videos</a>
+</li>
 
 
 

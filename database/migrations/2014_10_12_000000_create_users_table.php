@@ -21,9 +21,13 @@ return new class extends Migration
             $table->text('profile_pic')->nullable();
             $table->text('image_path')->nullable();
 
+            $table->string('parent_id')->nullable();
+            $table->string('head_family_id')->nullable();
+
             $table->string('social_id')->nullable();
             $table->string('social_type')->nullable();
-            $table->string('status')->nullable();
+            $table->boolean('status')->nullable()->default(false);
+
             $table->string('email')->unique();
             $table->integer('is_verified')->default(0);
             $table->string('password')->nullable();

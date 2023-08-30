@@ -24,7 +24,6 @@ Route::get('My-invest',[HomeController::class,'myInvestPage'])->name('my-invest'
 Route::get('/verification/{id}',[AuthController::class,'verification']);
 Route::post('/verified',[AuthController::class,'verifiedOtp'])->name('verifiedOtp');
 Route::get('/resend-otp',[AuthController::class,'resendOtp'])->name('resendOtp');
-  
 
 
 
@@ -33,6 +32,9 @@ Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('login.post');
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'postRegister'])->name('register.post');
+Route::post('register', [AuthController::class, 'updateRegisterByFamilyMember'])->name
+('register.update');
+
 Route::get('user/verify/{token}', [AuthController::class, 'verifyEmail'])->name('user.verify');
 
 // ********** Manage Passwords *********
@@ -40,14 +42,18 @@ Route::get('user/verify/{token}', [AuthController::class, 'verifyEmail'])->name(
 Route::get('forget-password', [AuthController::class, 'forgetPasswordForm'])->name('forget.password');
 Route::post('forget-password', [AuthController::class, 'forgetPasswordPost'])->name('forget.password.post');
 Route::get('reset-password/{token}', [AuthController::class, 'resetPasswordForm'])->name('reset.password.get');
-Route::post('reset-password', [AuthController::class, 'resetPasswordPost'])->name('reset.password.post');
+Route::post('reset-password', [AuthController::class, 'resetPasswordPost'])->name
+('reset.password.post');
+
+Route::get('invite/{token}', [AuthController::class, 'inviteLink'])->name
+('invite.link');
 
 Route::middleware('auth:web')->group(function(){
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
         // Route::get('change-password', [AuthController::class, 'changePasswordForm'])->name('password.change.form');
         // Route::post('change-password', [AuthController::class, 'changePasswordPost'])->name('password.change.post');
-        
+
 });
 
  // ********** Social login *********
@@ -60,22 +66,22 @@ Route::middleware('auth:web')->group(function(){
 
         Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
         Route::get('auth/facebook/callback', 'handleFacebookCallback');
-        
+
     });
 
 
 
 
     // Route::get('login', [SuperAdminController::class, 'index'])->name('admin.login');
-    // Route::post('login', [SuperAdminController::class, 'postLogin'])->name('admin.login.post'); 
+    // Route::post('login', [SuperAdminController::class, 'postLogin'])->name('admin.login.post');
 
 
 // ********** Super Admin Routes *********
-    
+
     Route::group(['prefix' => 'super-admin','middleware'=>['web','isSuperAdmin']],function(){
-         
+
         Route::get('/dashboard',[SuperAdminController::class,'dashboard'])->name('super-admin.dashboard');
-       
+
     });
 
 
@@ -91,15 +97,15 @@ Route::middleware('auth:web')->group(function(){
         Route::post('/add-event',[HeadFamilyController::class,'eventPagePost'])->name('event.post');
 
         Route::any('/all-event',[HeadFamilyController::class,'allEvents'])->name('get.events');
-    
+
         Route::get('/edit-event/{id}', [HeadFamilyController::class, 'editEvent'])->name('edit-event');
         Route::put('/edit-event/{id}', [HeadFamilyController::class, 'updateEvent'])->name('update.event');
-
         Route::get('/delete-event/{id}', [HeadFamilyController::class, 'deleteEvent'])->name('delete-event');
-
-
-        // Route::get('delete-records','StudDeleteController@index');
-        // Route::get('delete/{id}','StudDeleteController@destroy');
+        Route::get('/add-family-member',[HeadFamilyController::class,'addFamilyMember'])->name
+        ('add.family.member');
+        Route::post('/add-family-member',[HeadFamilyController::class,'invitefamilyMember'])->name('invite.member.post');
+        Route::get('/add-videos', [HeadFamilyController::class, 'addVideos'])->name
+        ('add.videos');
 
 
     });
