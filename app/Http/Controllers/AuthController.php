@@ -31,7 +31,7 @@ class AuthController extends Controller
      * @return response()
      */
     public function index(){
-        $title = "Login";
+        $title = "Login Ho Gya";
         return view('auth.login', compact('title'));
     }
 
@@ -41,7 +41,7 @@ class AuthController extends Controller
      * @return response()
      */
 
-     
+
      public function postLogin(Request $request)
      {
 
@@ -59,7 +59,7 @@ class AuthController extends Controller
             if ($user->is_verified =='1') { // verified user
                 $email = $request->email;
                 $password = $request->password;
-                $remember = $request->has('remember_me') ? true : false; 
+                $remember = $request->has('remember_me') ? true : false;
 
                 // $credentials = $request->only('email', 'password',$remember_me);
                 if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
@@ -74,8 +74,8 @@ class AuthController extends Controller
                         'message' => 'The provided credentials do not match with our records.',
                     ]);
                 }
-             } 
-           
+             }
+
         }
     }
 
@@ -107,14 +107,14 @@ class AuthController extends Controller
      *
      * @return response()
      */
-    
+
     public function register()
     {
         $title = "Register";
         return view('auth.register', compact('title'));
     }
 
-    // routes from verification page 
+    // routes from verification page
 
     // public function headFamilyDashboard()
     // {
@@ -132,7 +132,7 @@ class AuthController extends Controller
     // }
 
    //end
- 
+
 
     public function emailVerifyPage()
     {
@@ -159,7 +159,7 @@ class AuthController extends Controller
         );
 
         try {
-            
+
             $user = new User;
             $user->f_name     = $request->first_name;
             $user->l_name     = $request->last_name;
@@ -199,7 +199,7 @@ class AuthController extends Controller
 
         $data['email'] = $user->email;
         $data['title'] = 'Email Verification';
-        
+
 
         $data['body'] = 'Hi, '. $full_name.', Your OTP is:- '.$otp;
 
@@ -244,7 +244,7 @@ class AuthController extends Controller
                     'is_verified' => 1
                 ]);
 
-                Auth::loginUsingId($user->id);              
+                Auth::loginUsingId($user->id);
                 return response()->json(['success' => true,'msg'=> 'Mail has been verified','role'=>$user->role]);
             }
             else{
@@ -300,12 +300,12 @@ class AuthController extends Controller
         });
 
         return back()->with('message', 'We have e-mailed your password reset link!');
-   
+
     }
 
     public function resetPasswordForm($token)
     {
-        
+
         $title = "Reset Password";
         return view('auth.reset_password_form', ['token' => $token], compact('title'));
     }
