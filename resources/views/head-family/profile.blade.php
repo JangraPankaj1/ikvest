@@ -52,6 +52,17 @@
 
                                         </label>
                                         </div>
+
+                                        <label>Birthday Date
+                                            <input type="date" name="bdy_date" format="MM-DD" placeholder="Email Address" class="form-control"value="{{ auth()->user()->bdy_date }}"
+                                            />
+                                        </label>
+
+                                        <label>Marriage Anniversary Date
+                                            <input type="date" name="mrg_date" format="MM-DD" placeholder="Email Address" value="{{ auth()->user()->mrg_date }}" class="form-control"
+                                            />
+
+                                        </label>
                                         <label>Email
                                             <input type="text" name="email" placeholder="Email Address" class="form-control"
                                             value="{{ auth()->user()->email }}" disabled/>
@@ -60,6 +71,8 @@
 
                                          <div class="col-md-12">
                                             <div class="form-group">
+                                            <label>Profile Pic
+
                                                 <input type="file" name="image" placeholder="Choose image" id="image">
                                                     @error('image')
                                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -70,6 +83,8 @@
                                             @else
                                                 <img src="{{ asset('images/admin.svg') }}" height="90" width="90" alt="Default Profile Image" id="existing-image-preview">
                                             @endif
+                                            </label>
+
                                              </div>
                                          </div>
                                         <div class="col-md-12 mb-2">

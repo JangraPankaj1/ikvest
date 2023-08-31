@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('posted_by'); // Assuming the user ID column is unsigned
+            $table->foreign('posted_by')->references('id')->on('users')->onDelete('cascade'); // Adjust 'users' to the actual users table name
+            $table->text('post_message');
+            $table->text('docs')->nullable();
+            $table->text('docs_path')->nullable(); // Use text for longer descriptions
+            $table->timestamps();
+        });
+    }
+
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('posts');
+    }
+};

@@ -21,6 +21,7 @@ use Exception;
 use App\Models\PasswordReset;
 use App\Mail\VerifyEmail;
 use Illuminate\Support\Facades\Log;
+use AuthenticatesUsers;
 
 class AuthController extends Controller
 {
@@ -375,19 +376,22 @@ class AuthController extends Controller
     //********invite family member**************
 
     public function inviteLink($token)
-    {
-            $userEmail = DB::table('users')->where(['remember_token' => $token])->first();
-            if ($userEmail !== null) {
+     {
+            $userData = DB::table('users')->where(['remember_token' => $token])->first();
+            if ($userData !== null) {
 
-                 $email = $userEmail->email;
+                 $email = $userData->email;
+                 $f_name = $userData->f_name;
+                 $l_name = $userData->l_name;
+
                  $title = "Register";
-            return view('auth.register', ['token' => $token,'email'=>$email], compact('title'));
-        }else{
-            return view('invite-error');
+                return view('auth.register', ['token' => $token,'email'=>$email,'f_name'=>$f_name,'l_name'=>$l_name], compact('title'));
+            }else{
+                return view('invite-error');
 
-        }
+            }
 
-    }
+     }
 
     //******** reset password by dashboard **************
 

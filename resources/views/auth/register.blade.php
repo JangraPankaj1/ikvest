@@ -43,7 +43,7 @@
                                         <div class="fst-name">
                                         <label>First Name
                                             <input type="text"  placeholder="First Name" name="first_name" class="form-control"
-                                                value="{{ old('first_name') }}" />
+                                            value="{{ $f_name }} "/>
                                             <div class="error">
                                                 @error('first_name')
                                                     {{ $message }}
@@ -53,7 +53,7 @@
 
                                         <label>Last Name
                                             <input type="text" placeholder="Last Name" name="last_name" class="form-control"
-                                                value="{{ old('last_name') }}" />
+                                                value="{{ $l_name }}" />
                                             <div class="error">
                                                 @error('last_name')
                                                     {{ $message }}

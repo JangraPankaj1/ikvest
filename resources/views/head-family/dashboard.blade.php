@@ -21,7 +21,7 @@
     <a class="custom-btn" href="{{ route('add.family.member') }}">Add family Member</a>
 </li>
 <li>
-    <a class="custom-btn" href="{{ route('add.videos') }}">Add videos</a>
+    <a class="custom-btn" href="{{ route('post') }}">Posts</a>
 </li>
 
 

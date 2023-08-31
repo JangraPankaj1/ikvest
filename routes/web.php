@@ -28,8 +28,8 @@ Route::get('/resend-otp',[AuthController::class,'resendOtp'])->name('resendOtp')
 
 
 // ********** login & registration *********
-Route::get('login', [AuthController::class, 'index'])->name('login');
-Route::post('login', [AuthController::class, 'postLogin'])->name('login.post');
+
+
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'postRegister'])->name('register.post');
 Route::post('register', [AuthController::class, 'updateRegisterByFamilyMember'])->name
@@ -57,9 +57,7 @@ Route::middleware('auth:web')->group(function(){
 });
 
  // ********** Social login *********
-
-    // ********** for login page *********
-    Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+     Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
     Route::any('callback/google', [GoogleController::class, 'handleGoogleCallback']);
 
     Route::controller(FacebookController::class)->group(function(){
@@ -84,6 +82,13 @@ Route::middleware('auth:web')->group(function(){
 
     });
 
+    Route::middleware('guest')->group(function () {
+        Route::get('login', [AuthController::class, 'index'])->name('login');
+        Route::post('login', [AuthController::class, 'postLogin'])->name('login.post');
+
+    });
+
+
 
 // ********** Head family Routes *********
     Route::group(['prefix' => 'head-family','middleware'=>['web','headFamily']],function(){
@@ -104,10 +109,10 @@ Route::middleware('auth:web')->group(function(){
         Route::get('/add-family-member',[HeadFamilyController::class,'addFamilyMember'])->name
         ('add.family.member');
         Route::post('/add-family-member',[HeadFamilyController::class,'invitefamilyMember'])->name('invite.member.post');
-        Route::get('/add-videos', [HeadFamilyController::class, 'addVideos'])->name
-        ('add.videos');
-
-
+        Route::get('/add-post', [HeadFamilyController::class, 'postPage'])->name
+        ('post');
+        Route::post('/add-post',[HeadFamilyController::class,'uploadPost'])->name
+        ('posts');
     });
 
 
@@ -116,11 +121,13 @@ Route::middleware('auth:web')->group(function(){
     Route::group(['prefix' => 'family-member','middleware'=>['web','familyMember']],function(){
 
          Route::get('/dashboard',[FamilyMemberController::class,'dashboard'])->name('family-member.dashboard');
-        //  Route::get('/', function () {
-        //     return redirect()->refresh();
 
-        //  });
+         Route::any('/timline',[FamilyMemberController::class,'showTimeline'])->name
+         ('get.timeline');
+         Route::get('/profile-update',[FamilyMemberController::class,'profileUpdate'])->name('profile');
+         Route::post('/profile-update',[FamilyMemberController::class,'profileUpdatePost'])->name('post.profile');
 
+        //  Route::get('/delete-timeline/{id}', [FamilyMemberController::class, 'deleteTimeline'])->name('delete-timeline');
 
 
     });

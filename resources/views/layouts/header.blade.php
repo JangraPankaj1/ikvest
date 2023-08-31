@@ -37,7 +37,20 @@
                         <div class="col-lg-3 col-md-8 col-sm-8">
 
                             <div class="main-admin-icon-only">
-                            <a href="{{ route('login') }}"><img src="{{ asset('web-images/admin.svg') }}"/></a>
+
+                                @auth
+                                     Welcome, {{ Auth::user()->f_name }}
+                                        <a class="custom-btn" href="{{ route('logout') }}"> Logout</a>
+
+                                @endauth
+                                @guest
+                                <a href="{{ route('login') }}"><img src="{{ asset('web-images/admin.svg') }}"/></a>
+                                @endguest
+
+
+
+
+
                             </div>
                         </div>
                     </div>

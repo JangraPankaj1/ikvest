@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Post;
+
 use DataTables;
 use DateTime;
 use Illuminate\Support\Facades\Crypt;
@@ -53,9 +55,9 @@ class HeadFamilyController extends Controller
         return view('head-family.add-family-member');
      }
 
-     public function addVideos()
+     public function postPage()
      {
-        return view('head-family.add-video');
+        return view('head-family.add-post');
      }
 
 // random generate string tokens
@@ -82,15 +84,16 @@ class HeadFamilyController extends Controller
      public function invitefamilyMember(Request $request)
        {
 
-        $request->validate(
-            [
-                'first_name'  => 'required|max:255',
-                'last_name' => 'required|max:255',
-                'email' => 'required|email|unique:users|max:255|ends_with:.com',
-                'role' => 'required',
-            ]
-        );
         try {
+
+            $request->validate(
+                [
+                    'first_name'  => 'required|max:255',
+                    'last_name' => 'required|max:255',
+                    'email' => 'required|email|unique:users|max:255|ends_with:.com',
+                    'role' => 'required',
+                ]
+            );
 
             if ($request['head_family_id'] !== null) {
                   $headFamilyId = $request->head_family_id ;
@@ -132,6 +135,49 @@ class HeadFamilyController extends Controller
         }
 
     }
+        // ********* Upload Posts *******
+
+        public function uploadPost(Request $request)
+
+            {
+                try {
+
+                    $request->validate(
+                        [
+                            'file' => 'image|mimes:jpg,png,jpeg,gif,svg|pdf,xml,csv,mp4|max:20480', // Max size in kilobytes (20MB)
+                            'post' => 'required|max:255',
+                        ]
+                    );
+
+                if ($request->hasFile('image')) {
+
+                   $profileName = $request->file('image')->getClientOriginalName();
+                   $request->file('image')->move(public_path('images'), $profileName);
+
+                   $post = new Post;
+                   $post->posted_by  = Auth::user()->id;
+                   $post->post_message  = $request->post;
+
+                   $post->docs = $profileName;
+                   $post->docs_path = 'images/' . $profileName;
+                   $post->save();
+                   return back()->with('message', 'Post uploaded successfully.');
+
+
+                }else{
+
+                    $post = new Post;
+                    $post->posted_by  = Auth::user()->id;
+                    $post->post_message  = $request->post;
+                    $post->save();
+                    return back()->with('message', 'Post uploaded successfully.');
+
+                }
+            }catch (Exception $e) {
+                dd($e->getMessage());
+                return back()->withErrors($e->getMessage());
+            }
+         }
 
 
     // ********* Add Event *******
@@ -139,17 +185,17 @@ class HeadFamilyController extends Controller
     public function eventPagePost(Request $request)
       {
 
-       $request->validate(
-           [
-               'event_name'  => 'required|max:255',
-               'description' => 'required|max:255',
-               'Date_time'    =>  'required',
-               'placeLocation'  => 'required',
+         try {
 
-           ]
-       );
+                $request->validate(
+                    [
+                        'event_name'  => 'required|max:255',
+                        'description' => 'required|max:255',
+                        'Date_time'    =>  'required',
+                        'placeLocation'  => 'required',
 
-       try {
+                    ]
+                );
 
                 $datetime = new DateTime ($request->Date_time);
                 $formattedDatetime = $datetime->format('Y-m-d H:i:s');
@@ -191,6 +237,11 @@ class HeadFamilyController extends Controller
        $User = User::find(Auth::user()->id);
        $User->f_name = $request->input('f_name');
        $User->l_name = $request->input('l_name');
+
+       $User->bdy_date = $request->input('bdy_date');
+       $User->mrg_date = $request->input('mrg_date');
+
+
        $User->email = $email;
        $User->profile_pic = $profileName;
        $User->image_path = 'images/' . $profileName;
@@ -200,12 +251,13 @@ class HeadFamilyController extends Controller
 
     }else{
 
-       $email = auth()->user()->email;
+        $email = auth()->user()->email;
         $User = User::find(Auth::user()->id);
         $User->f_name = $request->input('f_name');
         $User->l_name = $request->input('l_name');
         $User->email =  $email;
-
+        $User->bdy_date = $request->input('bdy_date');
+        $User->mrg_date = $request->input('mrg_date');
         $User->update();
         return back()->with('message','Profile Updated');
 
