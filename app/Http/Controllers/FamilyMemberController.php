@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
+
 use Exception;
 use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +16,7 @@ use DateTime;
 class FamilyMemberController extends Controller
 {
 
+    
     public function dashboard()
     {
         return view('family-member.dashboard');
@@ -69,13 +72,39 @@ class FamilyMemberController extends Controller
 
  }
 
+ 
+ public function postComment($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('head-family/post-show-comment', compact('post'));
+    }
+    
+    public function deleteComment($id, Comment $comment)
+    {
+        $comment = Comment::findOrFail($comment->id);
+        $comment->delete();
+        return back()->with('message','Deleted');
+
+    }
+
+    public function CommentOnPost(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->comments()->create([
+            'comment' => $request->content,
+            'user_id' => auth()->id()
+        ]);
+
+        return back();
+    }
+
      // **********ShowTimeline**********
 
      public function showTimeline(Request $request)
      {
         try{
 
-            $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
+            $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
             ->get(['posts.*', 'users.f_name']);
             return view('family-member/timeline', compact('data'));
 

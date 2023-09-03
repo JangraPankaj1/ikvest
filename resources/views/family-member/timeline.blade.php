@@ -46,7 +46,10 @@ ul.timeline > li:before {
 
                 @foreach($data as $key=>$post)
     <li>
-        <h2>{{ ucfirst($post->post_message) }}</h2>
+    <a href="{{ route('postShow', $post->id) }}"
+                                class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
+                                {{ ucfirst($post->post_message) }}
+                            </a>
         <p>{{ $post->created_at }}</p>
         <p><h3>Posted by</h3>{{ $post->f_name }}</p>
 
