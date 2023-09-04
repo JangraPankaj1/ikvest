@@ -6,22 +6,25 @@
     <a class="custom-btn" href="{{ route('logout') }}">Logout</a>
 </li>
 <li>
-    <a class="custom-btn" href="{{ route('change.password') }}">Change Password</a>
+    <a target="_blank" class="custom-btn" href="{{ route('change.password') }}">Change Password</a>
 </li>
 <li>
-    <a class="custom-btn" href="{{ route('profile.page') }}">Update Profile</a>
+    <a target="_blank" class="custom-btn" href="{{ route('profile.page') }}">Update Profile</a>
 </li>
 <li>
-    <a class="custom-btn" href="{{ route('event.page') }}">Add Event</a>
+    <a target="_blank" class="custom-btn" href="{{ route('event.page') }}">Add Event</a>
 </li>
 <li>
-    <a class="custom-btn" href="{{ route('get.events') }}">Events</a>
+    <a target="_blank" class="custom-btn" href="{{ route('get.events') }}">Events</a>
 </li>
 <li>
-    <a class="custom-btn" href="{{ route('add.family.member') }}">Add family Member</a>
+    <a target="_blank" class="custom-btn" href="{{ route('add.family.member') }}">Add family Member</a>
 </li>
 <li>
-    <a class="custom-btn" href="{{ route('post') }}">Posts</a>
+    <a target="_blank" class="custom-btn" href="{{ route('post') }}">Add Posts</a>
+</li>
+<li>
+    <a target="_blank" class="custom-btn" href="{{ route('get.timeline.head') }}">Timeline</a>
 </li>
 
 

@@ -16,7 +16,7 @@ use DateTime;
 class FamilyMemberController extends Controller
 {
 
-    
+
     public function dashboard()
     {
         return view('family-member.dashboard');
@@ -63,8 +63,6 @@ class FamilyMemberController extends Controller
         $User->email =  $email;
         $User->bdy_date = $request->input('bdy_date');
         $User->mrg_date = $request->input('mrg_date');
-
-
         $User->update();
         return back()->with('message','Profile Updated');
 
@@ -72,36 +70,52 @@ class FamilyMemberController extends Controller
 
  }
 
- 
- public function postComment($id)
+         // ********** Show Comments on timeline **********
+
+   public function postComment($id)
     {
+
+         // Find the post by ID
         $post = Post::findOrFail($id);
-        return view('head-family/post-show-comment', compact('post'));
+        // Get the user who posted this post
+        $user = $post->user;
+
+        return view('family-member/post-show-comment', compact('post','user'));
     }
-    
+
+             // ********** Delete Comment **********
+
     public function deleteComment($id, Comment $comment)
     {
         $comment = Comment::findOrFail($comment->id);
         $comment->delete();
-        return back()->with('message','Deleted');
+        return back()->with('message','Comment Deleted');
 
     }
 
+         // ********** Post Comments **********
+
     public function CommentOnPost(Request $request, $id)
-    {
+     {
+        $validatedData = $request->validate([
+            'content' => 'required',
+           ]);
+
+
         $post = Post::findOrFail($id);
         $post->comments()->create([
             'comment' => $request->content,
             'user_id' => auth()->id()
         ]);
 
-        return back();
-    }
+        return back()->with('message','Comment posted successfully');
+      }
 
      // **********ShowTimeline**********
 
      public function showTimeline(Request $request)
-     {
+      {
+
         try{
 
             $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
@@ -113,7 +127,8 @@ class FamilyMemberController extends Controller
                return back()->withErrors($e->getMessage());
 
        }
-    }
+
+     }
 
 
  // ********** Delete Timeline **********

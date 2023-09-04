@@ -46,12 +46,12 @@ ul.timeline > li:before {
 
                 @foreach($data as $key=>$post)
     <li>
-    <a href="{{ route('postShow', $post->id) }}"
+     <a target="_blank" href="{{ route('postShow', $post->id) }}"
                                 class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
                                 {{ ucfirst($post->post_message) }}
                             </a>
         <p>{{ $post->created_at }}</p>
-        <p><h3>Posted by</h3>{{ $post->f_name }}</p>
+        <p><h5>Posted by</h5><p>{{ $post->f_name }}</p>
 
         <!-- Include print preview for images and videos -->
         @if ($post->docs)

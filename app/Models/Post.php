@@ -31,8 +31,9 @@ class Post extends Authenticatable
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'posted_by');
     }
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);

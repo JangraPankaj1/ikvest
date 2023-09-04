@@ -30,7 +30,6 @@ class SendUpcomingBirthdayEmails extends Command
      */
     public function handle()
      {
-
         $usersWithUpcomingBirthdays = User::whereMonth('birthday', Carbon::now()->addMonth()->month)
         ->whereDay('birthday', '>=', Carbon::now()->day)
         ->get();

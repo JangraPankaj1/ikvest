@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Post;
+use App\Models\Comment;
+
 
 use DataTables;
 use DateTime;
@@ -161,7 +163,11 @@ class HeadFamilyController extends Controller
                    $post->docs = $profileName;
                    $post->docs_path = 'images/' . $profileName;
                    $post->save();
-                   return back()->with('message', 'Post uploaded successfully.');
+
+                   $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+               ->get(['posts.*', 'users.f_name']);
+               return view('head-family/timeline', compact('data'));
+
 
 
                 }else{
@@ -170,15 +176,64 @@ class HeadFamilyController extends Controller
                     $post->posted_by  = Auth::user()->id;
                     $post->post_message  = $request->post;
                     $post->save();
-                    return back()->with('message', 'Post uploaded successfully.');
-
+                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+                    ->get(['posts.*', 'users.f_name']);
+                    return view('head-family/timeline', compact('data'));
                 }
             }catch (Exception $e) {
                 dd($e->getMessage());
                 return back()->withErrors($e->getMessage());
             }
          }
+    // ********* Show timeline *******
 
+         public function showTimeline(Request $request)
+         {
+
+           try{
+
+            //    $userInfo = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+            //    ->get(['posts.*', 'users.*']);
+
+               $comments = DB::table('comments')
+               ->join('posts', 'comments.post_id', '=', 'posts.id')
+               ->select('comments.comment')
+               ->get();
+
+               $data = Post::with('comments')->orderBy('created_at', 'desc')->get();
+
+
+               $commentUserInfo = Comment::join('users', 'comments.user_id', '=', 'users.id')
+               ->get(['comments.*', 'users.*']);
+
+
+               return view('head-family/timeline', compact('data','commentUserInfo','comments'));
+
+          }catch (Exception $e) {
+                  dd($e->getMessage());
+                  return back()->withErrors($e->getMessage());
+
+          }
+
+        }
+           // ********* Add Comment*******
+        public function CommentOnPostHead (Request $request, $id)
+        {
+
+           $validatedData = $request->validate([
+               'content' => 'required',
+              ]);
+
+
+           $post = Post::findOrFail($id);
+           $post->comments()->create([
+               'comment' => $request->content,
+               'user_id' => auth()->id()
+           ]);
+
+           return back()->with('message','Comment posted successfully');
+
+         }
 
     // ********* Add Event *******
 
