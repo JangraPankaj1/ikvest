@@ -12,6 +12,8 @@ use App\Models\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
 use DateTime;
+use Illuminate\Support\Facades\DB;
+
 
 class FamilyMemberController extends Controller
 {
@@ -70,28 +72,16 @@ class FamilyMemberController extends Controller
 
  }
 
-         // ********** Show Comments on timeline **********
-
-   public function postComment($id)
-    {
-
-         // Find the post by ID
-        $post = Post::findOrFail($id);
-        // Get the user who posted this post
-        $user = $post->user;
-
-        return view('family-member/post-show-comment', compact('post','user'));
-    }
 
              // ********** Delete Comment **********
 
     public function deleteComment($id, Comment $comment)
-    {
+     {
         $comment = Comment::findOrFail($comment->id);
         $comment->delete();
         return back()->with('message','Comment Deleted');
 
-    }
+     }
 
          // ********** Post Comments **********
 
@@ -111,25 +101,32 @@ class FamilyMemberController extends Controller
         return back()->with('message','Comment posted successfully');
       }
 
-     // **********ShowTimeline**********
+      // ********* Show timeline *******
 
-     public function showTimeline(Request $request)
-      {
+      public function showTimeline(Request $request)
+       {
 
-        try{
+       try{
 
-            $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-            ->get(['posts.*', 'users.f_name']);
-            return view('family-member/timeline', compact('data'));
+           $comments = DB::table('comments')
+           ->join('posts', 'comments.post_id', '=', 'posts.id')
+           ->select('comments.comment')
+           ->get();
 
-       }catch (Exception $e) {
-               dd($e->getMessage());
-               return back()->withErrors($e->getMessage());
 
-       }
+        $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+        ->get(['posts.*', 'users.f_name','users.image_path']);
 
-     }
 
+           return view('family-member/timeline', compact('data','comments'));
+
+      }catch (Exception $e) {
+              dd($e->getMessage());
+              return back()->withErrors($e->getMessage());
+
+      }
+
+    }
 
  // ********** Delete Timeline **********
  public function deleteTimeline($id)

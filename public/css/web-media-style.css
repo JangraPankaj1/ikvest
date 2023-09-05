@@ -228,6 +228,35 @@
   .main-all-page-back-image-family .main-testimonial .test-lft-slider .take-a-tour a {
     white-space: nowrap;
   }
+  .for-event .main-all-page-back-image-family section {
+    padding: 40px 0;
+  }
+  .for-event .main-all-page-back-image-family section .inr-create-event {
+    max-width: 60%;
+    padding: 15px 15px;
+  }
+  .for-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events textarea {
+    height: 160px;
+  }
+  .for-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files {
+    height: 190px;
+    margin-top: 15px;
+  }
+  .for-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files .add-pic {
+    width: 100%;
+  }
+  .for-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files .add-pic img {
+    width: 60px;
+  }
+  .for-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files .add-pic span {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .for-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .bottom-publish {
+    margin-top: 20px;
+    gap: 15px;
+    justify-content: center;
+  }
 }
 @media (max-width: 767px) {
   .back-of-hder .col-md.col-sm-2.text-center {
@@ -475,6 +504,9 @@
     justify-content: flex-start;
     flex-wrap: wrap;
   }
+  .for-event .main-all-page-back-image-family section .inr-create-event {
+    max-width: 100%;
+  }
 }
 @media (min-width: 1025px) and (max-width: 1200px) {
   .back-of-hder .admin-details {
@@ -507,4 +539,23 @@
   .test-lft-slider .take-a-tour a {
     font-size: 14px;
   }
+}
+@media (min-width: 1240px) {
+  .main-cntr-tble-family.third::before {
+    content: "";
+    background: #505050;
+    position: absolute;
+    height: 265px;
+    width: 4px;
+    left: 47%;
+    top: -260px;
+    border-radius: 20px;
+    transform: translateX(-50%);
+  }
+  .main-cntr-tble-family.third {
+    display: block;
+  }
+}
+.main-cntr-tble-family.third {
+  display: block;
 }/*# sourceMappingURL=web-media-style.css.map */

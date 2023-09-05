@@ -151,24 +151,32 @@ class HeadFamilyController extends Controller
                         ]
                     );
 
-                if ($request->hasFile('image')) {
 
-                   $profileName = $request->file('image')->getClientOriginalName();
-                   $request->file('image')->move(public_path('images'), $profileName);
+                if ($request->hasFile('image')) {
+                    $images = $request->file('image');
+                    $imageData = [];
+
+                    foreach ($images as $image) {
+
+                        $imageName = $image->getClientOriginalName();
+                        $image->move(public_path('images'), $imageName);
+
+                        $imageData[] = [
+                            'image_name' => $imageName,
+                            'image_path' => 'images/' . $imageName,
+                        ];
+                    }
 
                    $post = new Post;
                    $post->posted_by  = Auth::user()->id;
                    $post->post_message  = $request->post;
 
-                   $post->docs = $profileName;
-                   $post->docs_path = 'images/' . $profileName;
+                   $post->docs = json_encode(array_column($imageData, 'image_name'));
+                   $post->docs_path = json_encode(array_column($imageData, 'image_path'));
                    $post->save();
-
                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
                ->get(['posts.*', 'users.f_name']);
                return view('head-family/timeline', compact('data'));
-
-
 
                 }else{
 
@@ -176,8 +184,10 @@ class HeadFamilyController extends Controller
                     $post->posted_by  = Auth::user()->id;
                     $post->post_message  = $request->post;
                     $post->save();
+
                     $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
                     ->get(['posts.*', 'users.f_name']);
+
                     return view('head-family/timeline', compact('data'));
                 }
             }catch (Exception $e) {
@@ -187,27 +197,21 @@ class HeadFamilyController extends Controller
          }
     // ********* Show timeline *******
 
-         public function showTimeline(Request $request)
-         {
+         public function showTimelineHead(Request $request)
+          {
 
            try{
-
-            //    $userInfo = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-            //    ->get(['posts.*', 'users.*']);
 
                $comments = DB::table('comments')
                ->join('posts', 'comments.post_id', '=', 'posts.id')
                ->select('comments.comment')
                ->get();
 
-               $data = Post::with('comments')->orderBy('created_at', 'desc')->get();
+            $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+            ->get(['posts.*', 'users.f_name','users.image_path']);
 
 
-               $commentUserInfo = Comment::join('users', 'comments.user_id', '=', 'users.id')
-               ->get(['comments.*', 'users.*']);
-
-
-               return view('head-family/timeline', compact('data','commentUserInfo','comments'));
+               return view('head-family/timeline', compact('data','comments'));
 
           }catch (Exception $e) {
                   dd($e->getMessage());
@@ -234,6 +238,16 @@ class HeadFamilyController extends Controller
            return back()->with('message','Comment posted successfully');
 
          }
+
+                   // ********** Delete Comment **********
+
+    public function deleteComment($id, Comment $comment)
+    {
+       $comment = Comment::findOrFail($comment->id);
+       $comment->delete();
+       return back()->with('message','Comment Deleted');
+
+    }
 
     // ********* Add Event *******
 

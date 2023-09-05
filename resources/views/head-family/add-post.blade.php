@@ -1,7 +1,19 @@
 
 @extends('layouts.without-header')
 @section('main-content-without-header')
+<head>
 
+<style>
+        #preview-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #preview-container img {
+            margin: 10px;
+        }
+</style>
+</head>
    <div class="wrapper">
         <section>
             <div class="bck-img-inr">
@@ -52,12 +64,14 @@
 
                                          <div class="col-md-12">
                                             <div class="form-group">
-                                                <input type="file" name="image" accept=".pdf, .xml, .csv, .mp4" id="image">
+                                                <input type="file" name="image[]" accept=".pdf, .xml, .csv, .mp4" id="image" multiple>
                                              </div>
                                          </div>
                                         <div class="col-md-12 mb-2">
-                                        <img id="preview-image-before-upload" src="#" alt="Preview" height="90" width="90" style="display: none;">
 
+
+                                            <div id="preview-container" style="display: none;">
+                                            </div>
                                         </div>
                                     </div>
                                     <button type="submit" class="submit-btn">Add Post</button>
@@ -73,18 +87,25 @@
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function (e) {
-    $('#image').change(function(){
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            $('#preview-image-before-upload').attr('src', e.target.result);
-            $('#preview-image-before-upload').show(); // Show the new image preview
-            $('#existing-image-preview').hide(); // Hide the existing image preview
-        }
-        reader.readAsDataURL(this.files[0]);
-    });
-});
-</script>
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('#image').change(function(){
+                // Clear any previous previews
+                $('#preview-container').html('');
+
+                // Loop through selected files and create previews
+                for (let i = 0; i < this.files.length; i++) {
+                    let reader = new FileReader();
+                    reader.onload = (e) => {
+                        let preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
+                        $('#preview-container').append(preview);
+                    }
+                    reader.readAsDataURL(this.files[i]);
+                }
+
+                $('#preview-container').show(); // Show the container for the new image previews
+            });
+        });
+    </script>
 
 
