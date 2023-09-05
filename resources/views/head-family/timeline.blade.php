@@ -46,6 +46,7 @@
                                 <div class="upr-event">
                                     <div class="row">
                                         <div class="new-event">
+                                        <a href="{{ route('post') }}">
                                             <button>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                     viewBox="0 0 30 30" fill="none">
@@ -59,7 +60,7 @@
                                                         d="M14.3999 9.34998H14.1499V9.59998V20.4V20.65H14.3999H15.5999H15.8499V20.4V9.59998V9.34998H15.5999H14.3999Z"
                                                         fill="white" stroke="white" stroke-width="0.5" />
                                                 </svg>
-                                                New Event</button>
+                                                New Event</button></a>
                                         </div>
                                         <div class="inr-search-event">
                                             <form>
@@ -101,7 +102,7 @@
                                         </div>
                                         <div class="right-data">
                                             <h4>{{Auth::user()->f_name}} </h4>
-                                            <p>1w <span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
+                                            <p>{{$post->created_at}}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
                                         </div>
                                     </div>
                                 </div>
@@ -141,63 +142,76 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
-                            @foreach ($post->comments()->latest()->get() as $comment)
-                          @foreach ($comment->user()->latest()->get() as $user)
-                                <div class="col-md-12">
+
+                                <div class="col-md-12 ggg">
                                     <div class="inr-comment">
-                                    @if ($user->image_path)
-                                            <img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview">
-                                        @else
-                                            <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
-                                        @endif
-                                        <form action="{{ route('post.comments.head', $post->id) }}" class="flex justify-between space-x-2"
-                            method="POST">
-                            @csrf
 
-
-                                        <div class="inr-comnt-sec">
-                                            <input type="text" name="content" placeholder="Write a comment..." />
-                                            <button type="submit"><img src="{{ asset('web-images/comnt.svg')}}" /></button>
+                                        <form action="{{ route('post.comments.head', $post->id) }}" class="flex justify-between space-x-2" method="POST">
+                                             @csrf
+                                            <div class="inr-comnt-sec">
+                                                <input type="text" name="content" placeholder="Write a comment..." required/>
+                                                <button type="submit"><img src="{{ asset('web-images/comnt.svg')}}" /></button>
 
                                             </div>
                                         </form>
                                     </div>
+
                                     <div class="coment-view">
                                         <div class="accordion" id="accordionExample">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingOne">
+
                                                     <button class="accordion-button" type="button"
                                                         data-bs-toggle="collapse" data-bs-target="#collapseOne"
                                                         aria-expanded="true" aria-controls="collapseOne">
                                                         Comments
                                                     </button>
+
                                                 </h2>
                                                 <div id="collapseOne" class="accordion-collapse collapse show"
-                                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">
+                                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                @foreach ($post->comments()->latest()->get() as $comment)
+                                                 @foreach ($comment->user()->latest()->get() as $user)
+                                                <div class="accordion-body">
                                                         <div class="first-comnt">
                                                             <div class="inr-connents-for">
-
-                 <h5>{{ $user->f_name }}</h5>
+                                                            @if ($user->image_path)
+                                                                <img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview">
+                                                            @else
+                                                                <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
+                                                            @endif
+                                                            <h5>{{ $user->f_name }}</h5>
                                                                 <p>{{ $comment->created_at }}</p>
                                                             </div>
                                                             <div class="inr-dis-comment">
+
                                                                 <p><span>{{ $user->email }}</span>{{ ucfirst($comment->comment) }}</p>
+                                                                @if (auth()->user()->id === $user->id)
+                                <form action="{{ route('comments.destroy', [$post->id, $comment->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button >Delete</button>
+                                    </form>
+                                @endif
                                                             </div>
                                                         </div>
 
                                                     </div>
+                                                    @endforeach
+
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4 data-bs-toggle="modal" data-bs-target="#staticBackdrop"> View all comments
-                                        </h4>
+
+                                        <!-- <h4 data-bs-toggle="modal" data-bs-target="#staticBackdrop"> View all    comments
+                                        </h4> -->
+
                                     </div>
                                 </div>
-                                @endforeach
-
-                                @endforeach
 
                             </div>
                             @endforeach
