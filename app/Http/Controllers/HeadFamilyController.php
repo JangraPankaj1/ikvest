@@ -137,6 +137,36 @@ class HeadFamilyController extends Controller
         }
 
     }
+
+              // ********* get content Posts *******
+
+
+        public function getPostContent($postId)
+            {
+
+            //     $comments = DB::table('comments')
+            //     ->join('posts', 'comments.post_id', '=', 'posts.id')
+            //     ->select('comments.comment')
+            //     ->get();
+ 
+            //  $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+            //  ->get(['posts.*', 'users.f_name','users.image_path']);
+
+             
+                // Fetch the post content based on the provided $postId
+                
+                $post = Post::find($postId);
+                $comment = $post->comments()->get();
+                  
+                if ($post) {
+                    return response()->json(['postContent' => $post, 'comment' => $comment]);
+                }
+
+                // Handle the case where the post is not found
+                return response()->json(['error' => 'Post not found'], 404);
+            }
+
+
         // ********* Upload Posts *******
 
         public function uploadPost(Request $request)

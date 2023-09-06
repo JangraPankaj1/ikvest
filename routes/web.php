@@ -120,6 +120,11 @@ Route::middleware('auth:web')->group(function(){
 
 
         Route::post('/post/{id}/comments', [HeadFamilyController::class,'CommentOnPostHead'])->name('post.comments.head');
+
+        Route::get('/posts/{postId}', [HeadFamilyController::class, 'getPostContent']);
+
+       
+
     });
 
 

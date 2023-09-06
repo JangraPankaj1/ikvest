@@ -228,9 +228,6 @@
   .main-all-page-back-image-family .main-testimonial .test-lft-slider .take-a-tour a {
     white-space: nowrap;
   }
-  .for-event .main-all-page-back-image-family section {
-    padding: 40px 0;
-  }
   .for-event .main-all-page-back-image-family section .inr-create-event {
     max-width: 60%;
     padding: 15px 15px;
@@ -256,6 +253,112 @@
     margin-top: 20px;
     gap: 15px;
     justify-content: center;
+  }
+  section.for-evnt {
+    padding: 40px 0 0;
+  }
+  section.for-evnt .main-profile-event {
+    padding: 10px;
+    margin: 0;
+    position: initial;
+  }
+  section.for-evnt .main-profile-event .upload-image {
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: -35px;
+  }
+  section.for-evnt .main-profile-event .upload-image .upload-image-inr {
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+  }
+  section.for-evnt .main-profile-event .upload-image .upload-image-inr img {
+    width: 100px;
+    height: 100%;
+    border-radius: 5px;
+  }
+  section.for-evnt .main-profile-event .upload-image .profile-name {
+    width: calc(50% - 15px);
+  }
+  section.for-evnt .main-profile-event .upload-image .profile-name h4 {
+    font-size: 18px;
+  }
+  section.for-evnt .main-profile-event .upload-image .profile-name p {
+    font-size: 12px;
+  }
+  section.for-evnt .main-profile-event .upload-image .member-show {
+    width: calc(50% - 15px);
+    top: 0px;
+    justify-content: flex-end;
+  }
+  section.for-evnt .main-profile-event .upload-image .member-show p {
+    font-size: 16px;
+  }
+  section.for-evnt .main-profile-event .upr-event {
+    margin: 20px 0 0;
+  }
+  section.for-evnt .main-profile-event .upr-event .new-event {
+    width: 110px;
+    padding: 0;
+  }
+  section.for-evnt .main-profile-event .upr-event button {
+    font-size: 14px;
+    width: 120px;
+  }
+  section.for-evnt .main-profile-event .upr-event button svg {
+    width: 20px;
+  }
+  section.for-evnt .main-profile-event .upr-event .inr-search-event {
+    width: calc(100% - 124px);
+    margin-left: 10px;
+  }
+  section.for-evnt .main-profile-event .upr-event .inr-search-event form input {
+    width: calc(100% - 104px);
+  }
+  section.for-evnt .main-profile-event .upr-event .inr-search-event form button {
+    padding: 0 10px;
+  }
+  .inner-profile-data {
+    max-width: 80%;
+    margin: 0px auto;
+  }
+  .inner-profile-data .full-data-profile {
+    margin-top: 0;
+  }
+  .for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for {
+    gap: 10px;
+  }
+  .for-create-event .main-all-page-back-image-family section {
+    padding: 40px 0;
+  }
+  .for-create-event .main-all-page-back-image-family section .inr-create-event {
+    padding: 15px;
+    border-radius: 15px;
+  }
+  .for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events textarea {
+    border-radius: 5px;
+    height: 140px;
+    padding: 10px;
+  }
+  .for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files {
+    border-radius: 6px;
+    height: 160px;
+    margin-top: 5px;
+  }
+  .for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files .add-pic img {
+    width: 50px;
+  }
+  .for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files .add-pic span {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  .for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .bottom-publish {
+    justify-content: center;
+  }
+  .new-event {
+    padding: 10px 10px 20px;
+    position: inherit;
   }
 }
 @media (max-width: 767px) {
@@ -507,6 +610,51 @@
   .for-event .main-all-page-back-image-family section .inr-create-event {
     max-width: 100%;
   }
+  .inner-profile-data {
+    max-width: 100%;
+    margin: 0px auto;
+    padding: 0 10px;
+  }
+  .inner-profile-data .full-data-profile {
+    margin-top: 20px;
+  }
+  .inner-profile-data .full-data-profile .inr-comment {
+    gap: 10px;
+  }
+  .inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt .inr-connents-for {
+    gap: 10px;
+  }
+  .inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt .inr-connents-for p {
+    font-size: 10px;
+  }
+  .for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for p {
+    font-size: 12px;
+  }
+  .new-event {
+    padding: 0 10px;
+  }
+  .new-event button {
+    font-size: 0;
+    width: auto;
+    position: fixed;
+    left: 0px;
+    border-radius: 0;
+    top: 200px;
+    z-index: 9;
+  }
+  .new-event button:hover {
+    background: white;
+  }
+  section.for-evnt {
+    padding: 0px 0 0px;
+  }
+  section.for-evnt .main-profile-event .upload-image .profile-name {
+    width: 100%;
+  }
+  section.for-evnt .main-profile-event .upload-image .member-show {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 @media (min-width: 1025px) and (max-width: 1200px) {
   .back-of-hder .admin-details {
@@ -539,6 +687,16 @@
   .test-lft-slider .take-a-tour a {
     font-size: 14px;
   }
+  .main-profile-event {
+    padding: 15px 56px;
+  }
+  .new-event {
+    padding: 15px 56px;
+  }
+  .new-event {
+    padding: 0 53px !important;
+    position: absolute;
+  }
 }
 @media (min-width: 1240px) {
   .main-cntr-tble-family.third::before {
@@ -558,4 +716,36 @@
 }
 .main-cntr-tble-family.third {
   display: block;
+}
+
+@media (min-width: 1025px) {
+  .new-event {
+    padding: 0 121px;
+    position: absolute;
+  }
+  .new-event button {
+    border-radius: 10px;
+    background: #4877cc;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 162px;
+    border: 1px solid #4877cc;
+    height: 40px;
+    color: #fff;
+    text-align: left;
+    padding: 0 10px;
+    transition: 0.5s;
+    border-radius: 10px;
+  }
+  .new-event button:hover {
+    color: #4877cc;
+    background: transparent;
+    transition: 0.5s;
+  }
+  .new-event button:hover:hover path {
+    fill: #4877cc;
+    stroke: #4877cc;
+  }
 }/*# sourceMappingURL=web-media-style.css.map */

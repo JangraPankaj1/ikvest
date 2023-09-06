@@ -34,9 +34,48 @@
 
                             </div>
                         </div>
+
                         <div class="col-lg-3 col-md-8 col-sm-8">
+                            <div class="admin-details">
+                               
+
+                                <div class="dropdown">
+                                    <div class="drop-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <div class="admin-icon">
+                                        @if(Auth::user()->image_path)
+                                            <img src="{{ asset(Auth::user()->image_path) }}" alt="Profile Image" id="existing-image-preview">
+                                            @else
+                                            <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
+                                            @endif
+                                            
+                                        </div>
+                                        <div class="inr-wlcm-togl">
+                                            <p>Welcome!</p>
+                                            <b>{{ Auth::user()->f_name }}</b>
+                                        </div>
+                                    </div>
+                                    <ul class="dropdown-menu">
+                                        <div class="inr-wlcm-togl">
+                                            <p>Welcome!</p>
+                                            <b>{{ Auth::user()->f_name }}</b>
+                                        </div>
+                                        <li><a class="dropdown-item"  href="{{ route('logout') }}">Log Out</a></li>
+                                        
+                                    </ul>
+                                </div>
+
+                                
+                            </div>
+                           
+                        </div>
+
+
+
+                        <!-- <div class="col-lg-3 col-md-8 col-sm-8">
 
                             <div class="main-admin-icon-only">
+                          
 
                                 @auth
                                      Welcome, {{ Auth::user()->f_name }}
@@ -52,7 +91,7 @@
 
 
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

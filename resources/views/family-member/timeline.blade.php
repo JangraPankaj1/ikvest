@@ -34,7 +34,7 @@
                                             @endif
                                     </div>
                                     <div class="profile-name">
-                                        <h4>{{Auth::user()->f_name}}</h4>
+                                        <h4>{{ucfirst(Auth::user()->f_name)}}</h4>
                                         <p>{{Auth::user()->email}}</p>
                                     </div>
                                     <div class="member-show">
@@ -46,6 +46,7 @@
                                 <div class="upr-event">
                                     <div class="row">
                                         <div class="new-event">
+                                        <a href="{{ route('post') }}">
                                             <button>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                     viewBox="0 0 30 30" fill="none">
@@ -59,7 +60,7 @@
                                                         d="M14.3999 9.34998H14.1499V9.59998V20.4V20.65H14.3999H15.5999H15.8499V20.4V9.59998V9.34998H15.5999H14.3999Z"
                                                         fill="white" stroke="white" stroke-width="0.5" />
                                                 </svg>
-                                                New Event</button>
+                                                New Event</button></a>
                                         </div>
                                         <div class="inr-search-event">
                                             <form>
@@ -87,21 +88,22 @@
             <section>
                 <div class="container">
                     <div class="inner-profile-data">
+                             @foreach($data as $key=>$post)
+                             @foreach ($post->user()->latest()->get() as $user)
                         <div class="full-data-profile">
-                            @foreach($data as $key=>$post)
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="inr-img-data">
                                         <div class="lft-img">
-                                        @if(Auth::user()->image_path)
-                                                <img src="{{ asset(Auth::user()->image_path) }}"  alt="Profile Image" id="existing-image-preview">
+                                          @if($user->image_path)
+                                                <img src="{{ asset($user->image_path) }}"  alt="Profile Image" id="existing-image-preview">
                                             @else
                                                 <img src="{{ asset('images/admin.svg') }}"  alt="Default Profile Image" id="existing-image-preview">
                                             @endif
                                         </div>
                                         <div class="right-data">
-                                            <h4>{{Auth::user()->f_name}} </h4>
-                                            <p>{{$post->created_at}}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
+                                            <h4>{{$user->f_name}}</h4>
+                                            <p>{{$post->created_at->diffForHumans()}}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
                                         </div>
                                     </div>
                                 </div>
@@ -119,13 +121,13 @@
                                                     @endphp
 
                                                     @if ($imageNames && $imagePaths)
-                                                        <div style="display: flex; flex-direction: row;">
+                                                        <div style="width:100%; display: flex; flex-direction: row;">
                                                             @foreach ($imagePaths as $index => $imagePath)
                                                                 @php
                                                                     $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
                                                                 @endphp
 
-                                                                <div style="margin-right: 10px;"> <!-- Adjust margin as needed -->
+                                                                <div style="width:100%; margin-right: 10px;"> <!-- Adjust margin as needed -->
                                                                     @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
                                                                         <img src="{{ asset($imagePath) }}" alt="Image" width="50" height="50">
                                                                     @elseif (in_array($extension, ['mp4', 'webm']))
@@ -141,16 +143,21 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
-
-                                <div class="col-md-12 ggg">
+                                <div class="col-md-12">
                                     <div class="inr-comment">
+
+                                           @if(Auth::user()->image_path)
+                                                <img src="{{ asset(Auth::user()->image_path) }}"  alt="Profile Image" id="existing-image-preview">
+                                            @else
+                                                <img src="{{ asset('images/admin.svg') }}"  alt="Default Profile Image" id="existing-image-preview">
+                                            @endif
 
                                         <form action="{{ route('post.comments', $post->id) }}" class="flex justify-between space-x-2" method="POST">
                                              @csrf
                                             <div class="inr-comnt-sec">
                                                 <input type="text" name="content" placeholder="Write a comment..." required/>
+
                                                 <button type="submit"><img src="{{ asset('web-images/comnt.svg')}}" /></button>
 
                                             </div>
@@ -171,8 +178,10 @@
                                                 </h2>
                                                 <div id="collapseOne" class="accordion-collapse collapse show"
                                                 aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                                @foreach ($post->comments()->latest()->get() as $comment)
+                                                @foreach ($post->comments()->latest()->take(2)->get() as $comment)
                                                  @foreach ($comment->user()->latest()->get() as $user)
+
+                                                 
                                                 <div class="accordion-body">
                                                         <div class="first-comnt">
                                                             <div class="inr-connents-for">
@@ -182,19 +191,28 @@
                                                                 <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
                                                             @endif
                                                             <h5>{{ $user->f_name }}</h5>
-                                                                <p>{{ $comment->created_at }}</p>
+                                                                <p>{{ $comment->created_at->diffForHumans() }}</p>
                                                             </div>
                                                             <div class="inr-dis-comment">
 
-                                                                <p><span>{{ $user->email }}</span>{{ ucfirst($comment->comment) }}</p>
+                                                                <p><span>{{$user->email }}</span>
+                                                                @if ($comment->comment)
+
+                                                                 {{ ucfirst($comment->comment) }}
+                                                                 @else
+                                                                       No comments on this post.
+
+                                                                 @endif
+                                                                 </p>
+
                                                                 @if (auth()->user()->id === $user->id)
-                                <form action="{{ route('post.comments.destroy', [$post->id, $comment->id]) }}"
-                                        method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button >Delete</button>
-                                    </form>
-                                @endif
+                                                                <form action="{{ route('post.comments.destroy', [$post->id, $comment->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button >Delete</button>
+                                                                    </form>
+                                                                @endif
                                                             </div>
                                                         </div>
 
@@ -206,15 +224,16 @@
                                             </div>
                                         </div>
 
-                                        <!-- <h4 data-bs-toggle="modal" data-bs-target="#staticBackdrop"> View all    comments
-                                        </h4> -->
+                                        <h4 data-bs-toggle="modal" data-bs-target="#staticBackdrop"> View all    comments
+                                        </h4>
 
                                     </div>
                                 </div>
 
                             </div>
-                            @endforeach
                         </div>
+                            @endforeach
+                            @endforeach
 
                     </div>
                 </div>
@@ -224,8 +243,8 @@
 
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade for-all-comments-show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+   <!-- Modal -->
+   <div class="modal fade for-all-comments-show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -237,64 +256,68 @@
                                 <div class="col-md-12">
                                     <div class="inr-img-data">
                                         <div class="lft-img">
-                                        @if ($user->image_path)
-            <h4><img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview"></h4>
-        @else
-            <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
-        @endif
+                                            @if(Auth::user()->image_path)
+                                            <img src="{{ asset(Auth::user()->image_path) }}"  alt="Profile Image" id="existing-image-preview">
+                                        @else
+                                            <img src="{{ asset('images/admin.svg') }}"  alt="Default Profile Image" id="existing-image-preview">
+                                        @endif
                                         </div>
                                         <div class="right-data">
                                             <h4>{{Auth::user()->f_name}}</h4>
+                                            <p>{{$post->created_at->diffForHumans()}}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12">
+
                                     <div class="inr-dis-data">
-                                    {{ ucfirst($post->post_message) }}                                                @if ($post->docs && $post->docs_path)
-                                                    @php
-                                                        $imageNames = json_decode($post->docs, true);
-                                                        $imagePaths = json_decode($post->docs_path, true);
-                                                    @endphp
 
-                                                    @if ($imageNames && $imagePaths)
-                                                        <div style="display: flex; flex-direction: row;">
-                                                            @foreach ($imagePaths as $index => $imagePath)
-                                                                @php
-                                                                    $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
-                                                                @endphp
-
-                                                                <div style="margin-right: 10px;"> <!-- Adjust margin as needed -->
-                                                                    @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
-                                                                        <img src="{{ asset($imagePath) }}" alt="Image" width="50" height="50">
-                                                                    @elseif (in_array($extension, ['mp4', 'webm']))
-                                                                        <video controls width="200">
-                                                                            <source src="{{ asset($imagePath) }}" type="video/mp4">
-                                                                        </video>
-                                                                    @endif
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    @endif
-                                                @endif
-
+                                        <p>{{ ucfirst($post->post_message) }}</p>
+                                        
                                         <h5>All Comments</h5>
+
                                     </div>
                                 </div>
                             </div>
+
                             <div class="inr-comnts-modl">
+                                @foreach ($post->comments()->latest()->get() as $comment)
+                                @foreach ($comment->user()->latest()->get() as $user)
                                 <div class="first-comnt">
                                     <div class="inr-connents-for">
-                                        <img src="web-images/Profile-image.png" />
+                                @if ($user->image_path)
+                                    <img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview">
+                                @else
+                                    <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
+                                @endif
                                         <h5>{{ $user->f_name }}</h5>
-                                        <p>{{ $comment->created_at }}</p>
+                                        <p>{{$comment->created_at->diffForHumans()}}</p>
                                     </div>
                                     <div class="inr-dis-comment">
-                                        <p><span>{{ $user->email }}</span>{{ ucfirst($comment->comment) }}</p>
+                                        <p><span>{{ $user->email }}</span>
+                                        @if ($comment->comment)
+
+                                            {{ ucfirst($comment->comment) }}
+                                            @else
+                                                No comments on this post.
+
+                                            @endif
+                                            @if (auth()->user()->id === $user->id)
+                                                                <form action="{{ route('post.comments.destroy', [$post->id, $comment->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button >Delete</button>
+                                                                    </form>
+                                                                @endif
+                                            </p>                                       
                                     </div>
                                 </div>
-
+                               @endforeach
+                               @endforeach
                             </div>
                         </div>
                     </div>
@@ -302,4 +325,5 @@
             </div>
         </div>
     </div>
+
 @endsection

@@ -42,7 +42,7 @@ class AuthController extends Controller
      */
 
      public function postLogin(Request $request)
-     {
+      {
 
         $request->validate([
             'email' => 'required|email',
@@ -88,7 +88,7 @@ class AuthController extends Controller
             $redirect = '/super-admin/dashboard';
         }
         else if(Auth::user() && Auth::user()->role == 2){
-            $redirect = '/head-family/dashboard';
+            $redirect = '/head-family/timeline';
         }
         else if(Auth::user() && Auth::user()->role == 3){
             $redirect = '/family-member/dashboard';
