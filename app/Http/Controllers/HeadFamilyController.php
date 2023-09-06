@@ -144,22 +144,12 @@ class HeadFamilyController extends Controller
         public function getPostContent($postId)
             {
 
-            //     $comments = DB::table('comments')
-            //     ->join('posts', 'comments.post_id', '=', 'posts.id')
-            //     ->select('comments.comment')
-            //     ->get();
- 
-            //  $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-            //  ->get(['posts.*', 'users.f_name','users.image_path']);
+            
+                $post = Post::with(['comments', 'user'])->find($postId);
 
-             
-                // Fetch the post content based on the provided $postId
-                
-                $post = Post::find($postId);
-                $comment = $post->comments()->get();
                   
                 if ($post) {
-                    return response()->json(['postContent' => $post, 'comment' => $comment]);
+                    return response()->json(['post' => $post ]);
                 }
 
                 // Handle the case where the post is not found

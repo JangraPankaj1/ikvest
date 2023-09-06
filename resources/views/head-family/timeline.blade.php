@@ -211,7 +211,7 @@
                                         </div>
                                     </div>
 
-                                    <h4 data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-post-id="{{ $post->id }}"> View all comments </h4>
+                                    <h4 class="view-comments-button" data-post-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View all comments</h4>
 
 
 
@@ -231,116 +231,123 @@
 
 </div>
 
-<!-- Modal -->
-<div class="modal fade for-all-comments-show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-body">
-                <div class="inner-profile-data">
-                    <div class="full-data-profile" id="post-content-placeholder">
-                        <!-- @foreach($data as $key=>$post) -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="inr-img-data">
-                                    <div class="lft-img">
-                                        @if(Auth::user()->image_path)
-                                        <img src="{{ asset(Auth::user()->image_path) }}" alt="Profile Image" id="existing-image-preview">
-                                        @else
-                                        <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
-                                        @endif
-                                    </div>
-                                    <div class="right-data">
-                                        <h4>{{Auth::user()->f_name}}</h4>
-                                        <p>{{$post->created_at->diffForHumans()}}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
+ <!-- Modal -->
+ <div class="modal fade for-all-comments-show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="inner-profile-data">
+                        <div class="full-data-profile">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="inr-img-data">
+                                        <div class="lft-img">
+                                            <!-- here is fetch auth image if exists otherwise default image -->
+                                        </div>
+                                        <div class="right-data">
+                                            <h4><!-- here is fetch auth f_name --></h4>
+                                            <p id="both"><!-- here is fetch posts created time --><span></span></p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="inr-dis-data">
+                            <div class="row">
+                                <div class="col-md-12">
 
-                                    <p>{{ ucfirst($post->post_message) }}</p>
-                                    <h5>All Comments</h5>
-
+                                    <div class="inr-dis-data">
+                                        <p id="post"><!-- here is fetch posts --></p>                                      
+                                        <h5>All Comments</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="inr-comnts-modl">
+                            <div class="inr-comnts-modl">
+                            
+                                <div class="first-comnt">
+                                    <div class="inr-connents-for">
+                                     <!-- here is fetch images -->
+                                         <!-- here is fetch name -->
 
-                            @foreach ($post->comments()->get() as $comment)
-                            @foreach ($comment->user()->get() as $user)
-                            <div class="first-comnt">
-                                <div class="inr-connents-for">
-                                    @if ($user->image_path)
-                                    <img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview">
-                                    @else
-                                    <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
-                                    @endif
-                                    <h5>{{ $user->f_name }}</h5>
-                                    <p>{{$comment->created_at->diffForHumans()}}</p>
+                                        <p><!-- here is fetch name --></p>
+                                    </div>
+                                    <div class="inr-dis-comment">
+                                        <p><span><!-- here is fetch email --></span>
+                                      <!-- here is fetch comment if comment exists -->
+                                         <!-- here is delete button -->
+
+                                            </p>                                       
+                                    </div>
                                 </div>
-                                <div class="inr-dis-comment">
-                                    <p><span>{{ $user->email }}</span>
-                                        @if ($comment->comment)
-
-                                        {{ ucfirst($comment->comment) }}
-                                        @else
-                                        No comments on this post.
-
-                                        @endif
-                                    </p>
-                                </div>
+                              
                             </div>
-                            @endforeach
-                            @endforeach
                         </div>
-                        <!-- @endforeach  -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <script>
+$(document).ready(function() {
+    $(".view-comments-button").click(function() {
+        var postId = $(this).data("post-id");
+        console.log(postId);
 
-    $(document).ready(function() {
-        const modal = $('#staticBackdrop');
-        const postContentPlaceholder = $('#post-content-placeholder');
+        var image = @json(auth()->user()->image_path); // Serialize the user object to JSON
+        var name = @json(auth()->user()->f_name); // Serialize the user object to JSON
+        var authUser = @json(auth()->user()); // Serialize the user object to JSON
 
-        // Listen for the click event on the "View all comments" link
-        $('[data-bs-target="#staticBackdrop"]').click(function() {
-            // Get the post ID from the data attribute
-            var postId = $(this).data('post-id');
-            const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-            // Make an AJAX request to fetch the post content
-            $.ajax({
+        $.ajax({
 
-                url: 'posts/' + postId,
-                method: 'GET',
-                dataType: 'json',
-                data: {
-                    _token: csrfToken // Include the CSRF token in the request data
-                },
+            type: "GET",
+            url: 'posts/' + postId,
+            success: function(data) {
+                var post = data.post;
+                var commentsHtml = '';
+                var createdTime = moment(post.created_at).fromNow();
 
-                success: function(data) {
-                    console.log(data);
-                    // Populate the modal's content with the fetched post data
-                    postContentPlaceholder.html(data.post_message);
-                },
-                error: function(error) {
-                    console.error('Error fetching post data:', error);
-                }
-            });
+                // Populate post author's information and content
+                var image = image ? image : "{{ asset('images/admin.svg') }}";
+                            $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
+
+                $(".modal-body h4").text(name);
+                $(".modal-body  #both").html(createdTime + '<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}">');
+
+                $(".modal-body .inr-dis-data p").text(post.post_message);
+
+                // Display comments
+                post.comments.forEach(function(comment) {
+                     
+                    commentsHtml += '<div class="first-comnt">';
+                    commentsHtml += '<div class="inr-connents-for">';
+                    commentsHtml += '<img src="' + post.user.image_path + '" alt="' + post.user.f_name + '">';
+                    commentsHtml += '<p>' + comment.name + '</p>';
+                    commentsHtml += '</div>';
+                    commentsHtml += '<div class="inr-dis-comment">';
+                    commentsHtml += '<p><span>' + comment.email + '</span>';
+                    commentsHtml += comment.comment ? comment.comment : '';
+                    commentsHtml += '</p>';
+                    commentsHtml += '</div>';
+                    commentsHtml += '</div>';
+                });
+
+                // Update the modal with the fetched post and comments
+                $(".modal-body .inr-comnts-modl").html(commentsHtml);
+            },
+            error: function(err) {
+                console.error("Error fetching post and comments:", err);
+            }
         });
     });
+});
+
 </script>

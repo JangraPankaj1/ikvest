@@ -38,6 +38,7 @@
                         <div class="col-lg-3 col-md-8 col-sm-8">
                             <div class="admin-details">
                                
+                            @auth
 
                                 <div class="dropdown">
                                     <div class="drop-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -64,7 +65,11 @@
                                         
                                     </ul>
                                 </div>
-
+                                @endauth
+                                    
+                                @guest
+                                <a href="{{ route('login') }}"><img src="{{ asset('web-images/admin.svg') }}"/></a>
+                                @endguest
                                 
                             </div>
                            

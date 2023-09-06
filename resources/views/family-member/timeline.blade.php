@@ -224,8 +224,8 @@
                                             </div>
                                         </div>
 
-                                        <h4 data-bs-toggle="modal" data-bs-target="#staticBackdrop"> View all    comments
-                                        </h4>
+                                        <h4 class="view-comments-button" data-post-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View all comments</h4>
+
 
                                     </div>
                                 </div>
@@ -256,15 +256,11 @@
                                 <div class="col-md-12">
                                     <div class="inr-img-data">
                                         <div class="lft-img">
-                                            @if(Auth::user()->image_path)
-                                            <img src="{{ asset(Auth::user()->image_path) }}"  alt="Profile Image" id="existing-image-preview">
-                                        @else
-                                            <img src="{{ asset('images/admin.svg') }}"  alt="Default Profile Image" id="existing-image-preview">
-                                        @endif
+                                            <!-- here is fetch auth image if exists otherwise default image -->
                                         </div>
                                         <div class="right-data">
-                                            <h4>{{Auth::user()->f_name}}</h4>
-                                            <p>{{$post->created_at->diffForHumans()}}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
+                                            <h4><!-- here is fetch auth f_name --></h4>
+                                            <p><!-- here is fetch posts created time --><span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +271,7 @@
 
                                     <div class="inr-dis-data">
 
-                                        <p>{{ ucfirst($post->post_message) }}</p>
+                                        <p><!-- here is fetch posts --></p>
                                         
                                         <h5>All Comments</h5>
 
@@ -284,40 +280,23 @@
                             </div>
 
                             <div class="inr-comnts-modl">
-                                @foreach ($post->comments()->latest()->get() as $comment)
-                                @foreach ($comment->user()->latest()->get() as $user)
+                            
                                 <div class="first-comnt">
                                     <div class="inr-connents-for">
-                                @if ($user->image_path)
-                                    <img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview">
-                                @else
-                                    <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
-                                @endif
-                                        <h5>{{ $user->f_name }}</h5>
-                                        <p>{{$comment->created_at->diffForHumans()}}</p>
+                                     <!-- here is fetch images -->
+                                         <!-- here is fetch name -->
+
+                                        <p><!-- here is fetch name --></p>
                                     </div>
                                     <div class="inr-dis-comment">
-                                        <p><span>{{ $user->email }}</span>
-                                        @if ($comment->comment)
+                                        <p><span><!-- here is fetch email --></span>
+                                      <!-- here is fetch comment if comment exists -->
+                                         <!-- here is delete button -->
 
-                                            {{ ucfirst($comment->comment) }}
-                                            @else
-                                                No comments on this post.
-
-                                            @endif
-                                            @if (auth()->user()->id === $user->id)
-                                                                <form action="{{ route('post.comments.destroy', [$post->id, $comment->id]) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button >Delete</button>
-                                                                    </form>
-                                                                @endif
                                             </p>                                       
                                     </div>
                                 </div>
-                               @endforeach
-                               @endforeach
+                              
                             </div>
                         </div>
                     </div>
