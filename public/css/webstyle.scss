@@ -114,6 +114,9 @@ body {
     align-items: center;
     justify-content: flex-end;
     gap: 9px;
+    img{
+      width:40px;
+    }
     .icons-notification {
       display: flex;
       gap: 2px;
@@ -1455,6 +1458,7 @@ body {
         .accordion-collapse {
           border-radius: 0 0px 8px 8px;
           background: #f0f0f0;
+          position: relative;
           .first-comnt {
             border-bottom: 1px solid rgba(221, 221, 221, 0.87);
             padding: 10px 0;
@@ -1488,7 +1492,14 @@ body {
                 line-height: 24px;
                 color: #67727e;
               }
+              button.delete {
+                padding: 0 !important;
+                img.delete {
+                  width: 24px !important;
+                  opacity: .5;
+              }
             }
+          }
             .inr-dis-comment {
               margin-top: 6px;
               span {
@@ -1506,13 +1517,21 @@ body {
                 line-height: 18px;
                 margin: 0;
               }
+              button.delete {
+                padding: 0 !important;
+                border:none;
+                img.delete {
+                  width: 24px !important;
+                  opacity: .5;
+              }
+            }
+            }
             }
           }
         }
       }
     }
   }
-}
 
 .for-create-event {
   .main-all-page-back-image-family {
@@ -1679,7 +1698,15 @@ body {
                 line-height: 24px;
                 color: #67727e;
               }
+              button.delete {
+                padding: 0 !important;
+                border: none;
+                img.delete {
+                  width: 24px !important;
+                  opacity: .5;
+              }
             }
+          }
             .inr-dis-comment {
               margin-top: 6px;
               span {
@@ -1697,13 +1724,14 @@ body {
                 line-height: 18px;
                 margin: 0;
               }
-            }
           }
         }
       }
     }
   }
 }
+  }
+
 .main-side-data {
   max-width: 320px;
   padding: 20px;

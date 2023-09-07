@@ -1,6 +1,5 @@
 @media (min-width: 1500px) {
   .bck-img-inr {
-    height: 100vh;
     overflow-y: auto;
     display: flex;
     align-items: center;

@@ -51,10 +51,10 @@
                                     </div>
                                     <button type="submit" class="submit-btn">Verify</button>
                                     
-                                    <div class="">
+                                    <!-- <div class="">
                                         <p>Don't have an account yet? <a href="{{ route('register') }}" class="create_now">Create
                                                 Now</a></p>
-                                    </div>
+                                    </div> -->
                                  </form>
                               </div>
                             </div>

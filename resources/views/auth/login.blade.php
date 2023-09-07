@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                     <button type="submit" class="submit-btn">Sign in</button>
-                                        <div class="or-google">
+                                        <!-- <div class="or-google">
                                             <p>or</p>
                                             <a  href="{{ url('auth/facebook') }}">
                                                 <img src=" {{ asset('images/Facebook.svg') }}" />
@@ -67,7 +67,7 @@
                                         </div>
                                      <div class="mt-5">
                                         <p>Already have an account? <a href="{{ route('register') }}" class="create_now">Register</a></p>
-                                    </div>
+                                    </div> -->
                                   </form>
 
                             </div>

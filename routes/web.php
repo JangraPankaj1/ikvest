@@ -111,13 +111,18 @@ Route::middleware('auth:web')->group(function(){
         Route::post('/add-family-member',[HeadFamilyController::class,'invitefamilyMember'])->name('invite.member.post');
         Route::get('/add-post', [HeadFamilyController::class, 'postPage'])->name
         ('post');
-        Route::post('/add-post',[HeadFamilyController::class,'uploadPost'])->name
+        Route::post('/timeline',[HeadFamilyController::class,'uploadPost'])->name
         ('posts');
-
         Route::get('/timeline',[HeadFamilyController::class,'showTimelineHead'])->name
         ('get.timeline.head');
-        Route::delete('/post/{id}/comments/{comment}',[HeadFamilyController::class,'deleteComment'])->name('comments.destroy');
 
+        Route::delete('/posts/{postId}/comments/{comment}',[HeadFamilyController::class,'deleteComment'])->name('comments.destroy');
+        Route::delete('/post/{postId}',[HeadFamilyController::class,'deletePost'])->name('post.delete');
+       
+        Route::delete('/event/{postId}/comments/{comment}',[HeadFamilyController::class,'commentDelete'])->name('comments.destroy.without.model');
+      
+      
+       
 
         Route::post('/post/{id}/comments', [HeadFamilyController::class,'CommentOnPostHead'])->name('post.comments.head');
 

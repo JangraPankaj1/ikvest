@@ -36,7 +36,7 @@ class Post extends Authenticatable
 
     public function comments(): HasMany
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('id', 'desc');
     }
     /**
      * The attributes that should be hidden for serialization.

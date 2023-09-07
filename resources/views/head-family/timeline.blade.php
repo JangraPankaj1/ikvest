@@ -68,6 +68,7 @@
         <!-----------------end Profile Name --------------------->
 
         <!-----------------end sticky Profile Name --------------------->
+       
         <section>
             <div class="container">
                 <div class="new-event">
@@ -80,9 +81,26 @@
                             </svg>
                             New Event</button></a>
                 </div>
+                               
                 <div class="inner-profile-data">
+                @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    @if (session()->has("message"))
+                                        <div class="alert alert-success">
+                                            {{ session()->get("message") }}
+                                        </div>
+                                    @endif
                     @foreach($data as $key=>$post)
                     @foreach ($post->user()->latest()->get() as $user)
+
+                    
                     <div class="full-data-profile">
                         <div class="row">
                             <div class="col-md-12">
@@ -94,10 +112,20 @@
                                         <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
                                         @endif
                                     </div>
+                                   
                                     <div class="right-data">
                                         <h4>{{$user->f_name}}</h4>
                                         <p>{{ $post->created_at->diffForHumans() }}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
                                     </div>
+                                    @if (auth()->user()->id === $user->id)
+
+                                    <form action="{{ route('post.delete', $post->id) }}" class="flex justify-between space-x-2" method="POST">
+
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="delete" ><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
+                                        </form>
+                                        @endif
                                 </div>
                             </div>
                         </div>
@@ -122,7 +150,7 @@
 
                                         <div style="width:100%; margin-right: 10px;"> <!-- Adjust margin as needed -->
                                             @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
-                                            <img src="{{ asset($imagePath) }}" alt="Image" width="50" height="50">
+                                            <img src="{{ asset($imagePath) }}" alt="Image" width="50" height="400">
                                             @elseif (in_array($extension, ['mp4', 'webm']))
                                             <video controls width="200">
                                                 <source src="{{ asset($imagePath) }}" type="video/mp4">
@@ -180,6 +208,14 @@
                                                             @endif
                                                             <h5>{{ $user->f_name }}</h5>
                                                             <p>{{ $comment->created_at->diffForHumans() }}</p>
+                                                            @if (auth()->user()->id === $user->id)
+                                                            <form action="{{ route('comments.destroy.without.model', [$post->id, $comment->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="delete" ><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
+                                                            </form>
+                                                            @endif
+                                                           
                                                         </div>
                                                         <div class="inr-dis-comment">
 
@@ -192,14 +228,8 @@
 
                                                                 @endif
                                                             </p>
-
-                                                            @if (auth()->user()->id === $user->id)
-                                                            <form action="{{ route('comments.destroy', [$post->id, $comment->id]) }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button>Delete</button>
-                                                            </form>
-                                                            @endif
+                                                           
+                                                         
                                                         </div>
                                                     </div>
 
@@ -258,7 +288,9 @@
                                 <div class="col-md-12">
 
                                     <div class="inr-dis-data">
-                                        <p id="post"><!-- here is fetch posts --></p>                                      
+                                        <p id="post"><!-- here is fetch posts -->
+                                    </p>            
+                                        <!-- here is fetch images or video if post exists -->                      
                                         <h5>All Comments</h5>
                                     </div>
                                 </div>
@@ -271,17 +303,17 @@
                                      <!-- here is fetch images -->
                                          <!-- here is fetch name -->
 
-                                        <p><!-- here is fetch name --></p>
+                                        <p><!-- here is fetch time --></p>
                                     </div>
                                     <div class="inr-dis-comment">
                                         <p><span><!-- here is fetch email --></span>
+                                        
                                       <!-- here is fetch comment if comment exists -->
-                                         <!-- here is delete button -->
+                                         
 
                                             </p>                                       
                                     </div>
-                                </div>
-                              
+                                </div>                             
                             </div>
                         </div>
                     </div>
@@ -294,8 +326,54 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
 <script>
+
+
+function deleteComment(postId, comment) {
+
+   // Get the CSRF token value from the meta tag
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    // Create an object to hold your headers
+    var headers = {
+        'X-CSRF-TOKEN': csrfToken
+    };
+
+    $.ajax({
+        type: "DELETE",
+        url: 'posts/' + postId + '/comments/' + comment,
+        headers: headers, // Include the headers object in your AJAX request
+        success: function(response) {
+           
+
+        if(response.message){
+            swal({
+                title: "Success",
+                text: "Comment deleted successfully",
+                icon: "success",
+            }).then(function() {
+                // Reload or refresh the page or perform any other action
+                location.reload();
+            });
+        }
+          
+        },
+        error: function(err) {
+            console.error("Error deleting comment:", err);
+
+            // Display an error message using SweetAlert
+            swal({
+                title: "Error",
+                text: "An error occurred while deleting the comment",
+                icon: "error",
+            });
+        }
+    });
+}
+
+
 $(document).ready(function() {
     $(".view-comments-button").click(function() {
         var postId = $(this).data("post-id");
@@ -305,9 +383,7 @@ $(document).ready(function() {
         var name = @json(auth()->user()->f_name); // Serialize the user object to JSON
         var authUser = @json(auth()->user()); // Serialize the user object to JSON
 
-
         $.ajax({
-
             type: "GET",
             url: 'posts/' + postId,
             success: function(data) {
@@ -315,33 +391,115 @@ $(document).ready(function() {
                 var commentsHtml = '';
                 var createdTime = moment(post.created_at).fromNow();
 
+
+                 // Display comments with user data and delete buttons
+                
+
                 // Populate post author's information and content
                 var image = image ? image : "{{ asset('images/admin.svg') }}";
-                            $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
+                $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
 
                 $(".modal-body h4").text(name);
                 $(".modal-body  #both").html(createdTime + '<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}">');
 
                 $(".modal-body .inr-dis-data p").text(post.post_message);
 
-                // Display comments
+                // Display post images or videos if they exist
+                if (post.docs && post.docs.length > 0) {
+                    var docsHtml = '<div>';
+                    var docsArray = JSON.parse(post.docs);
+                    var docsPathArray = JSON.parse(post.docs_path);
+
+                    docsArray.forEach(function(doc, index) {
+                        // Check if it's an image or video based on file extension
+                        var docPath = docsPathArray[index];
+
+                        if (doc.match(/\.(jpeg|jpg|gif|png|mp4)$/)) {
+                            if (doc.endsWith('.mp4')) {
+                                // Extract the video path similar to how you extracted the image path
+                                var videoPathParts = docPath.split('/head-family');
+                                var videoName = videoPathParts.pop(); // Get the last part of the path (the video file name)
+                                var videoPath = videoPathParts.join('/') + '/' + videoName; // Reconstruct the path without the extra part 
+
+                                // Use the video HTML element for videos with the adjusted path
+                                docsHtml += '<video controls><source src="' + videoPath + '" type="video/mp4"></video>';
+                            } else {
+                                // Extract the image path for images
+                                var imagePathParts = docPath.split('/head-family');
+                                var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
+                                var imagePath = imagePathParts.join('/') + '/' + imageName; // Reconstruct the path without the extra part 
+
+                                // Display images with <img> tag
+                                docsHtml += '<img src="' + imagePath + '" alt="Image">';
+                            }
+                        }
+                    });
+
+                    docsHtml += '</div>';
+                    $(".modal-body .inr-dis-data p").append(docsHtml);
+                }
+
+                // Function to capitalize the first letter of each word in a string
+                function capitalizeWords(string) {
+                    return string.split(' ').map(function(word) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }).join(' ');
+                }
+
+                // Display comments with user data and delete buttons
+                if (post.comments.length === 0) {
+                    commentsHtml = '<p>No comments yet</p>';
+                }else{
                 post.comments.forEach(function(comment) {
-                     
+                  
+                    // Extract the image path
+                    var imagePathParts = comment.user.image_path.split('/head-family');
+                    var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
+                    var imagePath = imagePathParts.join('/') + '/' + imageName; // Reconstruct the path without the extra part 
+                    var highlightedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + comment.comment + '</span>' : '';
+                    var capitalizedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + capitalizeWords(comment.comment) + '</span>' : '';
+
+                    var createdTimeComment = moment(comment.created_at).fromNow();
+                    
+
                     commentsHtml += '<div class="first-comnt">';
                     commentsHtml += '<div class="inr-connents-for">';
-                    commentsHtml += '<img src="' + post.user.image_path + '" alt="' + post.user.f_name + '">';
-                    commentsHtml += '<p>' + comment.name + '</p>';
+                    commentsHtml += '<img src="' + imagePath + '" alt="' + comment.user.f_name + '">';
+                    commentsHtml += '<p>' + comment.user.f_name.toUpperCase() + '</p>';
+                    commentsHtml += '<p>' + createdTimeComment + '</p>';
+                    if (authUser.id === comment.user.id) {
+
+                        commentsHtml += '<button class="delete-comment-button delete" data-post-id="' + post.id + '" data-comment-id="' + comment.id + '"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>';
+ 
+                    }
+
+
                     commentsHtml += '</div>';
                     commentsHtml += '<div class="inr-dis-comment">';
-                    commentsHtml += '<p><span>' + comment.email + '</span>';
-                    commentsHtml += comment.comment ? comment.comment : '';
+                    commentsHtml += '<p><span>' + comment.user.email + '</span>' + highlightedComment;
+
+                    // Delete button for comments authored by the logged-in user
+                    // if (authUser.id === comment.user.id) {
+
+                    //     commentsHtml += '<button class="delete-comment-button delete" data-post-id="' + post.id + '" data-comment-id="' + comment.id + '"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>';
+                         
+                    
+                    // }
+
                     commentsHtml += '</p>';
                     commentsHtml += '</div>';
                     commentsHtml += '</div>';
                 });
-
+            }
                 // Update the modal with the fetched post and comments
                 $(".modal-body .inr-comnts-modl").html(commentsHtml);
+
+                // Add click event handler for delete buttons
+                $(".delete-comment-button").click(function() {
+                    var postId = $(this).data("post-id");
+                    var comment = $(this).data("comment-id");
+                    deleteComment(postId, comment);
+                });
             },
             error: function(err) {
                 console.error("Error fetching post and comments:", err);

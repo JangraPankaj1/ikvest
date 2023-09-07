@@ -145,7 +145,9 @@ class HeadFamilyController extends Controller
             {
 
             
-                $post = Post::with(['comments', 'user'])->find($postId);
+                // $post = Post::with(['comments', 'user'])->find($postId);
+                $post = Post::with(['comments.user'])->find($postId);
+
 
                   
                 if ($post) {
@@ -167,7 +169,7 @@ class HeadFamilyController extends Controller
                     $request->validate(
                         [
                             'file' => 'image|mimes:jpg,png,jpeg,gif,svg|pdf,xml,csv,mp4|max:20480', // Max size in kilobytes (20MB)
-                            'post' => 'required|max:255',
+                            'post' => 'required',
                         ]
                     );
 
@@ -196,6 +198,7 @@ class HeadFamilyController extends Controller
                    $post->save();
                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
                ->get(['posts.*', 'users.f_name']);
+
                return view('head-family/timeline', compact('data'));
 
                 }else{
@@ -259,15 +262,51 @@ class HeadFamilyController extends Controller
 
          }
 
+          // ********** Delete Post **********
+
+          public function deletePost($id)
+          {
+
+             try {
+
+                 $post = Post::findOrFail($id);
+                 $post->delete();
+                 
+                 return back()->with('message','Post deleted successfully');
+
+             } catch (\Exception $e) {
+                 // Return an error JSON response
+                 return back()->with('error','Post not deleted ');
+             }
+         }
+
+                   // ********** Delete Comment jquery model **********
+
+                   public function deleteComment($id, Comment $comment)
+                    {
+                       try {
+                           $comment = Comment::findOrFail($comment->id);
+                           $comment->delete();
+                           
+                           // Return a success JSON response
+                           return response()->json(['message' => 'Comment deleted successfully'], 200);
+                       } catch (\Exception $e) {
+                           // Return an error JSON response
+                           return response()->json(['error' => 'An error occurred while deleting the comment'], 500);
+                       }
+                   }
                    // ********** Delete Comment **********
 
-    public function deleteComment($id, Comment $comment)
-    {
-       $comment = Comment::findOrFail($comment->id);
-       $comment->delete();
-       return back()->with('message','Comment Deleted');
+                    public function commentDelete($id, Comment $comment)
+                     {
+                    
+                        $comment = Comment::findOrFail($comment->id);
 
-    }
+                        $comment->delete();
+
+                        return back()->with('message','Comment Deleted');
+
+                    }
 
     // ********* Add Event *******
 

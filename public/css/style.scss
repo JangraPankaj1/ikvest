@@ -59,7 +59,7 @@ body {
   background-image: url("../images/both-sape.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: left center;
+  background-position: 60% center;
   padding: 90px 0;
   position: relative;
   z-index: 1;
@@ -147,7 +147,7 @@ body {
     font-style: normal;
     font-weight: 600;
     line-height: 19px;
-    margin-top: 80px;
+    margin-top: 40px;
     transition: 0.5s;
     &:hover {
       background: transparent;

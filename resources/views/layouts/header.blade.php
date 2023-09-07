@@ -1,13 +1,13 @@
 
 @include('layouts.head')
 
- <header>
-            <div class="back-of-hder">
+ <header class=" @guest homes @endguest ">
+            <div class="back-of-hder ">
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-2 col-sm-2">
                             <div class="heder-logo">
-                                <a href="#">
+                                <a href="{{route('get.timeline.head')}}">
                                     <img src="{{ asset('images/IkVest-Logo.svg') }}">
                                 </a>
                             </div>
