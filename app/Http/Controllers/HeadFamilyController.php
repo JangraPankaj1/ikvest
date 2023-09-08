@@ -170,7 +170,7 @@ class HeadFamilyController extends Controller
                             'post' => 'required',
                         ]
                     );
-
+              
 
                 if ($request->hasFile('image')) {
                     $images = $request->file('image');

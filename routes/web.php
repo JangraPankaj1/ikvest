@@ -89,7 +89,7 @@ Route::middleware('auth:web')->group(function(){
     });
 
 
-
+         
 // ********** Head family Routes *********
     Route::group(['prefix' => 'head-family','middleware'=>['web','headFamily']],function(){
 
