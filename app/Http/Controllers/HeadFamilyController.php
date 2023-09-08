@@ -262,49 +262,86 @@ class HeadFamilyController extends Controller
 
           // ********** Delete Post **********
 
-          public function deletePost($id)
+        // public function deletePost($id)
+        //    {
+
+        //      try {
+
+        //          $post = Post::findOrFail($id);
+        //          $post->delete();
+                 
+        //          return back()->with('message','Post deleted successfully');
+
+        //      } catch (\Exception $e) {
+        //          // Return an error JSON response
+        //          return back()->with('error','Post not deleted ');
+        //      }
+        //   }
+
+        public function deletePost($id)
           {
 
-             try {
+          try {
 
-                 $post = Post::findOrFail($id);
-                 $post->delete();
-                 
-                 return back()->with('message','Post deleted successfully');
+              $post = Post::findOrFail($id);
+              if ($post) {
+                $post->delete();
+                // Optionally, you can return a success message here
+                  return back()->with('message','Post deleted successfully');
+           } else {
+                // Handle the case where the item was not found
+                  return back()->with('error','Post not deleted ');
 
-             } catch (\Exception $e) {
-                 // Return an error JSON response
-                 return back()->with('error','Post not deleted ');
-             }
          }
 
-                   // ********** Delete Comment jquery model **********
+          } catch (\Exception $e) {
+              // Return an error JSON response
+              return back()->with('error','Post not deleted ');
+          }
 
-                   public function deleteComment($id, Comment $comment)
-                    {
-                       try {
-                           $comment = Comment::findOrFail($comment->id);
-                           $comment->delete();
-                           
-                           // Return a success JSON response
-                           return response()->json(['message' => 'Comment deleted successfully'], 200);
-                       } catch (\Exception $e) {
-                           // Return an error JSON response
-                           return response()->json(['error' => 'An error occurred while deleting the comment'], 500);
-                       }
-                   }
-                   // ********** Delete Comment **********
+     }
 
-                    public function commentDelete($id, Comment $comment)
-                     {
-                    
-                        $comment = Comment::findOrFail($comment->id);
+        // ********** Delete Comment jquery model **********
 
-                        $comment->delete();
+        public function deleteComment($id, Comment $comment)
+        {
+            try {
+                $comment = Comment::findOrFail($comment->id);
+                $comment->delete();
+                
+                // Return a success JSON response
+                return response()->json(['message' => 'Comment deleted successfully'], 200);
+            } catch (\Exception $e) {
+                // Return an error JSON response
+                return response()->json(['error' => 'An error occurred while deleting the comment'], 500);
+            }
+        }
+        // ********** Delete Comment **********
 
-                        return back()->with('message','Comment Deleted');
+        public function commentDelete($id, Comment $comment)
+            {
+          
+            try {
 
-                    }
+                $comment = Comment::findOrFail($id);
+                if ($comment) {
+                  $comment->delete();
+                  // Optionally, you can return a success message here
+                    return back()->with('message','Comment deleted successfully');
+             } else {
+                  // Handle the case where the item was not found
+                    return back()->with('error','Comment not deleted ');
+  
+            }
+  
+            } catch (\Exception $e) {
+                // Return an error JSON response
+                return back()->with('error','Comment not deleted ');
+            }
+
+
+
+        }
 
     // ********* Add Event *******
 

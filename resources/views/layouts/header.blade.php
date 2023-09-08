@@ -61,8 +61,9 @@
                                             <p>Welcome!</p>
                                             <b>{{ Auth::user()->f_name }}</b>
                                         </div>
-                                        <li><a class="dropdown-item"  href="{{ route('logout') }}">Log Out</a></li>
                                         <li><a class="dropdown-item" href="{{ route('get.timeline.head') }}">Event</a></li>
+                                        <li><a class="dropdown-item"  href="{{ route('logout') }}">Log Out</a></li>
+                                        
                                                                                
                                     </ul>
                                 </div>

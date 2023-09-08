@@ -119,12 +119,12 @@
                                     </div>
                                     @if (auth()->user()->id === $user->id)
 
-                                    <form action="{{ route('post.delete', $post->id) }}" class="flex justify-between space-x-2" method="POST">
+                                    <form id="deletePost" action="{{ route('post.delete', $post->id) }}" class="flex justify-between space-x-2" method="POST">
 
                                         @csrf
                                         @method('DELETE')
-                                        <button class="delete" ><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
-                                        </form>
+                                        <button class="delete" id="deletePostButton"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
+                                    </form>
                                         @endif
                                 </div>
                             </div>
@@ -211,10 +211,10 @@
                                                             <h5>{{ $user->f_name }}</h5>
                                                             <p>{{ $comment->created_at->diffForHumans() }}</p>
                                                             @if (auth()->user()->id === $user->id)
-                                                            <form action="{{ route('comments.destroy.without.model', [$post->id, $comment->id]) }}" method="POST">
+                                                            <form id="deleteComment" action="{{ route('comments.destroy.without.model', [$post->id, $comment->id]) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button class="delete" ><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
+                                                                <button id="commentDeleteButton" class="delete" ><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
                                                             </form>
                                                             @endif
                                                            
@@ -312,7 +312,6 @@
                                         
                                       <!-- here is fetch comment if comment exists -->
                                          
-
                                             </p>                                       
                                     </div>
                                 </div>                             
@@ -331,54 +330,105 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <script>
 
-    // $(document).ready(function(){
-    //   $("img.close-btn-sidebar").click(function(){
-    //     $(".main-side-data").hide();
-    //   });
-    //   $(".member-show").click(function(){
-    //     $(".main-side-data").show();
-    //   });
-    // });
-function deleteComment(postId, comment) {
-
-   // Get the CSRF token value from the meta tag
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-    // Create an object to hold your headers
-    var headers = {
-        'X-CSRF-TOKEN': csrfToken
-    };
-
-    $.ajax({
-        type: "DELETE",
-        url: 'posts/' + postId + '/comments/' + comment,
-        headers: headers, // Include the headers object in your AJAX request
-        success: function(response) {
-           
-
-        if(response.message){
-            swal({
-                title: "Success",
-                text: "Comment deleted successfully",
-                icon: "success",
-            }).then(function() {
-                // Reload or refresh the page or perform any other action
-                location.reload();
+//delete post
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('deletePostButton').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+            
+            // Show a SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed, submit the form to delete the item
+                    document.getElementById('deletePost').submit();
+                }
             });
-        }
-          
-        },
-        error: function(err) {
-            console.error("Error deleting comment:", err);
+        });
+    });
 
-            // Display an error message using SweetAlert
-            swal({
-                title: "Error",
-                text: "An error occurred while deleting the comment",
-                icon: "error",
+
+    //delete Comment
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('commentDeleteButton').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+            
+            // Show a SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed, submit the form to delete the item
+                    document.getElementById('deleteComment').submit();
+                }
+            });
+        });
+    });
+
+function deleteComment(postId, comment) {
+    // Show a confirmation dialog using SweetAlert
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Get the CSRF token value from the meta tag
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Create an object to hold your headers
+            var headers = {
+                'X-CSRF-TOKEN': csrfToken
+            };
+
+            $.ajax({
+                type: "DELETE",
+                url: 'posts/' + postId + '/comments/' + comment,
+                headers: headers, // Include the headers object in your AJAX request
+                success: function(response) {
+                    if (response.message) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Comment has been deleted.',
+                            'success'
+                        ).then(function() {
+                            // Reload or refresh the page or perform any other action
+                            location.reload();
+                        });
+                    }
+                },
+                error: function(err) {
+                    console.error("Error deleting comment:", err);
+
+                    // Display an error message using SweetAlert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred while deleting the comment',
+                    });
+                }
             });
         }
     });
@@ -393,7 +443,6 @@ $(document).ready(function() {
         var image = @json(auth()->user()->image_path); // Serialize the user object to JSON
         var name = @json(auth()->user()->f_name); // Serialize the user object to JSON
         var authUser = @json(auth()->user()); // Serialize the user object to JSON
-
         $.ajax({
             type: "GET",
             url: 'posts/' + postId,
@@ -418,7 +467,7 @@ $(document).ready(function() {
 
                 // Display post images or videos if they exist
                 if (post.docs && post.docs.length > 0) {
-                    var docsHtml = '<div style="margin-top:15px;">';
+                    var docsHtml = '<div style="margin-top:10px;">';
                     var docsArray = JSON.parse(post.docs);
                     var docsPathArray = JSON.parse(post.docs_path);
 
@@ -525,5 +574,7 @@ $(document).ready(function() {
         });
     });
 });
+
+
 
 </script>
