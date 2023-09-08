@@ -1677,8 +1677,6 @@ body {
           border-radius: 8px;
           background: #f0f0f0;
           padding: 10px;
-          height: 300px;
-          overflow-y: auto;
           .first-comnt {
             border-bottom: 1px solid rgba(221, 221, 221, 0.87);
             padding: 10px 0;
@@ -1894,6 +1892,10 @@ body {
     }
   }
 }
-          .accordion-collapse.collapse.show {
-            border-top: 1px solid #d1d1d1 !important;
-        }
+.accordion-collapse.collapse.show {
+  border-top: 1px solid #d1d1d1 !important;
+}
+.inr-comnts-modl.scroll-comnts {
+  height: 300px;
+  overflow-y: auto;
+}

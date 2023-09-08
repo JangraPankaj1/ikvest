@@ -1614,8 +1614,6 @@ body {
   border-radius: 8px;
   background: #f0f0f0;
   padding: 10px;
-  height: 300px;
-  overflow-y: auto;
 }
 .for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt {
   border-bottom: 1px solid rgba(221, 221, 221, 0.87);
@@ -1829,4 +1827,9 @@ body {
 
 .accordion-collapse.collapse.show {
   border-top: 1px solid #d1d1d1 !important;
+}
+
+.inr-comnts-modl.scroll-comnts {
+  height: 300px;
+  overflow-y: auto;
 }/*# sourceMappingURL=webstyle.css.map */

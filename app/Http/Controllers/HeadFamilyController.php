@@ -166,7 +166,7 @@ class HeadFamilyController extends Controller
 
                     $request->validate(
                         [
-                            'file' => 'image|mimes:jpg,png,jpeg,gif,svg|pdf,xml,csv,mp4|max:20480', // Max size in kilobytes (20MB)
+                            'file' => 'image|mimes:jpg,png,jpeg,gif,svg|pdf,xml,csv,mp4', // Max size in kilobytes (20MB)
                             'post' => 'required',
                         ]
                     );
@@ -321,14 +321,16 @@ class HeadFamilyController extends Controller
         public function commentDelete($id, Comment $comment)
             {
           
+
             try {
 
-                $comment = Comment::findOrFail($id);
+                $comment = Comment::findOrFail($comment->id);
                 if ($comment) {
                   $comment->delete();
                   // Optionally, you can return a success message here
                     return back()->with('message','Comment deleted successfully');
              } else {
+
                   // Handle the case where the item was not found
                     return back()->with('error','Comment not deleted ');
   
@@ -338,8 +340,6 @@ class HeadFamilyController extends Controller
                 // Return an error JSON response
                 return back()->with('error','Comment not deleted ');
             }
-
-
 
         }
 

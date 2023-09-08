@@ -300,7 +300,7 @@
 
                             <div class="inr-comnts-modl">
                             
-                                <div class="first-comnt">
+                                 <div class="first-comnt">
                                     <div class="inr-connents-for">
                                      <!-- here is fetch images -->
                                          <!-- here is fetch name -->
@@ -314,8 +314,9 @@
                                          
                                             </p>                                       
                                     </div>
-                                </div>                             
+                                  </div>                             
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -332,9 +333,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-<script>
+<script> 
 
 //delete post
     document.addEventListener('DOMContentLoaded', function () {
@@ -434,7 +433,7 @@ function deleteComment(postId, comment) {
     });
 }
 
-
+//load data in model posts and comments
 $(document).ready(function() {
     $(".view-comments-button").click(function() {
         var postId = $(this).data("post-id");
@@ -448,6 +447,7 @@ $(document).ready(function() {
             url: 'posts/' + postId,
             success: function(data) {
                  console.log(data);
+
                 var post = data.post;
                 var commentsHtml = '';
                 var createdTime = moment(post.created_at).fromNow();
@@ -531,8 +531,8 @@ $(document).ready(function() {
 
                     commentsHtml += '<div class="first-comnt">';
                     commentsHtml += '<div class="inr-connents-for">';
-                    commentsHtml += '<img src="' + imagePath + '" alt="' + comment.user.f_name + '">';
-                    commentsHtml += '<p>' + comment.user.f_name.toUpperCase() + '</p>';
+                    commentsHtml += '<img src="' + imagePath + '"  alt="' + comment.user.f_name + '">';
+                    commentsHtml += '<p>' + comment.user.f_name + '</p>';
                     commentsHtml += '<p>' + createdTimeComment + '</p>';
                     if (authUser.id === comment.user.id) {
 
@@ -557,9 +557,22 @@ $(document).ready(function() {
                     commentsHtml += '</div>';
                     commentsHtml += '</div>';
                 });
-            }
+            } 
+                // Update the modal with the fetched post and comments
+
+                var $inrComntsModl = $(".modal-body .inr-comnts-modl");
+                $inrComntsModl.html(commentsHtml);
+
+                // Check if the row count is more than 3 and add a class accordingly
+
+                if ($inrComntsModl.find(".first-comnt").length > 3) {
+                    $inrComntsModl.addClass("scroll-comnts"); // Replace 'your-class-name' with the actual class name you want to add
+                }
+
                 // Update the modal with the fetched post and comments
                 $(".modal-body .inr-comnts-modl").html(commentsHtml);
+
+                 // Clear modal body
 
                 // Add click event handler for delete buttons
                 $(".delete-comment-button").click(function() {
@@ -567,14 +580,19 @@ $(document).ready(function() {
                     var comment = $(this).data("comment-id");
                     deleteComment(postId, comment);
                 });
+
+                // $(".modal-body .inr-comnts-modl").empty();
+
+                // $('.inr-comnts-modl').empty();
+
             },
+            
+
             error: function(err) {
                 console.error("Error fetching post and comments:", err);
             }
         });
     });
 });
-
-
 
 </script>
