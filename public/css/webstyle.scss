@@ -1235,6 +1235,7 @@ body {
       cursor: pointer;
       img {
         width: 36px;
+        height: 36px;
       }
       p {
         font-size: 18px;
@@ -1344,6 +1345,15 @@ body {
           display: flex;
         }
       }
+      button{
+        padding: 0 !important;
+        border: none;
+        background:transparent !important;
+        img{
+          width: 24px !important;
+          opacity: 0.5;
+        }
+      }
     }
     .inr-dis-data {
       margin: 10px 0 0;
@@ -1355,10 +1365,11 @@ body {
         letter-spacing: -0.35px;
         margin: 0;
         color: #191919;
+        margin-bottom: 15px;
       }
       img {
         width: 100%;
-        margin: 15px 0 15px;
+        margin: 0px 0 15px;
       }
       video {
         width: 100%;
@@ -1448,6 +1459,7 @@ body {
           line-height: normal;
           // box-shadow: none !important;
           border-radius: 8px 8px 0 0;
+          border-bottom: 1px solid #f0f0f0;
           &:focus {
             box-shadow: none !important;
           }
@@ -1665,6 +1677,8 @@ body {
           border-radius: 8px;
           background: #f0f0f0;
           padding: 10px;
+          height: 300px;
+          overflow-y: auto;
           .first-comnt {
             border-bottom: 1px solid rgba(221, 221, 221, 0.87);
             padding: 10px 0;
@@ -1745,6 +1759,7 @@ body {
   overflow-y: auto;
   display: none;
   transition: cubic-bezier(0.39, 0.575, 0.565, 1);
+  z-index: 9;
   img.close-btn-sidebar {
     display: block;
     margin-left: auto;
@@ -1879,3 +1894,6 @@ body {
     }
   }
 }
+          .accordion-collapse.collapse.show {
+            border-top: 1px solid #d1d1d1 !important;
+        }

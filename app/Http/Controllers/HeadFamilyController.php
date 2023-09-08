@@ -146,9 +146,7 @@ class HeadFamilyController extends Controller
 
             
                 // $post = Post::with(['comments', 'user'])->find($postId);
-                $post = Post::with(['comments.user'])->find($postId);
-
-
+                $post = Post::with(['comments.user', 'user'])->find($postId);
                   
                 if ($post) {
                     return response()->json(['post' => $post ]);

@@ -136,10 +136,10 @@
 
 
                                     @if ($post->docs && $post->docs_path)
-                                    @php
-                                    $imageNames = json_decode($post->docs, true);
-                                    $imagePaths = json_decode($post->docs_path, true);
-                                    @endphp
+                                        @php
+                                        $imageNames = json_decode($post->docs, true);
+                                        $imagePaths = json_decode($post->docs_path, true);
+                                        @endphp
 
                                     @if ($imageNames && $imagePaths)
                                     <div style="width:100%; display: flex; flex-direction: row;">
@@ -159,6 +159,7 @@
                                         </div>
                                         @endforeach
                                     </div>
+
                                     @endif
                                     @endif
                                 </div>
@@ -196,9 +197,10 @@
 
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                
+                                                <div class="accordion-body">
                                                 @foreach ($post->comments()->latest()->take(2)->get() as $comment)
                                                 @foreach ($comment->user()->latest()->get() as $user)
-                                                <div class="accordion-body">
                                                     <div class="first-comnt">
                                                         <div class="inr-connents-for">
                                                             @if ($user->image_path)
@@ -232,11 +234,11 @@
                                                          
                                                         </div>
                                                     </div>
+                                                    @endforeach
 
+@endforeach
                                                 </div>
-                                                @endforeach
-
-                                                @endforeach
+                                             
                                             </div>
                                         </div>
                                     </div>
@@ -288,8 +290,8 @@
                                 <div class="col-md-12">
 
                                     <div class="inr-dis-data">
-                                        <p id="post"><!-- here is fetch posts -->
-                                    </p>            
+                                        <p><!-- here is fetch posts -->
+                                    </p>      
                                         <!-- here is fetch images or video if post exists -->                      
                                         <h5>All Comments</h5>
                                     </div>
@@ -324,13 +326,22 @@
 
 @endsection
 
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
 <script>
 
-
+    // $(document).ready(function(){
+    //   $("img.close-btn-sidebar").click(function(){
+    //     $(".main-side-data").hide();
+    //   });
+    //   $(".member-show").click(function(){
+    //     $(".main-side-data").show();
+    //   });
+    // });
 function deleteComment(postId, comment) {
 
    // Get the CSRF token value from the meta tag
@@ -387,6 +398,7 @@ $(document).ready(function() {
             type: "GET",
             url: 'posts/' + postId,
             success: function(data) {
+                 console.log(data);
                 var post = data.post;
                 var commentsHtml = '';
                 var createdTime = moment(post.created_at).fromNow();
@@ -396,8 +408,8 @@ $(document).ready(function() {
                 
 
                 // Populate post author's information and content
-                var image = image ? image : "{{ asset('images/admin.svg') }}";
-                $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
+                // var image = image ? image : "{{ asset('images/admin.svg') }}";
+                // $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
 
                 $(".modal-body h4").text(name);
                 $(".modal-body  #both").html(createdTime + '<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}">');
@@ -406,7 +418,7 @@ $(document).ready(function() {
 
                 // Display post images or videos if they exist
                 if (post.docs && post.docs.length > 0) {
-                    var docsHtml = '<div>';
+                    var docsHtml = '<div style="margin-top:15px;">';
                     var docsArray = JSON.parse(post.docs);
                     var docsPathArray = JSON.parse(post.docs_path);
 
@@ -456,11 +468,17 @@ $(document).ready(function() {
                     var imagePathParts = comment.user.image_path.split('/head-family');
                     var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
                     var imagePath = imagePathParts.join('/') + '/' + imageName; // Reconstruct the path without the extra part 
+
+                    var postUserimagePathParts = post.user.image_path.split('/head-family');
+                    var imageNamePostUser = postUserimagePathParts.pop(); // Get the last part of the path (the image file name)
+                    var imageOfPostUser = postUserimagePathParts.join('/') + '/' + imageNamePostUser; // 
+
                     var highlightedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + comment.comment + '</span>' : '';
                     var capitalizedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + capitalizeWords(comment.comment) + '</span>' : '';
 
                     var createdTimeComment = moment(comment.created_at).fromNow();
                     
+                    $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + '">');   12345
 
                     commentsHtml += '<div class="first-comnt">';
                     commentsHtml += '<div class="inr-connents-for">';
