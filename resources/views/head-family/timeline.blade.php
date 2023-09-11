@@ -102,6 +102,18 @@
 
                     
                     <div class="full-data-profile">
+                    <!-- <div class="dropdown">
+                                <button class="three-dots btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <img src="web-images/three-dots.svg" />
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="./edit-profile.html">Edit</a>
+                                    <button class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">Delete</button>
+                                </div>
+                            </div> -->
+                        
                         <div class="row">   
                             <div class="col-md-12">
                                 <div class="inr-img-data">
@@ -246,9 +258,9 @@
                                                                     $displayComment = strlen($commentText) > 200 ? substr($commentText, 0, 5000) : $commentText;
                                                                 @endphp
 
-                                                                <p class="comment-text{{ strlen($commentText) > 200 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
+                                                                <p class="comment-text{{ strlen($commentText) > 500 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
 
-                                                                @if (strlen($commentText) > 200)
+                                                                @if (strlen($commentText) > 300)
                                                                     <a href="#" class="read-more">Read more</a>
                                                                 @endif
 

@@ -34,8 +34,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="inr-uploads-events">
-
-                                <form id = "thisForm"  class="formRegister" action="{{ route('post.update',$post->id) }}" method="post"  enctype="multipart/form-data">
+                                 <form id = "thisForm"  class="formRegister" action="{{ route('post.update',$post->id) }}" method="post"  enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
@@ -47,7 +46,7 @@
                                             </div>
 
                                         <div class="upload-files">
-                                            
+
                                             <div class="add-pic">
                                                 <img src="{{asset('web-images/add-to-photos.svg')}}" />
                                                 <input type="file" name="image[]" accept=".pdf, .xml, .csv, .mp4" id="image" multiple>
