@@ -481,8 +481,11 @@ $(document).ready(function() {
 
                     var postUserimagePathParts = post.user.image_path.split('/head-family');
                     var imageNamePostUser = postUserimagePathParts.pop(); // Get the last part of the path (the image file name)
-                    var imageOfPostUser = postUserimagePathParts.join('/') + '/' + imageNamePostUser; // 
+                    var imageOfPostUser = '{{ asset('') }}' + postUserimagePathParts  + imageNamePostUser; // 
+                  
+
                     $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + '">');  
+                    
                 // Populate post author's information and content
                 // var image = image ? image : "{{ asset('images/admin.svg') }}";
                 // $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
@@ -518,7 +521,10 @@ $(document).ready(function() {
                                 // Extract the image path for images
                                 var imagePathParts = docPath.split('/head-family');
                                 var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
-                                var imagePath = imagePathParts.join('/') + '/' + imageName; // Reconstruct the path without the extra part 
+                                var imagePath = '{{ asset('') }}' + imagePathParts + imageName; // Reconstruct the path without the extra part 
+
+                               
+
 
                                 // Display images with <img> tag
                                 docsHtml += '<img src="' + imagePath + '" alt="Image">';
@@ -546,7 +552,8 @@ $(document).ready(function() {
                     // Extract the image path
                     var imagePathParts = comment.user.image_path.split('/head-family');
                     var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
-                    var imagePath = imagePathParts.join('/') + '/' + imageName; // Reconstruct the path without the extra part 
+                    var imagePath = '{{ asset('') }}' + imagePathParts + imageName; // Reconstruct the path without the extra part 
+
 
                    
 
@@ -617,7 +624,6 @@ $(document).ready(function() {
 
             },
             
-
             error: function(err) {
                 console.error("Error fetching post and comments:", err);
             }
@@ -647,6 +653,7 @@ function adjustTextArea(textarea) {
 </script>
 
 <script>
+
 $(document).ready(function() {
     $(".read-more").click(function(e) {
         e.preventDefault();

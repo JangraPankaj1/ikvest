@@ -47,8 +47,6 @@
                                                 <img src="{{asset('web-images/add-to-photos.svg')}}" />
                                                 <input type="file" name="image[]" accept=".pdf, .xml, .csv, .mp4" id="image" multiple>
                                                 <div class="col-md-12 mb-2">
-
-
                                                 <div id="preview-container" style="display: none;">
                                                 </div>
                                                 </div>

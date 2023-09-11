@@ -160,13 +160,10 @@ class HeadFamilyController extends Controller
         // ********* Upload Posts *******
 
         public function uploadPost(Request $request)
-
             {
                 try {
-
                     $request->validate(
                         [
-                            'file' => 'image|mimes:jpg,png,jpeg,gif,svg|pdf,xml,csv,mp4', // Max size in kilobytes (20MB)
                             'post' => 'required',
                         ]
                     );
