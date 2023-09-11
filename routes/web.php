@@ -120,9 +120,10 @@ Route::middleware('auth:web')->group(function(){
         Route::delete('/post/{postId}',[HeadFamilyController::class,'deletePost'])->name('post.delete');
        
         Route::delete('/event/{postId}/comments/{comment}',[HeadFamilyController::class,'commentDelete'])->name('comments.destroy.without.model');
-      
-      
-       
+
+        Route::get('/posts/{post}/edit', [HeadFamilyController::class,'editPost'])->name('post.edit');
+        Route::put('/posts/{post}', [HeadFamilyController::class,'updatePost'])->name('post.update');
+
 
         Route::post('/post/{id}/comments', [HeadFamilyController::class,'CommentOnPostHead'])->name('post.comments.head');
 

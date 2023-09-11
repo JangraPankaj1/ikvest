@@ -226,10 +226,12 @@ class HeadFamilyController extends Controller
                $comments = DB::table('comments')
                ->join('posts', 'comments.post_id', '=', 'posts.id')
                ->select('comments.comment')
-               ->get();
+                ->get();
+
 
             $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
             ->get(['posts.*', 'users.f_name','users.image_path']);
+
 
 
                return view('head-family/timeline', compact('data','comments'));
@@ -246,13 +248,13 @@ class HeadFamilyController extends Controller
         {
 
            $validatedData = $request->validate([
-               'content' => 'required',
+               'comment' => 'required',
               ]);
 
 
            $post = Post::findOrFail($id);
            $post->comments()->create([
-               'comment' => $request->content,
+               'comment' => $request->comment,
                'user_id' => auth()->id()
            ]);
 
@@ -468,8 +470,69 @@ class HeadFamilyController extends Controller
 
  }
 
+            // **********Edit Post**********
+            public function editPost($id)
+            {
+                try{
+                    $post = Post::find($id);
+                    return view('head-family/edit-post', compact('post'));
 
-     // **********Edit Events**********
+            }catch (Exception $e) {
+                    dd($e->getMessage());
+                    return back()->withErrors($e->getMessage());
+
+                }
+            }
+
+            // **********Update postt**********
+
+
+     public function updatePost(Request $request, Post $post)
+               {
+
+                // dd($post);
+                  try {
+
+                    if ($request->hasFile('image')) {
+                        $images = $request->file('image');
+                        $imageData = [];
+    
+                        foreach ($images as $image) {
+    
+                            $imageName = $image->getClientOriginalName();
+                            $image->move(public_path('images'), $imageName);
+    
+                            $imageData[] = [
+                                'image_name' => $imageName,
+                                'image_path' => 'images/' . $imageName,
+                            ];
+                        }
+    
+                       $post = new Post;
+                       $post->posted_by  = Auth::user()->id;
+                       $post->post_message  = $request->post_message;
+                       $post->docs = json_encode(array_column($imageData, 'image_name'));
+                       $post->docs_path = json_encode(array_column($imageData, 'image_path'));
+                       $post->save();
+
+                       return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
+
+   
+                    }else{
+    
+                        $post = new Post;
+                        $post->posted_by  = Auth::user()->id;
+                        $post->post_message  = $request->post_message;
+                        $post->save();
+                        return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
+
+                    }
+                }catch (Exception $e) {
+                    dd($e->getMessage());
+                    return back()->withErrors($e->getMessage());
+                }                        
+      }
+            
     public function editEvent($id)
     {
        try{

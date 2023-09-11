@@ -98,11 +98,11 @@
                                         </div>
                                     @endif
                     @foreach($data as $key=>$post)
-                    @foreach ($post->user()->latest()->get() as $user)
+                     @foreach ($post->user()->latest()->get() as $user)
 
                     
                     <div class="full-data-profile">
-                        <div class="row">
+                        <div class="row">   
                             <div class="col-md-12">
                                 <div class="inr-img-data">
                                     <div class="lft-img">
@@ -125,6 +125,9 @@
                                         @method('DELETE')
                                         <button class="delete" id="deletePostButton"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
                                     </form>
+                                        @endif
+                                    @if (auth()->user()->id === $user->id)
+                                            <a href="{{ route('post.edit', $post->id) }}" class="edit-post-button">Edit</a>
                                         @endif
                                 </div>
                             </div>
@@ -178,7 +181,10 @@
                                     <form action="{{ route('post.comments.head', $post->id) }}" class="flex justify-between space-x-2" method="POST">
                                         @csrf
                                         <div class="inr-comnt-sec">
-                                            <input type="text" name="content" placeholder="Write a comment..." required />
+                                            <!-- <input type="text" name="comment" placeholder="Write a comment..." required /> -->
+                                            <div class="containerComment">
+                                                <textarea id="auto-resize-textarea" name="comment" placeholder="Write a comment..." class="textareaComment"></textarea>
+                                            </div>
 
                                             <button type="submit"><img src="{{ asset('web-images/comnt.svg')}}" /></button>
 
@@ -221,22 +227,40 @@
                                                         </div>
                                                         <div class="inr-dis-comment">
 
-                                                            <p><span>{{$user->email }}</span>
+                                                             <!-- <p>
+                                                                <span>{{$user->email }}</span>
                                                                 @if ($comment->comment)
-
-                                                                {{ ucfirst($comment->comment) }}
+                                                                 {{ ucfirst($comment->comment) }}
+                                                                   
+                                                           
                                                                 @else
                                                                 No comments on this post.
 
                                                                 @endif
+                                                            </p>  -->
+                                                             
+                                                            <p>
+                                                                <span>{{ $user->email }}</span>
+                                                                @php
+                                                                    $commentText = ucfirst($comment->comment);
+                                                                    $displayComment = strlen($commentText) > 200 ? substr($commentText, 0, 5000) : $commentText;
+                                                                @endphp
+
+                                                                <p class="comment-text{{ strlen($commentText) > 200 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
+
+                                                                @if (strlen($commentText) > 200)
+                                                                    <a href="#" class="read-more">Read more</a>
+                                                                @endif
+
                                                             </p>
-                                                           
+
+                  
                                                          
                                                         </div>
                                                     </div>
                                                     @endforeach
 
-@endforeach
+                                                    @endforeach
                                                 </div>
                                              
                                             </div>
@@ -306,6 +330,8 @@
                                          <!-- here is fetch name -->
 
                                         <p><!-- here is fetch time --></p>
+                                             <!-- here is READ MORE BUTTON -->
+
                                     </div>
                                     <div class="inr-dis-comment">
                                         <p><span><!-- here is fetch email --></span>
@@ -325,7 +351,6 @@
     </div>
 
 @endsection
-
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -436,6 +461,7 @@ function deleteComment(postId, comment) {
 //load data in model posts and comments
 $(document).ready(function() {
     $(".view-comments-button").click(function() {
+         
         var postId = $(this).data("post-id");
         console.log(postId);
 
@@ -453,20 +479,22 @@ $(document).ready(function() {
                 var createdTime = moment(post.created_at).fromNow();
 
 
-                 // Display comments with user data and delete buttons
-                
-
+                    var postUserimagePathParts = post.user.image_path.split('/head-family');
+                    var imageNamePostUser = postUserimagePathParts.pop(); // Get the last part of the path (the image file name)
+                    var imageOfPostUser = postUserimagePathParts.join('/') + '/' + imageNamePostUser; // 
+                    $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + '">');  
                 // Populate post author's information and content
                 // var image = image ? image : "{{ asset('images/admin.svg') }}";
                 // $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
 
-                $(".modal-body h4").text(name);
+                $(".modal-body h4").text(post.user.f_name);
                 $(".modal-body  #both").html(createdTime + '<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}">');
 
                 $(".modal-body .inr-dis-data p").text(post.post_message);
 
                 // Display post images or videos if they exist
                 if (post.docs && post.docs.length > 0) {
+                     console.log(post.docs+'pstdoc');
                     var docsHtml = '<div style="margin-top:10px;">';
                     var docsArray = JSON.parse(post.docs);
                     var docsPathArray = JSON.parse(post.docs_path);
@@ -474,6 +502,8 @@ $(document).ready(function() {
                     docsArray.forEach(function(doc, index) {
                         // Check if it's an image or video based on file extension
                         var docPath = docsPathArray[index];
+                        console.log(docPath);
+
 
                         if (doc.match(/\.(jpeg|jpg|gif|png|mp4)$/)) {
                             if (doc.endsWith('.mp4')) {
@@ -511,23 +541,21 @@ $(document).ready(function() {
                 if (post.comments.length === 0) {
                     commentsHtml = '<p>No comments yet</p>';
                 }else{
-                post.comments.forEach(function(comment) {
-                  
+                   post.comments.forEach(function(comment) {
+                   console.log(comment);
                     // Extract the image path
                     var imagePathParts = comment.user.image_path.split('/head-family');
                     var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
                     var imagePath = imagePathParts.join('/') + '/' + imageName; // Reconstruct the path without the extra part 
 
-                    var postUserimagePathParts = post.user.image_path.split('/head-family');
-                    var imageNamePostUser = postUserimagePathParts.pop(); // Get the last part of the path (the image file name)
-                    var imageOfPostUser = postUserimagePathParts.join('/') + '/' + imageNamePostUser; // 
+                   
 
                     var highlightedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + comment.comment + '</span>' : '';
                     var capitalizedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + capitalizeWords(comment.comment) + '</span>' : '';
 
                     var createdTimeComment = moment(comment.created_at).fromNow();
                     
-                    $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + '">');   12345
+                  
 
                     commentsHtml += '<div class="first-comnt">';
                     commentsHtml += '<div class="inr-connents-for">';
@@ -561,16 +589,19 @@ $(document).ready(function() {
                 // Update the modal with the fetched post and comments
 
                 var $inrComntsModl = $(".modal-body .inr-comnts-modl");
-                $inrComntsModl.html(commentsHtml);
+                  $inrComntsModl.html(commentsHtml);
 
                 // Check if the row count is more than 3 and add a class accordingly
+                $inrComntsModl.html(commentsHtml);
 
                 if ($inrComntsModl.find(".first-comnt").length > 3) {
                     $inrComntsModl.addClass("scroll-comnts"); // Replace 'your-class-name' with the actual class name you want to add
                 }
 
-                // Update the modal with the fetched post and comments
+                // $('.modal-body .inr-comnts-modl').empty();
                 $(".modal-body .inr-comnts-modl").html(commentsHtml);
+
+
 
                  // Clear modal body
 
@@ -583,7 +614,6 @@ $(document).ready(function() {
 
                 // $(".modal-body .inr-comnts-modl").empty();
 
-                // $('.inr-comnts-modl').empty();
 
             },
             
@@ -595,4 +625,49 @@ $(document).ready(function() {
     });
 });
 
+
+// script.js
+document.addEventListener('input', function (e) {
+    if (e.target && e.target.tagName === 'TEXTAREA') {
+        adjustTextArea(e.target);
+    }
+});
+
+function adjustTextArea(textarea) {
+    textarea.style.height = 'auto'; // Reset the height to auto
+    textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to fit the content
+    
+    // If the text area is empty, set the height to 0
+    if (textarea.value === '') {
+        textarea.style.height = '0';
+    }
+}
+
+
 </script>
+
+<script>
+$(document).ready(function() {
+    $(".read-more").click(function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $commentText = $this.siblings(".comment-text");
+
+        if ($commentText.hasClass("collapsed")) {
+            $commentText.removeClass("collapsed");
+            $this.text("Read less");
+            // $commentText.slideDown("slow"); // Expand slowly
+
+        } else {
+            $commentText.addClass("collapsed");
+            $this.text("Read more");
+            // $commentText.slideUp("slow"); // Collapse slowly
+
+        }
+    });
+});
+
+
+</script>
+
+

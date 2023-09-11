@@ -337,3 +337,38 @@ body {
   letter-spacing: -0.12px;
   text-decoration: none;
 }/*# sourceMappingURL=style.css.map */
+
+
+/* Add your own styles as needed */
+.commentBox {
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.textareaComment {
+  width: 100%;
+  min-height: 50px; /* Set your desired minimum height */
+  padding: 10px;
+  resize: none; /* Disable manual resizing */
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.comment-text.collapsed {
+  max-height: 2em; /* Adjust the number of lines (2em for 2 lines) */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.read-more-comment {
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
+

@@ -87,6 +87,9 @@
         <!-----------------end Footer --------------------->
 
         <!-- Initialize Swiper -->
+
+
+    
 <script>
     var swiper = new Swiper(".testimonial", {
         navigation: {
@@ -99,3 +102,5 @@
       },
     });
 </script>
+
+
