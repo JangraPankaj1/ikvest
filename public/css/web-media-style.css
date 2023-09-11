@@ -748,4 +748,11 @@
     fill: #4877cc;
     stroke: #4877cc;
   }
+}
+@media (min-width: 1250px) {
+  .bck-img-inr {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+  }
 }/*# sourceMappingURL=web-media-style.css.map */
