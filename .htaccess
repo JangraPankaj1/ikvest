@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+
+	# Redirect to the public folder
+	RewriteRule ^$ public/ [L]
+
+	# Redirect to the public folder, but avoid redirect loop
+	RewriteRule ^((?!public/).*)$ public/$1 [L]
+
+	# Handle front controller
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	#RewriteRule ^ index.php [L]
+	RewriteRule ^(.*)$ index.php/$1 [L]
+
+</IfModule>
