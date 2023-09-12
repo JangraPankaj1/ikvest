@@ -2366,6 +2366,21 @@ section.let-started form .right-get-started button:hover {
 }
 .dropdown-menu.show a, .dropdown-menu.show button {
   padding: 0;
+}
+
+.comment-text.collapsed {
+  max-height: 6em; /* Adjust the number of lines (2em for 2 lines) */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.read-more-comment {
+  color: #007bff;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
 .error {
   color: red;
 }/*# sourceMappingURL=webstyle.css.map */
