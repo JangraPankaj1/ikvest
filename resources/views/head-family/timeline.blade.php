@@ -86,6 +86,87 @@
                                                             <li>{{ $error }}</li>
                                                         @endforeach
                                                     </ul>
+                                    <form action="{{ route('post.comments.head', $post->id) }}" id="upload-image" class="flex justify-between space-x-2" method="POST">
+                                        @csrf
+                                        <div class="inr-comnt-sec">
+                                            <!-- <input type="text" name="comment" placeholder="Write a comment..." required /> -->
+                                            <div class="containerComment">
+                                                <textarea id="auto-resize-textarea" name="comment" placeholder="Write a comment..." class="textareaComment"></textarea>
+                                            </div>
+
+                                            <button type="submit"><img src="{{ asset('web-images/comnt.svg')}}" /></button>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="coment-view">
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Comments
+                                                </button>
+
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+
+                                                <div class="accordion-body">
+                                                @foreach ($post->comments()->latest()->take(2)->get() as $comment)
+                                                @foreach ($comment->user()->latest()->get() as $user)
+                                                    <div class="first-comnt">
+                                                        <div class="inr-connents-for">
+                                                            @if ($user->image_path)
+                                                            <img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview">
+                                                            @else
+                                                            <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
+                                                            @endif
+                                                            <h5>{{ $user->f_name }}</h5>
+                                                            <p>{{ $comment->created_at->diffForHumans() }}</p>
+
+                                                                @if (auth()->user()->id === $user->id)
+
+                                                        <button  class="delete comment-delete" data-Id="{{$post->id}}" data-comment="{{ $comment->id}}"data-bs-toggle="modal" data-bs-target="#commentModal">
+                                                            <img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}">
+                                                        </button>
+
+                                                        @endif
+
+                                                        </div>
+                                                        <div class="inr-dis-comment">
+
+                                                             <!-- <p>
+                                                                <span>{{$user->email }}</span>
+                                                                @if ($comment->comment)
+                                                                 {{ ucfirst($comment->comment) }}
+
+
+                                                                @else
+                                                                No comments on this post.
+
+                                                                @endif
+                                                            </p>  -->
+
+                                                            <p>
+                                                                <span>{{ $user->email }}</span>
+                                                                @php
+                                                                    $commentText = ucfirst($comment->comment);
+                                                                    $displayComment = strlen($commentText) > 2000 ? substr($commentText, 0, 10000) : $commentText;
+                                                                @endphp
+
+                                                                <p class="comment-text{{ strlen($commentText) > 500 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
+
+                                                                @if (strlen($commentText) > 300)
+                                                                    <a href="#" class="read-more">Read more</a>
+                                                                 @endif
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+
+                                                    @endforeach
                                                 </div>
                                             @endif
                                             @if (session()->has("message"))
@@ -809,7 +890,6 @@ $(document).ready(function() {
         }
     });
 });
-
 
 
 </script>

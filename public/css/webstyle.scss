@@ -2005,6 +2005,7 @@ section.let-started {
       margin-bottom: 20px;
     }
   }
+  form{
   .get-started {
     width: 181px;
     height: 181px;
@@ -2014,7 +2015,7 @@ section.let-started {
       border: 5px solid #4877cc;
       border-radius: 12px;
     }
-    img[src="web-images/admin-edit.svg"] {
+    img[src="http://127.0.0.1:8000/web-images/admin-edit.svg"] {
       padding: 30px;
     }
     img.edit-icon {
@@ -2025,7 +2026,6 @@ section.let-started {
   }
   .right-get-started {
     width: 100%;
-    form {
       text-align: right;
       .inr-fill-form {
         display: grid;
@@ -2440,5 +2440,22 @@ section.let-started {
     a, button{
         padding: 0;
     }
+}
+
+.comment-text.collapsed {
+  max-height: 6em; /* Adjust the number of lines (2em for 2 lines) */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.read-more-comment {
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.error{
+  color:red;
 }
 

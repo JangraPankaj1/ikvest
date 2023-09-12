@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Rules\TenDigitPhoneNumber;
 
 
 use DataTables;
@@ -62,6 +63,11 @@ class HeadFamilyController extends Controller
         return view('head-family.add-post');
      }
 
+     public function showProfile()
+     {
+        return view('head-family.view-profile');
+     }
+     
 // random generate string tokens
      function generateRandomString($length) {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -223,9 +229,9 @@ class HeadFamilyController extends Controller
     // ********* Show timeline *******
 
          public function showTimelineHead(Request $request)
-          {
+             {
 
-           try{
+            try{
 
                $comments = DB::table('comments')
                ->join('posts', 'comments.post_id', '=', 'posts.id')
@@ -392,49 +398,58 @@ class HeadFamilyController extends Controller
        }
    }
 
-// *********profile update*******
-   public function profileUpdatePost(Request $request){
+        // *********profile update*******
+        public function profileUpdatePost(Request $request){
+            $request->validate([
+                'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'f_name'  => 'required|max:255', // Validation rule for first name
+                'phone' => [new TenDigitPhoneNumber], // Use the custom rule
+                'bdy_date'  => 'required',
+            ], [
+                'f_name.required' => 'The first name field is required.', 
+                'bdy_date.required' => 'The Birthday field is required.', 
 
-    $validatedData = $request->validate([
-        'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-       ]);
+            ]);
+            
 
-    if ($request->hasFile('image')) {
+            if ($request->hasFile('image')) {
+            $profileName = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $profileName);
+            $email = auth()->user()->email;
 
-       $profileName = $request->file('image')->getClientOriginalName();
-       $request->file('image')->move(public_path('images'), $profileName);
-       $email = auth()->user()->email;
+                $User = User::find(Auth::user()->id);
+                $User->f_name = $request->input('f_name');
+                $User->l_name = $request->input('l_name');
+                $User->phone = $request->input('phone');
+                $User->marital_status = $request->input('marital_status');
+                $User->current_spouse = $request->input('current_spouse');
+                $User->description = $request->input('description');
+                $User->email =  $email;
+                $User->bdy_date = $request->input('bdy_date');
+                $User->mrg_date = $request->input('mrg_date');
+            $User->profile_pic = $profileName;
+            $User->image_path = 'images/' . $profileName;
+            $User->update();
+            return back()->with('message','Profile Updated');
 
-       $User = User::find(Auth::user()->id);
-       $User->f_name = $request->input('f_name');
-       $User->l_name = $request->input('l_name');
+            }else{
 
-       $User->bdy_date = $request->input('bdy_date');
-       $User->mrg_date = $request->input('mrg_date');
+                $email = auth()->user()->email;
+                $User = User::find(Auth::user()->id);
+                $User->f_name = $request->input('f_name');
+                $User->l_name = $request->input('l_name');
+                $User->phone = $request->input('phone');
+                $User->marital_status = $request->input('marital_status');
+                $User->current_spouse = $request->input('current_spouse');
+                $User->description = $request->input('description');
+                $User->email =  $email;
+                $User->bdy_date = $request->input('bdy_date');
+                $User->mrg_date = $request->input('mrg_date');
+                $User->update();
+                return back()->with('message','Profile Updated');
+            }
 
-
-       $User->email = $email;
-       $User->profile_pic = $profileName;
-       $User->image_path = 'images/' . $profileName;
-       $User->update();
-       return back()->with('message','Profile Updated');
-
-
-    }else{
-
-        $email = auth()->user()->email;
-        $User = User::find(Auth::user()->id);
-        $User->f_name = $request->input('f_name');
-        $User->l_name = $request->input('l_name');
-        $User->email =  $email;
-        $User->bdy_date = $request->input('bdy_date');
-        $User->mrg_date = $request->input('mrg_date');
-        $User->update();
-        return back()->with('message','Profile Updated');
-
-    }
-
- }
+        }
 
  // **********allEvents**********
  public function allEvents(Request $request)
