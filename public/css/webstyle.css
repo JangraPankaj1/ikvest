@@ -1,37 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins, sans-serif :wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @font-face {
   font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins-Regular.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins-Regular.ttf") format("truetype"), url("../fonts/Poppins-Regular.woff") format("woff"), url("../fonts/Poppins-Regular.woff2") format("woff2"), url("../fonts/Poppins-Regular.svg") format("svg");
+  src: url("../fonts/Poppins, sans-serif -Regular.otf") format("embeded-opentype");
+  src: url("../fonts/Poppins, sans-serif -Regular.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -Regular.woff") format("woff"), url("../fonts/Poppins, sans-serif -Regular.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -Regular.svg") format("svg");
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins-Medium.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins-Medium.ttf") format("truetype"), url("../fonts/Poppins-Medium.woff") format("woff"), url("../fonts/Poppins-Medium.woff2") format("woff2"), url("../fonts/Poppins-Medium.svg") format("svg");
+  src: url("../fonts/Poppins, sans-serif -Medium.otf") format("embeded-opentype");
+  src: url("../fonts/Poppins, sans-serif -Medium.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -Medium.woff") format("woff"), url("../fonts/Poppins, sans-serif -Medium.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -Medium.svg") format("svg");
   font-weight: 500;
   font-style: normal;
 }
 @font-face {
   font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins-SemiBold.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins-SemiBold.ttf") format("truetype"), url("../fonts/Poppins-SemiBold.woff") format("woff"), url("../fonts/Poppins-SemiBold.woff2") format("woff2"), url("../fonts/Poppins-SemiBold.svg") format("svg");
+  src: url("../fonts/Poppins, sans-serif -SemiBold.otf") format("embeded-opentype");
+  src: url("../fonts/Poppins, sans-serif -SemiBold.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -SemiBold.woff") format("woff"), url("../fonts/Poppins, sans-serif -SemiBold.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -SemiBold.svg") format("svg");
   font-weight: 600;
   font-style: normal;
 }
 @font-face {
   font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins-Bold.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins-Bold.ttf") format("truetype"), url("../fonts/Poppins-Bold.woff") format("woff"), url("../fonts/Poppins-Bold.woff2") format("woff2"), url("../fonts/Poppins-Bold.svg") format("svg");
+  src: url("../fonts/Poppins, sans-serif -Bold.otf") format("embeded-opentype");
+  src: url("../fonts/Poppins, sans-serif -Bold.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -Bold.woff") format("woff"), url("../fonts/Poppins, sans-serif -Bold.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -Bold.svg") format("svg");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
-  font-family: "Poppins-ExtraBold";
-  src: url("../fonts/Poppins-ExtraBold.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins-ExtraBold.ttf") format("truetype"), url("../fonts/Poppins-ExtraBold.woff") format("woff"), url("../fonts/Poppins-ExtraBold.woff2") format("woff2"), url("../fonts/Poppins-ExtraBold.svg") format("svg");
+  font-family: "Poppins", sans-serif !important;
+  src: url("../fonts/Poppins, sans-serif -ExtraBold.otf") format("embeded-opentype");
+  src: url("../fonts/Poppins, sans-serif -ExtraBold.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -ExtraBold.woff") format("woff"), url("../fonts/Poppins, sans-serif -ExtraBold.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -ExtraBold.svg") format("svg");
   font-weight: 800;
   font-style: normal;
 }
@@ -56,11 +56,29 @@ body {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+.back-of-hder.darkHeader {
+  position: fixed;
+  width: 100%;
+  background: rgb(255, 255, 255);
+  z-index: 9;
+  box-shadow: 0px 0px 7px 0px rgba(153, 153, 153, 0.4901960784);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /*-----------------for header css ---------------------*/
 .back-of-hder {
   background: rgba(72, 119, 204, 0.04);
-  -webkit-backdrop-filter: blur(20.5px);
-          backdrop-filter: blur(20.5px);
   padding: 5px 0;
 }
 .back-of-hder .heder-logo img {
@@ -102,9 +120,6 @@ body {
   justify-content: flex-end;
   gap: 9px;
 }
-.back-of-hder .admin-details img {
-  width: 40px;
-}
 .back-of-hder .admin-details .icons-notification {
   display: flex;
   gap: 2px;
@@ -138,7 +153,7 @@ body {
 .back-of-hder .admin-details .drop-btn b {
   color: #303030;
   text-align: left;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -148,7 +163,7 @@ body {
   margin: 0;
   color: #303030;
   text-align: left;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -233,7 +248,7 @@ body {
 }
 .main-ftr .adders-ftr .list-icon .text-for-right p {
   color: #303030;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -260,7 +275,7 @@ body {
 }
 .main-ftr .main-copy-right .copy-right-left p {
   color: #727272;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -276,7 +291,7 @@ body {
 .main-ftr .main-copy-right .copy-right-right a {
   color: #4877cc;
   text-align: right;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -315,7 +330,7 @@ body {
 }
 .main-all-page-back-image .main-who-we-are .who-we-are-left p {
   color: #575757;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -434,7 +449,7 @@ body {
 }
 .main-ikvest .ikvest-right h2 {
   color: #4877cc;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 48px;
   font-style: normal;
   font-weight: 600;
@@ -449,7 +464,7 @@ body {
 .main-ikvest .ikvest-right .icon-list .text-for-icon p {
   color: #575757;
   text-align: right;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 28px;
   font-style: normal;
   font-weight: 400;
@@ -474,7 +489,7 @@ body {
 }
 .main-defam .defam-right h2 {
   color: #4877cc;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 48px;
   font-style: normal;
   font-weight: 600;
@@ -489,7 +504,7 @@ body {
 }
 .main-defam .defam-right .icon-list .text-for-icon p {
   color: #575757;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 28px;
   font-style: normal;
   font-weight: 400;
@@ -507,7 +522,7 @@ body {
   background-image: url("../web-images/tree-back.png");
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: -60% bottom;
+  background-position: center bottom;
 }
 .main-all-page-back-image-family .main-testimonial {
   padding: 97px 0;
@@ -582,7 +597,7 @@ body {
 }
 .test-lft-slider .swiper.testimonial .swiper-slide .inner-discription .top-icon p {
   color: #4877cc;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -600,7 +615,7 @@ body {
 }
 .test-lft-slider .swiper.testimonial .swiper-slide .top-user-name h4 {
   color: #fff;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 25px;
   font-style: normal;
   font-weight: 600;
@@ -660,7 +675,7 @@ body {
   justify-content: center;
   gap: 15px;
   color: #4877cc;
-  font-family: Poppins;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -1181,7 +1196,6 @@ body {
 }
 .main-profile-event .upload-image .member-show img {
   width: 36px;
-  height: 36px;
 }
 .main-profile-event .upload-image .member-show p {
   font-size: 18px;
@@ -1192,7 +1206,8 @@ body {
 }
 .main-profile-event .upload-image .member-show span {
   margin-right: 5px;
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 24px;
 }
 .main-profile-event .upr-event {
   margin: 20px 0;
@@ -1255,9 +1270,27 @@ body {
 .inner-profile-data .full-data-profile {
   border-bottom: 1px solid #ddd;
   margin-top: 20px;
+  position: relative;
 }
 .inner-profile-data .full-data-profile:nth-last-child(1) {
   border: none;
+}
+.inner-profile-data .full-data-profile button.three-dots {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  border: none;
+}
+.inner-profile-data .full-data-profile button.three-dots::after {
+  display: none;
+}
+.inner-profile-data .full-data-profile button.three-dots:active {
+  outline: none;
+  border: none !important;
+}
+.inner-profile-data .full-data-profile button.three-dots img {
+  width: 20px;
+  height: 20px;
 }
 .inner-profile-data .full-data-profile .inr-img-data {
   display: flex;
@@ -1290,15 +1323,6 @@ body {
   gap: 10px;
   display: flex;
 }
-.inner-profile-data .full-data-profile .inr-img-data button {
-  padding: 0 !important;
-  border: none;
-  background: transparent !important;
-}
-.inner-profile-data .full-data-profile .inr-img-data button img {
-  width: 24px !important;
-  opacity: 0.5;
-}
 .inner-profile-data .full-data-profile .inr-dis-data {
   margin: 10px 0 0;
 }
@@ -1310,11 +1334,10 @@ body {
   letter-spacing: -0.35px;
   margin: 0;
   color: #191919;
-  margin-bottom: 15px;
 }
 .inner-profile-data .full-data-profile .inr-dis-data img {
   width: 100%;
-  margin: 0px 0 15px;
+  margin: 15px 0 15px;
 }
 .inner-profile-data .full-data-profile .inr-dis-data video {
   width: 100%;
@@ -1322,23 +1345,23 @@ body {
 }
 .inner-profile-data .full-data-profile .inr-comment {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 5px;
-}
-.inner-profile-data .full-data-profile .inr-comment form {
-  width: 100%;
 }
 .inner-profile-data .full-data-profile .inr-comment img {
   border-radius: 50%;
   height: 40px;
   width: 40px;
 }
-.inner-profile-data .full-data-profile .inr-comment .inr-comnt-sec {
+.inner-profile-data .full-data-profile .inr-comment form {
+  width: calc(100% - 40px);
+}
+.inner-profile-data .full-data-profile .inr-comment form .inr-comnt-sec {
   width: 100%;
   position: relative;
 }
-.inner-profile-data .full-data-profile .inr-comment .inr-comnt-sec input {
+.inner-profile-data .full-data-profile .inr-comment form .inr-comnt-sec textarea {
   width: 100%;
   background: #f1f2f5;
   font-size: 15px;
@@ -1351,23 +1374,15 @@ body {
   border-radius: 10px;
   border: 1px solid #f1f2f5;
 }
-.inner-profile-data .full-data-profile .inr-comment .inr-comnt-sec button {
-  height: 25px;
-  width: 25px;
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  cursor: pointer;
+.inner-profile-data .full-data-profile .inr-comment form .inr-comnt-sec button {
   border: none;
 }
-.inner-profile-data .full-data-profile .inr-comment .inr-comnt-sec img {
+.inner-profile-data .full-data-profile .inr-comment form .inr-comnt-sec button img {
   height: 25px;
   width: 25px;
   position: absolute;
-  top: 50%;
+  top: 5px;
   right: 10px;
-  transform: translateY(-50%);
   cursor: pointer;
 }
 .inner-profile-data .full-data-profile .coment-view h4 {
@@ -1402,10 +1417,14 @@ body {
   font-weight: 500;
   line-height: normal;
   border-radius: 8px 8px 0 0;
-  border-bottom: 1px solid #f0f0f0;
 }
 .inner-profile-data .full-data-profile .coment-view .accordion-item button:focus {
   box-shadow: none !important;
+}
+.inner-profile-data .full-data-profile .coment-view .accordion-item button::after {
+  background-size: 80% !important;
+  background-position: center !important;
+  color: #4877cc;
 }
 .inner-profile-data .full-data-profile .coment-view .accordion-item button.accordion-button.collapsed {
   border-radius: 8px !important;
@@ -1413,7 +1432,6 @@ body {
 .inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse {
   border-radius: 0 0px 8px 8px;
   background: #f0f0f0;
-  position: relative;
 }
 .inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt {
   border-bottom: 1px solid rgba(221, 221, 221, 0.87);
@@ -1450,13 +1468,6 @@ body {
   line-height: 24px;
   color: #67727e;
 }
-.inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt .inr-connents-for button.delete {
-  padding: 0 !important;
-}
-.inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt .inr-connents-for button.delete img.delete {
-  width: 24px !important;
-  opacity: 0.5;
-}
 .inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt .inr-dis-comment {
   margin-top: 6px;
 }
@@ -1474,14 +1485,6 @@ body {
   font-weight: 400;
   line-height: 18px;
   margin: 0;
-}
-.inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt .inr-dis-comment button.delete {
-  padding: 0 !important;
-  border: none;
-}
-.inner-profile-data .full-data-profile .coment-view .accordion-item .accordion-collapse .first-comnt .inr-dis-comment button.delete img.delete {
-  width: 24px !important;
-  opacity: 0.5;
 }
 
 .for-create-event .main-all-page-back-image-family {
@@ -1650,14 +1653,6 @@ body {
   line-height: 24px;
   color: #67727e;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for button.delete {
-  padding: 0 !important;
-  border: none;
-}
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for button.delete img.delete {
-  width: 24px !important;
-  opacity: 0.5;
-}
 .for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-dis-comment {
   margin-top: 6px;
 }
@@ -1690,7 +1685,6 @@ body {
   overflow-y: auto;
   display: none;
   transition: cubic-bezier(0.39, 0.575, 0.565, 1);
-  z-index: 9;
 }
 .main-side-data img.close-btn-sidebar {
   display: block;
@@ -1795,10 +1789,6 @@ body {
   margin: 0;
 }
 
-.new-event {
-  padding: 0 121px;
-  position: absolute;
-}
 .new-event button {
   border-radius: 10px;
   background: #4877cc;
@@ -1825,11 +1815,421 @@ body {
   stroke: #4877cc;
 }
 
-.accordion-collapse.collapse.show {
-  border-top: 1px solid #d1d1d1 !important;
+/*--------------------------------edit profile page ---------------------------------*/
+section.let-started {
+  padding: 50px 0;
+}
+section.let-started .started-first {
+  width: 383px;
+}
+section.let-started .started-first h2 {
+  color: #303030;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40.9px;
+  letter-spacing: 0.35px;
+  margin-bottom: 20px;
+}
+section.let-started .get-started {
+  width: 181px;
+  height: 181px;
+  position: relative;
+}
+section.let-started .get-started img.profile {
+  width: 100%;
+  border: 5px solid #4877cc;
+  border-radius: 12px;
+}
+section.let-started .get-started img[src="web-images/admin-edit.svg"] {
+  padding: 30px;
+}
+section.let-started .get-started img.edit-icon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+section.let-started .right-get-started {
+  width: 100%;
+}
+section.let-started .right-get-started form {
+  text-align: right;
+}
+section.let-started .right-get-started form .inr-fill-form {
+  display: grid;
+  align-items: center;
+  -moz-column-gap: 56px;
+       column-gap: 56px;
+  row-gap: 0;
+  grid-template-columns: auto auto;
+  width: 100%;
+}
+section.let-started .right-get-started form .inr-fill-form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #303030;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+  text-align: left;
+}
+section.let-started .right-get-started form .inr-fill-form label input,
+section.let-started .right-get-started form .inr-fill-form label select {
+  border-radius: 10px;
+  border: 1px solid #5b5b5b;
+  color: #747474;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  padding: 10px 11px;
+  width: 100%;
+  background: transparent;
+}
+section.let-started .right-get-started form .inr-fill-form label input[type=date] {
+  text-transform: uppercase;
+}
+section.let-started .right-get-started form .inr-fill-form label input[type=date]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background: url("../web-images/calendar.svg") no-repeat;
+  width: 15px;
+  height: 15px;
+  border-width: thin;
+  background-position: center;
+  background-size: 100%;
+}
+section.let-started .right-get-started form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #303030;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 19px;
+  margin-top: 10px;
+  text-align: left;
+}
+section.let-started .right-get-started form label textarea {
+  border-radius: 10px;
+  border: 1px solid #5b5b5b;
+  color: #747474;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px;
+  padding: 10px 11px;
+  width: 100%;
+  background: transparent;
+  resize: none;
+}
+section.let-started .right-get-started form button {
+  border-radius: 10px;
+  background: #4877cc;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: 1px solid #4877cc;
+  color: #fff;
+  text-align: left;
+  padding: 10px 20px;
+  transition: 0.5s;
+  border-radius: 10px;
+  margin-top: 34px;
+}
+section.let-started .right-get-started form button:hover {
+  color: #4877cc;
+  background: transparent;
+  transition: 0.5s;
 }
 
-.inr-comnts-modl.scroll-comnts {
-  height: 300px;
-  overflow-y: auto;
+/*-------------------------------- profile page main --------------------------------*/
+.profile-data-adderess {
+  border-radius: 10px;
+  background: #f7f7f7;
+  padding: 20px;
+  margin: 0 121px;
+  border: 1px solid #ebebec;
+}
+.profile-data-adderess h2 {
+  color: #303030;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 4px;
+}
+.profile-data-adderess .mail-address {
+  margin-bottom: 5px;
+}
+.profile-data-adderess .mail-address h4 {
+  color: #303030;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+.profile-data-adderess .mail-address h4 span {
+  color: #707070;
+}
+
+/*--------------------------------My profile page ---------------------------- */
+section.for-evnt .member-show.for-edit {
+  top: 0 !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left !important;
+  align-items: flex-start;
+  gap: 0;
+}
+section.for-evnt .member-show.for-edit .inr-edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+section.for-evnt .member-show.for-edit .inr-edit img {
+  width: 28px;
+}
+section.for-evnt .member-show.for-edit .inr-edit a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  color: #303030;
+}
+
+/*-------------------------------- profile one page ---------------------------*/
+.main-inr-profile-one {
+  padding: 50px 0;
+}
+.main-inr-profile-one .Profile-one {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 70%;
+}
+.main-inr-profile-one .Profile-one .back-icon {
+  width: 39px;
+  height: 39px;
+}
+.main-inr-profile-one .Profile-one .back-icon a {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+}
+.main-inr-profile-one .Profile-one .back-icon a img {
+  height: 100%;
+  width: 100%;
+}
+.main-inr-profile-one .Profile-one .edit-profile h2 {
+  color: #303030;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40.9px;
+  letter-spacing: 0.35px;
+  margin: 0;
+}
+.main-inr-profile-one .Profile-one .edit-icon {
+  width: 32px;
+  height: 33px;
+}
+.main-inr-profile-one .Profile-one .edit-icon a {
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+}
+.main-inr-profile-one .Profile-one .edit-icon a img {
+  height: 100%;
+  width: 100%;
+}
+.main-inr-profile-one .right-btn-event {
+  width: 100%;
+  text-align: right;
+}
+.main-inr-profile-one .right-btn-event .new-event {
+  padding: 0;
+  position: initial;
+}
+
+.main-inr-ian-vest {
+  padding-bottom: 50px;
+  border-bottom: 1px solid #d1d1d1;
+}
+.main-inr-ian-vest .inr-profile-pic {
+  width: 181px;
+  height: 181px;
+}
+.main-inr-ian-vest .inr-profile-pic img {
+  width: 100%;
+  border-radius: 15px;
+  border: 4px solid #4877cc;
+}
+.main-inr-ian-vest .inr-right-data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.main-inr-ian-vest .inr-right-data .inr-name-data {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+}
+.main-inr-ian-vest .inr-right-data .inr-name-data p {
+  width: calc(50% - 10px);
+  margin: 0;
+  color: #656565;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 19px; /* 95% */
+}
+.main-inr-ian-vest .inr-right-data .inr-name-data h5 {
+  width: calc(50% - 10px);
+  margin: 0;
+  color: #303030;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.my-event-heading {
+  padding: 50px 0 30px;
+}
+.my-event-heading h2 {
+  color: #303030;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40.9px;
+  letter-spacing: 0.35px;
+  margin: 0;
+}
+
+.modal.for-delete a.btn-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 9;
+}
+.modal.for-delete .modal-body {
+  padding: 80px 30px 40px;
+  text-align: center;
+}
+.modal.for-delete .modal-body .delete-icon {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+}
+.modal.for-delete .modal-body .delete-icon img {
+  width: 100%;
+  border-radius: 50%;
+}
+.modal.for-delete h2 {
+  color: #131c1b;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  margin: 10px 0 0;
+}
+.modal.for-delete p {
+  color: #778ca2;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+  margin: 13px 0 30px;
+}
+.modal.for-delete .inr-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+}
+.modal.for-delete .inr-btns button {
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 10px;
+  background: #4877cc;
+  width: 134px;
+  height: 40px;
+  border: 1px solid #4877cc;
+  transition: 0.5s;
+}
+.modal.for-delete .inr-btns button:nth-child(1) {
+  background: transparent;
+  color: #4877cc;
+}
+.modal.for-delete .inr-btns button:nth-child(1):hover {
+  background: #4877cc;
+  color: #fff;
+  transition: 0.5s;
+}
+.modal.for-delete .inr-btns button:hover {
+  background: transparent;
+  color: #4877cc;
+  transition: 0.5s;
+}
+
+/* Add your own styles as needed */
+.commentBox {
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.textareaComment {
+  width: 100%;
+  min-height: 50px; /* Set your desired minimum height */
+  padding: 10px;
+  resize: none; /* Disable manual resizing */
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
+
+.comment-text.collapsed {
+  max-height: 6em; /* Adjust the number of lines (2em for 2 lines) */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.read-more-comment {
+  color: #007bff;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+#section {
+  width: 500px;
+  height: 400px;
+  word-wrap: break-word;
+}
+
+.moretext {
+  display: none;
 }/*# sourceMappingURL=webstyle.css.map */

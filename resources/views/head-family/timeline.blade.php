@@ -39,7 +39,6 @@
                                 </div>
                                 <div class="member-show">
                                     <img src="{{ asset('web-images/mdi_family-tree.svg') }}" height="90" width="90" alt="Default Profile Image" id="existing-image-preview">
-
                                     <p><span>12</span>Family Members</p>
                                 </div>
                             </div>
@@ -83,7 +82,7 @@
                 </div>
                                
                 <div class="inner-profile-data">
-                @if ($errors->any())
+                            @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
                                                 @foreach ($errors->all() as $error)
@@ -102,17 +101,23 @@
 
                     
                     <div class="full-data-profile">
-                    <!-- <div class="dropdown">
+                           @if (auth()->user()->id === $user->id)
+
+                            <div class="dropdown">
                                 <button class="three-dots btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    <img src="web-images/three-dots.svg" />
+                                    <img src="{{ asset('web-images/three-dots.svg')}}" />
                                 </button>
+
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="./edit-profile.html">Edit</a>
-                                    <button class="dropdown-item" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">Delete</button>
+                                    <a class="dropdown-item" href="{{ route('post.edit', $post->id) }}">Edit</a>
+
+                                    <button class="dropdown-item delete-button" data-id="{{$post->id}}" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</button>
                                 </div>
-                            </div> -->
+                            </div>
+
+                            @endif
+
                         
                         <div class="row">   
                             <div class="col-md-12">
@@ -129,9 +134,9 @@
                                         <h4>{{$user->f_name}}</h4>
                                         <p>{{ $post->created_at->diffForHumans() }}<span>.</span><img src="{{ asset('web-images/vecotr.svg') }}" /></p>
                                     </div>
-                                    @if (auth()->user()->id === $user->id)
+                                    <!-- @if (auth()->user()->id === $user->id) -->
 
-                                    <form id="deletePost" action="{{ route('post.delete', $post->id) }}" class="flex justify-between space-x-2" method="POST">
+                                    <!-- <form id="deletePost" action="{{ route('post.delete', $post->id) }}" class="flex justify-between space-x-2" method="POST">
 
                                         @csrf
                                         @method('DELETE')
@@ -140,7 +145,7 @@
                                         @endif
                                     @if (auth()->user()->id === $user->id)
                                             <a href="{{ route('post.edit', $post->id) }}" class="edit-post-button">Edit</a>
-                                        @endif
+                                        @endif -->
                                 </div>
                             </div>
                         </div>
@@ -228,14 +233,15 @@
                                                             @endif
                                                             <h5>{{ $user->f_name }}</h5>
                                                             <p>{{ $comment->created_at->diffForHumans() }}</p>
-                                                            @if (auth()->user()->id === $user->id)
-                                                            <form id="deleteComment" action="{{ route('comments.destroy.without.model', [$post->id, $comment->id]) }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button id="commentDeleteButton" class="delete" ><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
-                                                            </form>
-                                                            @endif
-                                                           
+                                                          
+                                                                @if (auth()->user()->id === $user->id)
+
+                                                        <button  class="delete comment-delete" data-Id="{{$post->id}}" data-comment="{{ $comment->id}}"data-bs-toggle="modal" data-bs-target="#commentModal">
+                                                            <img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}">
+                                                        </button>
+                                                        
+                                                        @endif 
+
                                                         </div>
                                                         <div class="inr-dis-comment">
 
@@ -255,14 +261,14 @@
                                                                 <span>{{ $user->email }}</span>
                                                                 @php
                                                                     $commentText = ucfirst($comment->comment);
-                                                                    $displayComment = strlen($commentText) > 200 ? substr($commentText, 0, 5000) : $commentText;
+                                                                    $displayComment = strlen($commentText) > 2000 ? substr($commentText, 0, 10000) : $commentText;
                                                                 @endphp
 
                                                                 <p class="comment-text{{ strlen($commentText) > 500 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
 
                                                                 @if (strlen($commentText) > 300)
                                                                     <a href="#" class="read-more">Read more</a>
-                                                                @endif
+                                                                 @endif
 
                                                             </p>
 
@@ -280,8 +286,6 @@
                                     </div>
 
                                     <h4 class="view-comments-button" data-post-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View all comments</h4>
-
-
 
                                 </div>
                             </div>
@@ -362,6 +366,52 @@
         </div>
     </div>
 
+      <!-------------------------- Delete modal ----------------------------->
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+
+    <div class="modal fade for-delete" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                <div class="modal-body">
+                    <div class="delete-icon">
+                        <img src="{{ asset('web-images/delete-icon-modal.svg')}}" />
+                    </div>
+                    <h2>Are you sure you want to delete ?</h2>
+                    <p>If you delete you can't recover it.</p>
+                    <div class="inr-btns">
+                        <button type="button" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade for-delete" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <a type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                <div class="modal-body">
+                    <div class="delete-icon">
+                        <img src="{{ asset('web-images/delete-icon-modal.svg')}}" />
+                    </div>
+                    <h2>Are you sure you want to delete ?</h2>
+                    <p>If you delete you can't recover it.</p>
+                    <div class="inr-btns">
+                        <button type="button" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 @endsection
 
 
@@ -373,102 +423,190 @@
 <script> 
 
 //delete post
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('deletePostButton').addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            
-            // Show a SweetAlert confirmation dialog
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // User confirmed, submit the form to delete the item
-                    document.getElementById('deletePost').submit();
-                }
-            });
-        });
-    });
+$(document).ready(function() {
+// When the delete button is clicked
+$(".delete-button").click(function() {
+    // Store the item ID from the data attribute
+    var postId = $(this).data("id");
+    console.log(postId);
 
+    // When the modal's delete button is clicked
+    $("#exampleModal .modal-body button[type='button']").click(function() {
+        // Submit the delete form via AJAX
+        $.ajax({          
+            type: 'Delete',
+             url: 'post/' + postId ,
+            data: {
+                _token: '{{ csrf_token() }}', // Add CSRF token if needed
+            },
+            success: function(response) {
+                  console.log(response);
 
-    //delete Comment
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('commentDeleteButton').addEventListener('click', function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            
-            // Show a SweetAlert confirmation dialog
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // User confirmed, submit the form to delete the item
-                    document.getElementById('deleteComment').submit();
-                }
-            });
-        });
-    });
-
-function deleteComment(postId, comment) {
-    // Show a confirmation dialog using SweetAlert
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Get the CSRF token value from the meta tag
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-            // Create an object to hold your headers
-            var headers = {
-                'X-CSRF-TOKEN': csrfToken
-            };
-
-            $.ajax({
-                type: "DELETE",
-                url: 'posts/' + postId + '/comments/' + comment,
-                headers: headers, // Include the headers object in your AJAX request
-                success: function(response) {
-                    if (response.message) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Comment has been deleted.',
-                            'success'
-                        ).then(function() {
-                            // Reload or refresh the page or perform any other action
-                            location.reload();
-                        });
-                    }
-                },
-                error: function(err) {
-                    console.error("Error deleting comment:", err);
-
-                    // Display an error message using SweetAlert
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'An error occurred while deleting the comment',
+                // Handle success, e.g., show a success message
+                if (response.message) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Post has been deleted.',
+                        'success'
+                    ).then(function() {
+                        // Reload or refresh the page or perform any other action
+                        location.reload();
                     });
                 }
-            });
-        }
+            },
+            error: function(xhr) {
+                // Handle errors, e.g., show an error message
+                console.error(xhr.responseText);
+            },
+        });
+
+        // After submitting the form, close the modal
+        $("#exampleModal").modal("hide");
+    });
+  });
+});
+
+
+
+
+$(document).ready(function() {
+// When the delete button is clicked
+$(".comment-delete").click(function() {
+    // Store the item ID from the data attribute
+    var postId = $(this).data("id");
+    console.log(postId);
+    var comment = $(this).data("comment");
+    console.log(comment);
+
+
+    // When the modal's delete button is clicked
+    $("#commentModal .modal-body button[type='button']").click(function() {
+        // Submit the delete form via AJAX
+        $.ajax({          
+            type: 'Delete',
+            url: 'posts/' + postId + '/comments/' + comment,
+            data: {
+                _token: '{{ csrf_token() }}', // Add CSRF token if needed
+            },
+            success: function(response) {
+                  console.log(response);
+
+                // Handle success, e.g., show a success message
+                if (response.message) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Comment has been deleted.',
+                        'success'
+                    ).then(function() {
+                        // Reload or refresh the page or perform any other action
+                        location.reload();
+                    });
+                }
+            },
+            error: function(xhr) {
+                // Handle errors, e.g., show an error message
+                console.error(xhr.responseText);
+            },
+        });
+
+        // After submitting the form, close the modal
+        $("#commentModal").modal("hide");
+    });
+  });
+});
+
+
+
+function deleteComment(postId, comment) {
+// When the delete button is clicked
+ 
+    $("#commentModal .modal-body button[type='button']").click(function() {
+        // Submit the delete form via AJAX
+        $.ajax({          
+            type: 'Delete',
+            url: 'posts/' + postId + '/comments/' + comment,
+            data: {
+                _token: '{{ csrf_token() }}', // Add CSRF token if needed
+            },
+            success: function(response) {
+                  console.log(response);
+
+                // Handle success, e.g., show a success message
+                if (response.message) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Comment has been deleted.',
+                        'success'
+                    ).then(function() {
+                        // Reload or refresh the page or perform any other action
+                        location.reload();
+                    });
+                }
+            },
+            error: function(xhr) {
+                // Handle errors, e.g., show an error message
+                console.error(xhr.responseText);
+            },
+        });
+
+        // After submitting the form, close the modal
+        $("#commentModal").modal("hide");
     });
 }
+
+
+
+
+// function deleteComment(postId, comment) {
+//     // Show a confirmation dialog using SweetAlert
+//     Swal.fire({
+//         title: 'Are you sure?',
+//         text: "You won't be able to revert this!",
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, delete it!'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             // Get the CSRF token value from the meta tag
+//             var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+//             // Create an object to hold your headers
+//             var headers = {
+//                 'X-CSRF-TOKEN': csrfToken
+//             };
+
+//             $.ajax({
+//                 type: "DELETE",
+//                 url: 'posts/' + postId + '/comments/' + comment,
+//                 headers: headers, // Include the headers object in your AJAX request
+//                 success: function(response) {
+//                     if (response.message) {
+//                         Swal.fire(
+//                             'Deleted!',
+//                             'Comment has been deleted.',
+//                             'success'
+//                         ).then(function() {
+//                             // Reload or refresh the page or perform any other action
+//                             location.reload();
+//                         });
+//                     }
+//                 },
+//                 error: function(err) {
+//                     console.error("Error deleting comment:", err);
+
+//                     // Display an error message using SweetAlert
+//                     Swal.fire({
+//                         icon: 'error',
+//                         title: 'Error',
+//                         text: 'An error occurred while deleting the comment',
+//                     });
+//                 }
+//             });
+//         }
+//     });
+// }
 
 //load data in model posts and comments
 $(document).ready(function() {
@@ -583,10 +721,9 @@ $(document).ready(function() {
                     commentsHtml += '<p>' + createdTimeComment + '</p>';
                     if (authUser.id === comment.user.id) {
 
-                        commentsHtml += '<button class="delete-comment-button delete" data-post-id="' + post.id + '" data-comment-id="' + comment.id + '"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>';
+                        commentsHtml += '<button class="delete-comment-button delete" data-bs-toggle="modal" data-bs-target="#commentModal" data-post-id="' + post.id + '" data-comment-id="' + comment.id + '"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>';
  
                     }
-
 
                     commentsHtml += '</div>';
                     commentsHtml += '<div class="inr-dis-comment">';
@@ -675,16 +812,17 @@ $(document).ready(function() {
         if ($commentText.hasClass("collapsed")) {
             $commentText.removeClass("collapsed");
             $this.text("Read less");
-            // $commentText.slideDown("slow"); // Expand slowly
-
+            // Expand to show all content
+            $commentText.css("max-height", "none");
         } else {
             $commentText.addClass("collapsed");
             $this.text("Read more");
-            // $commentText.slideUp("slow"); // Collapse slowly
-
+            // Collapse to show at most 4 lines (adjust max-height as needed)
+            $commentText.css("max-height", "8em"); // 4 lines with 2em line height
         }
     });
 });
+
 
 
 </script>

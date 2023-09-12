@@ -277,6 +277,8 @@ class HeadFamilyController extends Controller
         //      }
         //   }
 
+        // ********** Delete Post **********
+
         public function deletePost($id)
           {
 
@@ -286,24 +288,24 @@ class HeadFamilyController extends Controller
               if ($post) {
                 $post->delete();
                 // Optionally, you can return a success message here
-                  return back()->with('message','Post deleted successfully');
+                return response()->json(['message' => 'Post deleted successfully'], 200);
            } else {
                 // Handle the case where the item was not found
-                  return back()->with('error','Post not deleted ');
+                return response()->json(['error' => 'Post deleted successfully'], 500);
 
-         }
+           }
 
           } catch (\Exception $e) {
               // Return an error JSON response
               return back()->with('error','Post not deleted ');
           }
 
-     }
+       }
 
         // ********** Delete Comment jquery model **********
 
         public function deleteComment($id, Comment $comment)
-        {
+          {
             try {
                 $comment = Comment::findOrFail($comment->id);
                 $comment->delete();
