@@ -143,9 +143,12 @@ Route::middleware('auth:web')->group(function(){
          Route::get('/dashboard',[FamilyMemberController::class,'dashboard'])->name('family-member.dashboard');
          Route::any('/timline',[FamilyMemberController::class,'showTimeline'])->name
          ('get.timeline');
-         Route::get('/profile-update',[FamilyMemberController::class,'profileUpdate'])->name('profile');
+         Route::get('/profile-update',[FamilyMemberController::class,'profileUpdate'])->name('profile.page');
          Route::post('/profile-update',[FamilyMemberController::class,'profileUpdatePost'])
          ->name ('profile.family');
+
+        //  Route::get('/profile-view',[FamilyMemberController::class,'showProfile'])->name
+        //  ('profile.view');
 
         //  Route::get('/delete-timeline/{id}', [FamilyMemberController::class, 'deleteTimeline'])->name('delete-timeline');
 

@@ -396,7 +396,8 @@ class HeadFamilyController extends Controller
             $request->validate([
                 'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
                 'f_name'  => 'required|max:255', // Validation rule for first name
-                'phone' => [new TenDigitPhoneNumber], // Use the custom rule
+                'phone' => ['nullable', new TenDigitPhoneNumber], // Use the custom rule with 'nullable'
+
                 'bdy_date'  => 'required',
             ], [
                 'f_name.required' => 'The first name field is required.', 
