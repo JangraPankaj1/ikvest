@@ -144,10 +144,10 @@ class HeadFamilyController extends Controller
         public function getPostContent($postId)
             {
 
-            
+
                 // $post = Post::with(['comments', 'user'])->find($postId);
                 $post = Post::with(['comments.user', 'user'])->find($postId);
-                  
+
                 if ($post) {
                     return response()->json(['post' => $post ]);
                 }
@@ -167,7 +167,7 @@ class HeadFamilyController extends Controller
                             'post' => 'required',
                         ]
                     );
-              
+
 
                 if ($request->hasFile('image')) {
                     $images = $request->file('image');
@@ -192,9 +192,13 @@ class HeadFamilyController extends Controller
                    $post->docs_path = json_encode(array_column($imageData, 'image_path'));
                    $post->save();
                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-               ->get(['posts.*', 'users.f_name']);
+                    ->get(['posts.*', 'users.f_name']);
 
-               return view('head-family/timeline', compact('data'));
+                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
+
+
+                    return view('head-family/timeline', compact('data','memberCount'));
+
 
                 }else{
 
@@ -206,7 +210,10 @@ class HeadFamilyController extends Controller
                     $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
                     ->get(['posts.*', 'users.f_name']);
 
-                    return view('head-family/timeline', compact('data'));
+                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
+
+
+                    return view('head-family/timeline', compact('data','memberCount'));
                 }
             }catch (Exception $e) {
                 dd($e->getMessage());
@@ -226,16 +233,16 @@ class HeadFamilyController extends Controller
                 ->get();
 
 
-            $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-            ->get(['posts.*', 'users.f_name','users.image_path']);
+                $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+                    ->get(['posts.*', 'users.f_name','users.image_path']);
+
+                $memberCount = User::where('parent_id', auth()->user()->id)->count();
 
 
-
-               return view('head-family/timeline', compact('data','comments'));
+                return view('head-family/timeline', compact('data','comments', 'memberCount'));
 
           }catch (Exception $e) {
-                  dd($e->getMessage());
-                  return back()->withErrors($e->getMessage());
+                return back()->withErrors($e->getMessage());
 
           }
 
@@ -268,7 +275,7 @@ class HeadFamilyController extends Controller
 
         //          $post = Post::findOrFail($id);
         //          $post->delete();
-                 
+
         //          return back()->with('message','Post deleted successfully');
 
         //      } catch (\Exception $e) {
@@ -309,7 +316,7 @@ class HeadFamilyController extends Controller
             try {
                 $comment = Comment::findOrFail($comment->id);
                 $comment->delete();
-                
+
                 // Return a success JSON response
                 return response()->json(['message' => 'Comment deleted successfully'], 200);
             } catch (\Exception $e) {
@@ -321,7 +328,7 @@ class HeadFamilyController extends Controller
 
         public function commentDelete($id, Comment $comment)
             {
-          
+
 
             try {
 
@@ -334,9 +341,9 @@ class HeadFamilyController extends Controller
 
                   // Handle the case where the item was not found
                     return back()->with('error','Comment not deleted ');
-  
+
             }
-  
+
             } catch (\Exception $e) {
                 // Return an error JSON response
                 return back()->with('error','Comment not deleted ');
@@ -495,18 +502,18 @@ class HeadFamilyController extends Controller
                     if ($request->hasFile('image')) {
                         $images = $request->file('image');
                         $imageData = [];
-    
+
                         foreach ($images as $image) {
-    
+
                             $imageName = $image->getClientOriginalName();
                             $image->move(public_path('images'), $imageName);
-    
+
                             $imageData[] = [
                                 'image_name' => $imageName,
                                 'image_path' => 'images/' . $imageName,
                             ];
                         }
-    
+
                        $post = new Post;
                        $post->posted_by  = Auth::user()->id;
                        $post->post_message  = $request->post_message;
@@ -516,9 +523,9 @@ class HeadFamilyController extends Controller
 
                        return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
 
-   
+
                     }else{
-    
+
                         $post = new Post;
                         $post->posted_by  = Auth::user()->id;
                         $post->post_message  = $request->post_message;
@@ -529,9 +536,9 @@ class HeadFamilyController extends Controller
                 }catch (Exception $e) {
                     dd($e->getMessage());
                     return back()->withErrors($e->getMessage());
-                }                        
+                }
       }
-            
+
     public function editEvent($id)
     {
        try{
