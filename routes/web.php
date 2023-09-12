@@ -115,6 +115,8 @@ Route::middleware('auth:web')->group(function(){
         ('posts');
         Route::get('/timeline',[HeadFamilyController::class,'showTimelineHead'])->name
         ('get.timeline.head');
+        Route::get('/profile-view',[HeadFamilyController::class,'showProfile'])->name
+        ('profile.view');
 
         Route::delete('/posts/{postId}/comments/{comment}',[HeadFamilyController::class,'deleteComment'])->name('comments.destroy');
         Route::delete('/post/{postId}',[HeadFamilyController::class,'deletePost'])->name('post.delete');
@@ -142,7 +144,8 @@ Route::middleware('auth:web')->group(function(){
          Route::any('/timline',[FamilyMemberController::class,'showTimeline'])->name
          ('get.timeline');
          Route::get('/profile-update',[FamilyMemberController::class,'profileUpdate'])->name('profile');
-         Route::post('/profile-update',[FamilyMemberController::class,'profileUpdatePost'])->name('post.profile');
+         Route::post('/profile-update',[FamilyMemberController::class,'profileUpdatePost'])
+         ->name ('profile.family');
 
         //  Route::get('/delete-timeline/{id}', [FamilyMemberController::class, 'deleteTimeline'])->name('delete-timeline');
 

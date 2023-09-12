@@ -258,14 +258,13 @@
     padding: 40px 0 0;
   }
   section.for-evnt .main-profile-event {
-    padding: 10px;
+    padding: 0;
     margin: 0;
-    position: initial;
   }
   section.for-evnt .main-profile-event .upload-image {
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
-    margin-top: -35px;
+    margin-top: 0;
   }
   section.for-evnt .main-profile-event .upload-image .upload-image-inr {
     max-width: 100%;
@@ -274,12 +273,11 @@
     text-align: center;
   }
   section.for-evnt .main-profile-event .upload-image .upload-image-inr img {
-    width: 100px;
+    width: 70px;
     height: 100%;
-    border-radius: 5px;
   }
   section.for-evnt .main-profile-event .upload-image .profile-name {
-    width: calc(50% - 15px);
+    width: 100%;
   }
   section.for-evnt .main-profile-event .upload-image .profile-name h4 {
     font-size: 18px;
@@ -288,12 +286,17 @@
     font-size: 12px;
   }
   section.for-evnt .main-profile-event .upload-image .member-show {
-    width: calc(50% - 15px);
+    width: 100%;
     top: 0px;
     justify-content: flex-end;
   }
   section.for-evnt .main-profile-event .upload-image .member-show p {
     font-size: 16px;
+  }
+  section.for-evnt .main-profile-event .upload-image .new-event {
+    padding: 0px 10px 0;
+    width: 100%;
+    text-align: center;
   }
   section.for-evnt .main-profile-event .upr-event {
     margin: 20px 0 0;
@@ -320,7 +323,7 @@
     padding: 0 10px;
   }
   .inner-profile-data {
-    max-width: 80%;
+    max-width: 100%;
     margin: 0px auto;
   }
   .inner-profile-data .full-data-profile {
@@ -356,9 +359,57 @@
   .for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .bottom-publish {
     justify-content: center;
   }
-  .new-event {
-    padding: 10px 10px 20px;
-    position: inherit;
+  .profile-data-adderess {
+    margin: 10px 0 20px;
+  }
+  .profile-data-adderess .mail-address {
+    margin: 0 0 5px;
+  }
+  .main-inr-profile-one {
+    padding: 30px 0;
+  }
+  .main-inr-profile-one .Profile-one {
+    max-width: 100%;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  .main-inr-profile-one .Profile-one .back-icon {
+    width: 22px;
+    height: 22px;
+  }
+  .main-inr-profile-one .Profile-one .edit-profile h2 {
+    color: #303030;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0.35px;
+    margin: 0;
+  }
+  .main-inr-ian-vest {
+    padding-bottom: 30px;
+  }
+  .main-inr-ian-vest .inr-profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+  .main-inr-ian-vest .inr-right-data {
+    gap: 10px;
+  }
+  .main-inr-ian-vest .inr-right-data .inr-name-data p {
+    font-size: 15px;
+    line-height: 19px;
+  }
+  .main-inr-ian-vest .inr-right-data .inr-name-data h5 {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  .my-event-heading {
+    padding: 30px 0;
+  }
+  .my-event-heading h2 {
+    font-size: 22px;
+    line-height: 30px;
   }
 }
 @media (max-width: 767px) {
@@ -639,7 +690,7 @@
     position: fixed;
     left: 0px;
     border-radius: 0;
-    top: 200px;
+    top: 177px;
     z-index: 9;
   }
   .new-event button:hover {
@@ -654,6 +705,39 @@
   section.for-evnt .main-profile-event .upload-image .member-show {
     width: 100%;
     justify-content: flex-start;
+  }
+  section.let-started .started-first {
+    width: 100%;
+  }
+  section.let-started .started-first h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  section.let-started .get-started {
+    width: 121px;
+    height: 121px;
+  }
+  section.let-started .right-get-started form .inr-fill-form {
+    grid-template-columns: auto;
+  }
+  .main-inr-profile-one {
+    padding: 20px 0;
+  }
+  .main-inr-ian-vest .inr-profile-pic {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+  }
+  .main-inr-ian-vest .inr-right-data .inr-name-data {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .main-inr-ian-vest .inr-right-data .inr-name-data p,
+  .main-inr-ian-vest .inr-right-data .inr-name-data h5 {
+    width: 100%;
+  }
+  .my-event-heading {
+    padding: 15px 0 0;
   }
 }
 @media (min-width: 1025px) and (max-width: 1200px) {
@@ -690,13 +774,6 @@
   .main-profile-event {
     padding: 15px 56px;
   }
-  .new-event {
-    padding: 15px 56px;
-  }
-  .new-event {
-    padding: 0 53px !important;
-    position: absolute;
-  }
 }
 @media (min-width: 1240px) {
   .main-cntr-tble-family.third::before {
@@ -720,8 +797,9 @@
 
 @media (min-width: 1025px) {
   .new-event {
-    padding: 0 121px;
-    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
   }
   .new-event button {
     border-radius: 10px;
@@ -737,7 +815,8 @@
     text-align: left;
     padding: 0 10px;
     transition: 0.5s;
-    border-radius: 10px;
+    border-radius: 5px;
+    text-align: center;
   }
   .new-event button:hover {
     color: #4877cc;
@@ -749,10 +828,29 @@
     stroke: #4877cc;
   }
 }
-@media (min-width: 1250px) {
-  .welcomew .bck-img-inr {
-    display: flex;
-    align-items: center;
-    height: 100vh;
+@media (min-width: 650px) and (max-width: 767px) {
+  .main-inner-timelines {
+    max-width: 100%;
+    gap: 10px;
+  }
+  .main-inner-timelines .inner-profile-data .full-data-profile {
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+}
+@media (max-width: 649px) {
+  .main-inner-timelines {
+    gap: 10px;
+    max-width: 80%;
+    flex-wrap: wrap;
+    margin: 40px auto;
+  }
+  .main-inner-timelines .inner-profile-data {
+    padding: 0;
+  }
+}
+@media (max-width: 375px) {
+  .main-inner-timelines {
+    max-width: 100%;
   }
 }/*# sourceMappingURL=web-media-style.css.map */

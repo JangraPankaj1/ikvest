@@ -148,7 +148,6 @@
         </div>
     </div>
     @endsection
-<script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
 
 
 

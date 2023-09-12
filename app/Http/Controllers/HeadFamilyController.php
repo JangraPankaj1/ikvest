@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Rules\TenDigitPhoneNumber;
 
 
 use DataTables;
@@ -62,6 +63,11 @@ class HeadFamilyController extends Controller
         return view('head-family.add-post');
      }
 
+     public function showProfile()
+     {
+        return view('head-family.view-profile');
+     }
+     
 // random generate string tokens
      function generateRandomString($length) {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -144,10 +150,10 @@ class HeadFamilyController extends Controller
         public function getPostContent($postId)
             {
 
-            
+
                 // $post = Post::with(['comments', 'user'])->find($postId);
                 $post = Post::with(['comments.user', 'user'])->find($postId);
-                  
+
                 if ($post) {
                     return response()->json(['post' => $post ]);
                 }
@@ -167,7 +173,7 @@ class HeadFamilyController extends Controller
                             'post' => 'required',
                         ]
                     );
-              
+
 
                 if ($request->hasFile('image')) {
                     $images = $request->file('image');
@@ -192,9 +198,13 @@ class HeadFamilyController extends Controller
                    $post->docs_path = json_encode(array_column($imageData, 'image_path'));
                    $post->save();
                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-               ->get(['posts.*', 'users.f_name']);
+                    ->get(['posts.*', 'users.f_name']);
 
-               return view('head-family/timeline', compact('data'));
+                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
+
+
+                    return view('head-family/timeline', compact('data','memberCount'));
+
 
                 }else{
 
@@ -206,7 +216,10 @@ class HeadFamilyController extends Controller
                     $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
                     ->get(['posts.*', 'users.f_name']);
 
-                    return view('head-family/timeline', compact('data'));
+                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
+
+
+                    return view('head-family/timeline', compact('data','memberCount'));
                 }
             }catch (Exception $e) {
                 dd($e->getMessage());
@@ -216,9 +229,9 @@ class HeadFamilyController extends Controller
     // ********* Show timeline *******
 
          public function showTimelineHead(Request $request)
-          {
+             {
 
-           try{
+            try{
 
                $comments = DB::table('comments')
                ->join('posts', 'comments.post_id', '=', 'posts.id')
@@ -226,16 +239,16 @@ class HeadFamilyController extends Controller
                 ->get();
 
 
-            $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-            ->get(['posts.*', 'users.f_name','users.image_path']);
+                $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+                    ->get(['posts.*', 'users.f_name','users.image_path']);
+
+                $memberCount = User::where('parent_id', auth()->user()->id)->count();
 
 
-
-               return view('head-family/timeline', compact('data','comments'));
+                return view('head-family/timeline', compact('data','comments', 'memberCount'));
 
           }catch (Exception $e) {
-                  dd($e->getMessage());
-                  return back()->withErrors($e->getMessage());
+                return back()->withErrors($e->getMessage());
 
           }
 
@@ -268,7 +281,7 @@ class HeadFamilyController extends Controller
 
         //          $post = Post::findOrFail($id);
         //          $post->delete();
-                 
+
         //          return back()->with('message','Post deleted successfully');
 
         //      } catch (\Exception $e) {
@@ -309,7 +322,7 @@ class HeadFamilyController extends Controller
             try {
                 $comment = Comment::findOrFail($comment->id);
                 $comment->delete();
-                
+
                 // Return a success JSON response
                 return response()->json(['message' => 'Comment deleted successfully'], 200);
             } catch (\Exception $e) {
@@ -321,7 +334,7 @@ class HeadFamilyController extends Controller
 
         public function commentDelete($id, Comment $comment)
             {
-          
+
 
             try {
 
@@ -334,9 +347,9 @@ class HeadFamilyController extends Controller
 
                   // Handle the case where the item was not found
                     return back()->with('error','Comment not deleted ');
-  
+
             }
-  
+
             } catch (\Exception $e) {
                 // Return an error JSON response
                 return back()->with('error','Comment not deleted ');
@@ -385,49 +398,58 @@ class HeadFamilyController extends Controller
        }
    }
 
-// *********profile update*******
-   public function profileUpdatePost(Request $request){
+        // *********profile update*******
+        public function profileUpdatePost(Request $request){
+            $request->validate([
+                'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'f_name'  => 'required|max:255', // Validation rule for first name
+                'phone' => [new TenDigitPhoneNumber], // Use the custom rule
+                'bdy_date'  => 'required',
+            ], [
+                'f_name.required' => 'The first name field is required.', 
+                'bdy_date.required' => 'The Birthday field is required.', 
 
-    $validatedData = $request->validate([
-        'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-       ]);
+            ]);
+            
 
-    if ($request->hasFile('image')) {
+            if ($request->hasFile('image')) {
+            $profileName = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('images'), $profileName);
+            $email = auth()->user()->email;
 
-       $profileName = $request->file('image')->getClientOriginalName();
-       $request->file('image')->move(public_path('images'), $profileName);
-       $email = auth()->user()->email;
+                $User = User::find(Auth::user()->id);
+                $User->f_name = $request->input('f_name');
+                $User->l_name = $request->input('l_name');
+                $User->phone = $request->input('phone');
+                $User->marital_status = $request->input('marital_status');
+                $User->current_spouse = $request->input('current_spouse');
+                $User->description = $request->input('description');
+                $User->email =  $email;
+                $User->bdy_date = $request->input('bdy_date');
+                $User->mrg_date = $request->input('mrg_date');
+            $User->profile_pic = $profileName;
+            $User->image_path = 'images/' . $profileName;
+            $User->update();
+            return back()->with('message','Profile Updated');
 
-       $User = User::find(Auth::user()->id);
-       $User->f_name = $request->input('f_name');
-       $User->l_name = $request->input('l_name');
+            }else{
 
-       $User->bdy_date = $request->input('bdy_date');
-       $User->mrg_date = $request->input('mrg_date');
+                $email = auth()->user()->email;
+                $User = User::find(Auth::user()->id);
+                $User->f_name = $request->input('f_name');
+                $User->l_name = $request->input('l_name');
+                $User->phone = $request->input('phone');
+                $User->marital_status = $request->input('marital_status');
+                $User->current_spouse = $request->input('current_spouse');
+                $User->description = $request->input('description');
+                $User->email =  $email;
+                $User->bdy_date = $request->input('bdy_date');
+                $User->mrg_date = $request->input('mrg_date');
+                $User->update();
+                return back()->with('message','Profile Updated');
+            }
 
-
-       $User->email = $email;
-       $User->profile_pic = $profileName;
-       $User->image_path = 'images/' . $profileName;
-       $User->update();
-       return back()->with('message','Profile Updated');
-
-
-    }else{
-
-        $email = auth()->user()->email;
-        $User = User::find(Auth::user()->id);
-        $User->f_name = $request->input('f_name');
-        $User->l_name = $request->input('l_name');
-        $User->email =  $email;
-        $User->bdy_date = $request->input('bdy_date');
-        $User->mrg_date = $request->input('mrg_date');
-        $User->update();
-        return back()->with('message','Profile Updated');
-
-    }
-
- }
+        }
 
  // **********allEvents**********
  public function allEvents(Request $request)
@@ -495,18 +517,18 @@ class HeadFamilyController extends Controller
                     if ($request->hasFile('image')) {
                         $images = $request->file('image');
                         $imageData = [];
-    
+
                         foreach ($images as $image) {
-    
+
                             $imageName = $image->getClientOriginalName();
                             $image->move(public_path('images'), $imageName);
-    
+
                             $imageData[] = [
                                 'image_name' => $imageName,
                                 'image_path' => 'images/' . $imageName,
                             ];
                         }
-    
+
                        $post = new Post;
                        $post->posted_by  = Auth::user()->id;
                        $post->post_message  = $request->post_message;
@@ -516,9 +538,9 @@ class HeadFamilyController extends Controller
 
                        return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
 
-   
+
                     }else{
-    
+
                         $post = new Post;
                         $post->posted_by  = Auth::user()->id;
                         $post->post_message  = $request->post_message;
@@ -529,9 +551,9 @@ class HeadFamilyController extends Controller
                 }catch (Exception $e) {
                     dd($e->getMessage());
                     return back()->withErrors($e->getMessage());
-                }                        
+                }
       }
-            
+
     public function editEvent($id)
     {
        try{

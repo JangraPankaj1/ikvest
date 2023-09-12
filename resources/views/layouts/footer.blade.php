@@ -88,19 +88,19 @@
 
         <!-- Initialize Swiper -->
 
-
-    
 <script>
-    var swiper = new Swiper(".testimonial", {
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    });
+    if( jQuery(".testimonial, .swiperr").length ){
+        var swiper = new Swiper(".testimonial, .swiper", {
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
+    }
 </script>
 
 

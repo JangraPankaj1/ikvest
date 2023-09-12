@@ -23,6 +23,12 @@ return new class extends Migration
 
             $table->string('parent_id')->nullable();
             $table->string('head_family_id')->nullable();
+
+            $table->string('marital_status')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('current_spouse')->nullable();
+            $table->text('description')->nullable();
+
             $table->string('bdy_date')->nullable();
             $table->string('mrg_date')->nullable();
 
