@@ -18,7 +18,7 @@
                     @endif
 
                     <form class="form-horizontal" method="POST" action="{{ route('password.change.post') }}">
-                        {{ csrf_field() }}
+                          {{ csrf_field() }}
                         <div class="form-group mt-3">
                             <label for="new-password">Current Password</label>
                             <input id="current_password" type="password" class="form-control" name="current_password">

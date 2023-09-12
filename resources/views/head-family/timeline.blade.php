@@ -195,7 +195,7 @@
                                     <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
                                     @endif
 
-                                    <form action="{{ route('post.comments.head', $post->id) }}" class="flex justify-between space-x-2" method="POST">
+                                    <form action="{{ route('post.comments.head', $post->id) }}" id="upload-image" class="flex justify-between space-x-2" method="POST">
                                         @csrf
                                         <div class="inr-comnt-sec">
                                             <!-- <input type="text" name="comment" placeholder="Write a comment..." required /> -->
@@ -269,11 +269,8 @@
                                                                 @if (strlen($commentText) > 300)
                                                                     <a href="#" class="read-more">Read more</a>
                                                                  @endif
-
                                                             </p>
 
-                  
-                                                         
                                                         </div>
                                                     </div>
                                                     @endforeach
@@ -822,7 +819,6 @@ $(document).ready(function() {
         }
     });
 });
-
 
 
 </script>

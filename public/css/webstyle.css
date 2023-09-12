@@ -1831,31 +1831,29 @@ section.let-started .started-first h2 {
   letter-spacing: 0.35px;
   margin-bottom: 20px;
 }
-section.let-started .get-started {
+section.let-started form .get-started {
   width: 181px;
   height: 181px;
   position: relative;
 }
-section.let-started .get-started img.profile {
+section.let-started form .get-started img.profile {
   width: 100%;
   border: 5px solid #4877cc;
   border-radius: 12px;
 }
-section.let-started .get-started img[src="web-images/admin-edit.svg"] {
+section.let-started form .get-started img[src="http://127.0.0.1:8000/web-images/admin-edit.svg"] {
   padding: 30px;
 }
-section.let-started .get-started img.edit-icon {
+section.let-started form .get-started img.edit-icon {
   position: absolute;
   right: 5px;
   top: 5px;
 }
-section.let-started .right-get-started {
+section.let-started form .right-get-started {
   width: 100%;
-}
-section.let-started .right-get-started form {
   text-align: right;
 }
-section.let-started .right-get-started form .inr-fill-form {
+section.let-started form .right-get-started .inr-fill-form {
   display: grid;
   align-items: center;
   -moz-column-gap: 56px;
@@ -1864,7 +1862,7 @@ section.let-started .right-get-started form .inr-fill-form {
   grid-template-columns: auto auto;
   width: 100%;
 }
-section.let-started .right-get-started form .inr-fill-form label {
+section.let-started form .right-get-started .inr-fill-form label {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1876,8 +1874,8 @@ section.let-started .right-get-started form .inr-fill-form label {
   line-height: 19px;
   text-align: left;
 }
-section.let-started .right-get-started form .inr-fill-form label input,
-section.let-started .right-get-started form .inr-fill-form label select {
+section.let-started form .right-get-started .inr-fill-form label input,
+section.let-started form .right-get-started .inr-fill-form label select {
   border-radius: 10px;
   border: 1px solid #5b5b5b;
   color: #747474;
@@ -1889,10 +1887,10 @@ section.let-started .right-get-started form .inr-fill-form label select {
   width: 100%;
   background: transparent;
 }
-section.let-started .right-get-started form .inr-fill-form label input[type=date] {
+section.let-started form .right-get-started .inr-fill-form label input[type=date] {
   text-transform: uppercase;
 }
-section.let-started .right-get-started form .inr-fill-form label input[type=date]::-webkit-calendar-picker-indicator {
+section.let-started form .right-get-started .inr-fill-form label input[type=date]::-webkit-calendar-picker-indicator {
   color: rgba(0, 0, 0, 0);
   opacity: 1;
   display: block;
@@ -1903,7 +1901,7 @@ section.let-started .right-get-started form .inr-fill-form label input[type=date
   background-position: center;
   background-size: 100%;
 }
-section.let-started .right-get-started form label {
+section.let-started form .right-get-started label {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1916,7 +1914,7 @@ section.let-started .right-get-started form label {
   margin-top: 10px;
   text-align: left;
 }
-section.let-started .right-get-started form label textarea {
+section.let-started form .right-get-started label textarea {
   border-radius: 10px;
   border: 1px solid #5b5b5b;
   color: #747474;
@@ -1929,7 +1927,7 @@ section.let-started .right-get-started form label textarea {
   background: transparent;
   resize: none;
 }
-section.let-started .right-get-started form button {
+section.let-started form .right-get-started button {
   border-radius: 10px;
   background: #4877cc;
   font-size: 14px;
@@ -1944,7 +1942,7 @@ section.let-started .right-get-started form button {
   border-radius: 10px;
   margin-top: 34px;
 }
-section.let-started .right-get-started form button:hover {
+section.let-started form .right-get-started button:hover {
   color: #4877cc;
   background: transparent;
   transition: 0.5s;
@@ -2224,12 +2222,6 @@ section.for-evnt .member-show.for-edit .inr-edit a {
   margin-left: 5px;
 }
 
-#section {
-  width: 500px;
-  height: 400px;
-  word-wrap: break-word;
-}
-
-.moretext {
-  display: none;
+.error {
+  color: red;
 }/*# sourceMappingURL=webstyle.css.map */

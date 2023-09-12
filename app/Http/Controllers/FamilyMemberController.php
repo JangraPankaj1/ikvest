@@ -30,47 +30,57 @@ class FamilyMemberController extends Controller
     }
 
     // *********profile update*******
+   // *********profile update*******
    public function profileUpdatePost(Request $request){
+     $request->validate([
 
-    $validatedData = $request->validate([
-        'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-       ]);
+      'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+      'f_name'  => 'required|max:255',
+      'l_name' => 'required|max:255',
+      'phone'    =>  'required',
+      'bdy_date'  => 'required',
+      'mrg_date'  => 'required',
 
-    if ($request->hasFile('image')) {
+     ]);
 
-       $profileName = $request->file('image')->getClientOriginalName();
-       $request->file('image')->move(public_path('images'), $profileName);
-       $email = auth()->user()->email;
+  if ($request->hasFile('image')) {
+     $profileName = $request->file('image')->getClientOriginalName();
+     $request->file('image')->move(public_path('images'), $profileName);
+     $email = auth()->user()->email;
 
-       $User = User::find(Auth::user()->id);
-       $User->f_name = $request->input('f_name');
-       $User->l_name = $request->input('l_name');
-       $User->bdy_date = $request->input('bdy_date');
-       $User->mrg_date = $request->input('mrg_date');
+      $User = User::find(Auth::user()->id);
+      $User->f_name = $request->input('f_name');
+      $User->l_name = $request->input('l_name');
+      $User->phone = $request->input('phone');
+      $User->marital_status = $request->input('marital_status');
+      $User->current_spouse = $request->input('current_spouse');
+      $User->description = $request->input('description');
+      $User->email =  $email;
+      $User->bdy_date = $request->input('bdy_date');
+      $User->mrg_date = $request->input('mrg_date');
+     $User->profile_pic = $profileName;
+     $User->image_path = 'images/' . $profileName;
+     $User->update();
+     return back()->with('message','Profile Updated');
 
+  }else{
 
-       $User->email = $email;
-       $User->profile_pic = $profileName;
-       $User->image_path = 'images/' . $profileName;
-       $User->update();
-       return back()->with('message','Profile Updated');
+      $email = auth()->user()->email;
+      $User = User::find(Auth::user()->id);
+      $User->f_name = $request->input('f_name');
+      $User->l_name = $request->input('l_name');
+      $User->phone = $request->input('phone');
+      $User->marital_status = $request->input('marital_status');
+      $User->current_spouse = $request->input('current_spouse');
+      $User->description = $request->input('description');
+      $User->email =  $email;
+      $User->bdy_date = $request->input('bdy_date');
+      $User->mrg_date = $request->input('mrg_date');
+      $User->update();
+      return back()->with('message','Profile Updated');
+  }
 
-
-    }else{
-
-        $email = auth()->user()->email;
-        $User = User::find(Auth::user()->id);
-        $User->f_name = $request->input('f_name');
-        $User->l_name = $request->input('l_name');
-        $User->email =  $email;
-        $User->bdy_date = $request->input('bdy_date');
-        $User->mrg_date = $request->input('mrg_date');
-        $User->update();
-        return back()->with('message','Profile Updated');
-
-    }
-
- }
+}
 
 
              // ********** Delete Comment **********
