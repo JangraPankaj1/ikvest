@@ -52,9 +52,6 @@
   font-weight: 800;
   font-style: normal;
 }
-body {
-  font-family: "Poppins-Regular" !important;
-}
 .bck-img-inr {
   background-image: url("../images/both-sape.png");
   background-repeat: no-repeat;
@@ -84,7 +81,6 @@ body {
   width: 100%;
   h1 {
     color: #fff;
-    font-family: Poppins;
     font-size: 50px;
     font-style: normal;
     font-weight: 700;
@@ -93,7 +89,6 @@ body {
   }
   h4 {
     color: #fff;
-    font-family: Poppins;
     font-size: 28px;
     font-style: normal;
     font-weight: 500;
@@ -104,7 +99,6 @@ body {
     margin-top: 25px;
     h2 {
       color: #fff;
-      font-family: Poppins;
       font-size: 50px;
       font-style: normal;
       font-weight: 700;
@@ -126,7 +120,6 @@ body {
   }
   h2 {
     color: #4877cc;
-    font-family: Poppins;
     font-size: 52px;
     font-style: normal;
     font-weight: 600;
@@ -142,7 +135,6 @@ body {
     padding: 14px 20px;
     color: #fcfcfc;
     text-align: center;
-    font-family: Poppins;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
@@ -167,7 +159,6 @@ body {
       width: 100%;
       color: #4877cc;
       text-align: left;
-      font-family: Poppins;
       font-size: 16px;
       font-style: normal;
       font-weight: 500;
@@ -181,7 +172,6 @@ body {
       border: 1px solid #5b5b5b;
       color: #5b5b5b;
       text-align: left;
-      font-family: Poppins;
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
@@ -230,7 +220,6 @@ body {
       margin: 15px 0;
       color: #000;
       text-align: center;
-      font-family: Poppins;
       font-size: 14px;
       font-style: normal;
       font-weight: 600;
@@ -259,7 +248,6 @@ body {
   }
   p {
     color: #8d8d8d;
-    font-family: Poppins;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -269,7 +257,6 @@ body {
     margin: 30px 0 39px;
     color: #131c1b;
     text-align: left;
-    font-family: Poppins;
     font-size: 24px;
     font-style: normal;
     font-weight: 500;
@@ -298,7 +285,6 @@ body {
               justify-content: flex-start;
               color: #5b5b5b !important;
               text-align: center;
-              font-family: Poppins;
               font-size: 12px !important;
               font-style: normal;
               font-weight: 500;
@@ -328,7 +314,6 @@ body {
               justify-content: flex-start;
               color: #5b5b5b !important;
               text-align: center;
-              font-family: Poppins;
               font-size: 12px !important;
               font-style: normal;
               font-weight: 500;
@@ -342,14 +327,13 @@ body {
             a {
               color: #5b5b5b;
               text-align: center;
-              font-family: Poppins;
               font-size: 12px;
               font-style: normal;
               font-weight: 500;
               line-height: 20px;
               letter-spacing: -0.12px;
               text-decoration: none;
-              
+
             }
           }
         }
@@ -362,3 +346,12 @@ body {
 
 
 
+@media(min-width:1200px)
+{
+    .bck-img-inr {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+    }
+}
