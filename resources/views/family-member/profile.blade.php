@@ -1,5 +1,5 @@
-@extends('layouts.without-header')
-@section('main-content-without-header')
+@extends('layouts.master')
+@section('main-content')
 
     <div class="wrapper for-event">
         <section>
@@ -42,21 +42,21 @@
                        </div>
                                 
                          <form id ="thisForm"  class="formRegister" action="{{ route('profile.family') }}" method="post"  enctype="multipart/form-data">
-                                     @csrf
-                                     <div class="row">
+                             @csrf
+                        <div class="row">
                           <div class="col-md-3">
                             <div class="get-started">
                                 <!-- <img src="{{ asset('web-images/admin-edit.svg') }}" class="profile" /> -->
                                   <img src="{{ asset('web-images/edit-icon.svg') }}" class="edit-icon" />
                                             @if(Auth::user()->image_path)
-                                                <img src="{{ asset(Auth::user()->image_path) }}"height="90"   width="90"  class="profile" alt="Profile Image" id="existing-image-preview">
+                                                <img src="{{ asset(Auth::user()->image_path) }}" class="profile" alt="Profile Image" id="existing-image-preview">
                                             @else
-                                                <img src="{{ asset('web-images/admin-edit.svg') }}" height="90" width="90" alt="Default Profile Image">
+                                                <img src="{{ asset('web-images/admin-edit.svg') }}"  alt="Default Profile Image">
                                                 
                                             @endif
                                           
                                             <div class="col-md-12 mb-2">
-                                        <img id="preview-image-before-upload" src="#" class="profile" alt="Preview" height="90" width="90" style="display: none;">
+                                        <img id="preview-image-before-upload" src="#" class="profile" alt="Preview"  style="display: none;">
 
                                      </div>
                                 <input type="file" name="image" placeholder="Choose image" id="image">
@@ -81,18 +81,12 @@
                                         <label>Last Name
                                             <input type="text" name="l_name" value="{{ auth()->user()->l_name }}" placeholder="Last Name" />
                                             <div class="error">
-                                            @error("f_name")
-                                                {{ $message }}
-                                            @enderror
+                                         
                                           </div>
                                         </label>
                                         <label>Email
-                                            <input type="Email" name="email"  value="{{ auth()->user()->email }}" disabled placeholder="Email" />
-                                            <div class="error">
-                                            @error("f_name")
-                                                {{ $message }}
-                                            @enderror
-                                          </div>
+                                        <input type="email" name="email" value="{{ auth()->user()->email }}" placeholder="Email" disabled style="background-color: #f0f0f0; border: 1px solid #ccc;" />
+
                                         </label>
                                         <label>Phone
                                             <input type="number" name="phone" value="{{ auth()->user()->phone }}"placeholder="Phone" />
@@ -113,6 +107,7 @@
                                         <label>Marital Status
                                         <div class="inrr-select">
                                             <select name="marital_status">
+                                            <option value="Single" {{ old('marital_status', auth()->user()->marital_status) == 'Single' ? 'selected' : '' }}>Single</option>
                                                 <option value="Married" {{ old('marital_status', auth()->user()->marital_status) == 'Married' ? 'selected' : '' }}>Married</option>
                                                 <option value="Unmarried" {{ old('marital_status', auth()->user()->marital_status) == 'Unmarried' ? 'selected' : '' }}>Unmarried</option>
                                                 <option value="Divorced" {{ old('marital_status', auth()->user()->marital_status) == 'Divorced' ? 'selected' : '' }}>Divorced</option>
