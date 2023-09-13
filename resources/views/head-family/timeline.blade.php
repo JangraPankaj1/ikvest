@@ -47,7 +47,7 @@
                                             </div>
                                             <div class="inr-edit">
                                                 <img src="{{ asset('web-images/la_birthday-cake.svg') }}" />
-                                                <p>12-12-2012</p>
+                                                <p>{{ Auth::user()->bdy_date}}</p>
                                             </div>
                                             <div class="inr-edit">
                                                 <a href="{{ route('profile.post'); }}">
@@ -695,15 +695,20 @@ $(document).ready(function() {
                 var post = data.post;
                 var commentsHtml = '';
                 var createdTime = moment(post.created_at).fromNow();
+ 
 
+                    if(post.user.image_path != null){
 
-                    var postUserimagePathParts = post.user.image_path.split('/head-family');
-                    var imageNamePostUser = postUserimagePathParts.pop(); // Get the last part of the path (the image file name)
-                    var imageOfPostUser = '{{ asset('') }}' + postUserimagePathParts  + imageNamePostUser; //
-
+                        var postUserimagePathParts = post.user.image_path.split('/head-family');
+                        var imageNamePostUser = postUserimagePathParts.pop(); // Get the last part of the path (the image file name)
+                        var imageOfPostUser = '{{ asset('') }}' + postUserimagePathParts  + imageNamePostUser; //
+    
+    
+                    }else{
+                        var imageOfPostUser = '{{ asset('images/admin.svg') }}';  
+                    }
 
                     $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + '">');
-
                 // Populate post author's information and content
                 // var image = image ? image : "{{ asset('images/admin.svg') }}";
                 // $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
@@ -768,10 +773,19 @@ $(document).ready(function() {
                    post.comments.forEach(function(comment) {
                    console.log(comment);
                     // Extract the image path
-                    var imagePathParts = comment.user.image_path.split('/head-family');
-                    var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
-                    var imagePath = '{{ asset('') }}' + imagePathParts + imageName; // Reconstruct the path without the extra part
+                   
 
+
+                    if(comment.user.image_path != null){
+
+                        var imagePathParts = comment.user.image_path.split('/head-family');
+                        var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
+                        var imagePath = '{{ asset('') }}' + imagePathParts + imageName; // Reconstruct the path without the extra part
+
+
+                    }else{
+                        var imagePath = '{{ asset('images/admin.svg') }}';  
+                    }
 
 
 

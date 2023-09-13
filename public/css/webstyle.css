@@ -2384,3 +2384,7 @@ section.let-started form .right-get-started button:hover {
 .error {
   color: red;
 }/*# sourceMappingURL=webstyle.css.map */
+
+.modal-body .inner-profile-data .full-data-profile{
+  box-shadow: unset;
+}
