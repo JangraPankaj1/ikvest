@@ -96,7 +96,7 @@ Route::middleware('auth:web')->group(function(){
         Route::get('/dashboard',[HeadFamilyController::class,'dashboard'])->name('head-family.dashboard');
         Route::get('/password-change',[HeadFamilyController::class,'changePassword'])->name('change.password');
         Route::post('/password-change',[HeadFamilyController::class,'changePasswordPost'])->name('password.change.post');
-        Route::get('/profile-update',[HeadFamilyController::class,'profileUpdate'])->name('headprofile.page');
+        Route::get('/profile-update',[HeadFamilyController::class,'profileUpdate'])->name('profile.page');
         Route::post('/profile-update',[HeadFamilyController::class,'profileUpdatePost'])->name('profile.post');
         Route::get('/add-event',[HeadFamilyController::class,'eventPage'])->name('event.page');
         Route::post('/add-event',[HeadFamilyController::class,'eventPagePost'])->name('event.post');
@@ -143,7 +143,7 @@ Route::middleware('auth:web')->group(function(){
          Route::get('/dashboard',[FamilyMemberController::class,'dashboard'])->name('family-member.dashboard');
          Route::any('/timline',[FamilyMemberController::class,'showTimeline'])->name
          ('get.timeline');
-         Route::get('/profile-update',[FamilyMemberController::class,'profileUpdate'])->name('profile.page');
+         Route::get('/profile-update',[FamilyMemberController::class,'profileUpdate'])->name('familyprofile.page');
          Route::post('/profile-update',[FamilyMemberController::class,'profileUpdatePost'])
          ->name ('profile.family');
 

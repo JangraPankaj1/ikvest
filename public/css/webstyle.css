@@ -1,40 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins, sans-serif :wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -Regular.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -Regular.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -Regular.woff") format("woff"), url("../fonts/Poppins, sans-serif -Regular.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -Regular.svg") format("svg");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -Medium.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -Medium.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -Medium.woff") format("woff"), url("../fonts/Poppins, sans-serif -Medium.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -Medium.svg") format("svg");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -SemiBold.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -SemiBold.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -SemiBold.woff") format("woff"), url("../fonts/Poppins, sans-serif -SemiBold.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -SemiBold.svg") format("svg");
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -Bold.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -Bold.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -Bold.woff") format("woff"), url("../fonts/Poppins, sans-serif -Bold.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -Bold.svg") format("svg");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -ExtraBold.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -ExtraBold.ttf") format("truetype"), url("../fonts/Poppins, sans-serif -ExtraBold.woff") format("woff"), url("../fonts/Poppins, sans-serif -ExtraBold.woff2") format("woff2"), url("../fonts/Poppins, sans-serif -ExtraBold.svg") format("svg");
-  font-weight: 800;
-  font-style: normal;
-}
 * {
   margin: 0;
   padding: 0;
@@ -1147,10 +1112,6 @@ input[type=number] {
 
 /*---------------------------- event page -------------------------------*/
 .main-inner-timelines {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 20px;
   max-width: 80%;
   margin: 10px auto;
 }
@@ -1221,10 +1182,76 @@ input[type=number] {
   position: relative;
   padding: 10px 0;
   border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 5px 0px;
+  cursor: pointer;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  transition: 0.5s;
+  flex-wrap: wrap;
+  width: 100%;
+  border-top: 1px solid #eee;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show img {
+  width: 18px;
+  height: 18px;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show p {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show .inr-edit {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  transition: 0.5s;
+  width: 100%;
+  cursor: pointer;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  transition: 0.5s;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show .inr-edit:hover {
+  background: #e5e5e5;
+  transition: 0.5s;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show .inr-edit i {
+  color: #00b050;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show .inr-edit p {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show .inr-edit span {
+  margin-right: 5px;
+  font-weight: 400;
+  font-size: 14px;
+}
+.main-inner-timelines .main-profile-event .upload-image .member-show .member-show .inr-edit a {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #000;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  width: 100%;
 }
 .main-inner-timelines .main-profile-event .upload-image .member-show .inr-edit {
   display: flex;
@@ -1264,6 +1291,32 @@ input[type=number] {
   justify-content: space-between;
   flex-direction: row-reverse;
   width: 100%;
+}
+.main-inner-timelines .main-profile-event .upload-image .inr-profle-data .mail-address {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  transition: 0.5s;
+}
+.main-inner-timelines .main-profile-event .upload-image .inr-profle-data .mail-address h4 {
+  color: #303030;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.main-inner-timelines .main-profile-event .upload-image .inr-profle-data .mail-address h4 span {
+  color: #303030;
+  font-weight: 500;
+  font-size: 13px;
+  width: calc(100% - 20px);
+  display: flex;
+}
+.main-inner-timelines .main-profile-event .upload-image .inr-profle-data .mail-address h4 i {
+  color: #00b050;
 }
 .main-inner-timelines .main-profile-event .upr-event {
   margin: 20px 0;
@@ -1380,10 +1433,14 @@ input[type=number] {
   gap: 10px;
   display: flex;
 }
-.inner-profile-data .full-data-profile .inr-dis-data {
-  margin: 10px 0 0;
+.inner-profile-data .full-data-profile .col-md-12 {
+  height: 100%;
 }
-.inner-profile-data .full-data-profile .inr-dis-data p {
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data {
+  margin: 10px 0 0;
+  padding: 10px 0;
+}
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data p {
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -1393,13 +1450,37 @@ input[type=number] {
   color: #191919;
   margin-bottom: 15px;
 }
-.inner-profile-data .full-data-profile .inr-dis-data img {
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data img {
   width: 100%;
   margin: 0 0 15px;
 }
-.inner-profile-data .full-data-profile .inr-dis-data video {
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data video {
   width: 100%;
   margin: 0 0 15px;
+}
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-pagination {
+  bottom: 0 !important;
+  padding: 0px 0 0px;
+}
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-pagination span {
+  width: 30px;
+  height: 5px;
+  border-radius: 0px;
+  background: #009456;
+}
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-prev, .inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-next {
+  width: 40px;
+  height: 40px;
+}
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-prev::after, .inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-next::after {
+  color: #009456;
+  background: #fff;
+  border-radius: 50%;
+  height: 40px;
+  font-size: 20px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
 }
 .inner-profile-data .full-data-profile .inr-comment {
   display: flex;
@@ -1691,39 +1772,40 @@ input[type=number] {
   top: 10px;
   z-index: 1;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data {
   max-width: 100%;
   margin: 0px auto;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile {
   border-bottom: none;
   margin-top: 0px;
+  box-shadow: none;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl {
   border-radius: 8px;
   background: #f0f0f0;
   padding: 10px;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt {
   border-bottom: 1px solid rgba(221, 221, 221, 0.87);
   padding: 10px 0;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt:nth-last-child(1) {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt:nth-last-child(1) {
   border: none;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
   position: relative;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for img {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for h5 {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for h5 {
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -1732,7 +1814,7 @@ input[type=number] {
   text-transform: capitalize;
   margin: 0;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for p {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for p {
   margin: 0;
   font-size: 14px;
   font-style: normal;
@@ -1740,7 +1822,7 @@ input[type=number] {
   line-height: 24px;
   color: #67727e;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for button {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for button {
   padding: 0;
   position: absolute;
   top: 50%;
@@ -1748,21 +1830,21 @@ input[type=number] {
   transform: translateY(-50%);
   border: none;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for button i {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for button i {
   font-size: 16px;
   color: #a1a1a1;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-dis-comment {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-dis-comment {
   margin-top: 6px;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-dis-comment span {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-dis-comment span {
   color: #4877cc;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: 18px;
 }
-.for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-dis-comment p {
+.for-all-comments-show .modal-dialog .modal-body .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-dis-comment p {
   color: #67727e;
   font-size: 14px;
   font-style: normal;
@@ -2366,6 +2448,14 @@ section.let-started form .right-get-started button:hover {
 }
 .dropdown-menu.show a, .dropdown-menu.show button {
   padding: 0;
+  transition: 0.5s;
+}
+.dropdown-menu.show a:hover, .dropdown-menu.show button:hover {
+  background: transparent;
+}
+.dropdown-menu.show a:hover i, .dropdown-menu.show button:hover i {
+  color: #009456;
+  transition: 0.5s;
 }
 
 .comment-text.collapsed {
@@ -2384,7 +2474,3 @@ section.let-started form .right-get-started button:hover {
 .error {
   color: red;
 }/*# sourceMappingURL=webstyle.css.map */
-
-.modal-body .inner-profile-data .full-data-profile{
-  box-shadow: unset;
-}

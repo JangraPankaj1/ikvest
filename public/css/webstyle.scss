@@ -1,59 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins, sans-serif :wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -Regular.otf")
-    format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -Regular.ttf") format("truetype"),
-    url("../fonts/Poppins, sans-serif -Regular.woff") format("woff"),
-    url("../fonts/Poppins, sans-serif -Regular.woff2") format("woff2"),
-    url("../fonts/Poppins, sans-serif -Regular.svg") format("svg");
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -Medium.otf")
-    format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -Medium.ttf") format("truetype"),
-    url("../fonts/Poppins, sans-serif -Medium.woff") format("woff"),
-    url("../fonts/Poppins, sans-serif -Medium.woff2") format("woff2"),
-    url("../fonts/Poppins, sans-serif -Medium.svg") format("svg");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -SemiBold.otf")
-    format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -SemiBold.ttf") format("truetype"),
-    url("../fonts/Poppins, sans-serif -SemiBold.woff") format("woff"),
-    url("../fonts/Poppins, sans-serif -SemiBold.woff2") format("woff2"),
-    url("../fonts/Poppins, sans-serif -SemiBold.svg") format("svg");
-  font-weight: 600;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -Bold.otf") format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -Bold.ttf") format("truetype"),
-    url("../fonts/Poppins, sans-serif -Bold.woff") format("woff"),
-    url("../fonts/Poppins, sans-serif -Bold.woff2") format("woff2"),
-    url("../fonts/Poppins, sans-serif -Bold.svg") format("svg");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Poppins", sans-serif !important;
-  src: url("../fonts/Poppins, sans-serif -ExtraBold.otf")
-    format("embeded-opentype");
-  src: url("../fonts/Poppins, sans-serif -ExtraBold.ttf") format("truetype"),
-    url("../fonts/Poppins, sans-serif -ExtraBold.woff") format("woff"),
-    url("../fonts/Poppins, sans-serif -ExtraBold.woff2") format("woff2"),
-    url("../fonts/Poppins, sans-serif -ExtraBold.svg") format("svg");
-  font-weight: 800;
-  font-style: normal;
-}
 
 * {
   margin: 0;
@@ -1209,10 +1155,10 @@ input[type="number"] {
 
 /*---------------------------- event page -------------------------------*/
 .main-inner-timelines {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: 20px;
+//   display: flex;
+//   align-items: flex-start;
+//   justify-content: flex-start;
+//   gap: 20px;
   max-width: 80%;
   margin: 10px auto;
   .main-profile-event {
@@ -1279,8 +1225,74 @@ input[type="number"] {
         width: 100%;
         position: relative;
         padding: 10px 0;
+        .member-show {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 5px 0px;
+        cursor: pointer;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        transition: 0.5s;
+        flex-wrap: wrap;
+        width: 100%;
         border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
+        img {
+          width: 18px;
+          height: 18px;
+        }
+        p {
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          margin: 0;
+        }
+        .inr-edit {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          padding: 5px 10px;
+          cursor: pointer;
+          justify-content: space-between;
+          flex-direction: row-reverse;
+          transition: 0.5s;
+          width: 100%;
+          cursor: pointer;
+          justify-content: space-between;
+          flex-direction: row-reverse;
+          transition: 0.5s;
+          &:hover {
+            background: #e5e5e5;
+            transition: 0.5s;
+          }
+          i {
+            color: #00b050;
+          }
+          p {
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            margin: 0;
+          }
+          span {
+            margin-right: 5px;
+            font-weight: 400;
+            font-size: 14px;
+          }
+          a {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #000;
+            justify-content: space-between;
+            flex-direction: row-reverse;
+            width: 100%;
+          }
+        }
+      }
+        border-top: 1px solid #eee;
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -1321,6 +1333,34 @@ input[type="number"] {
             justify-content: space-between;
             flex-direction: row-reverse;
             width: 100%;
+          }
+        }
+      }
+      .inr-profle-data {
+        .mail-address {
+          padding: 10px;
+          border-top: 1px solid #eee;
+          transition: 0.5s;
+          h4 {
+            color: #303030;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            span {
+              color: #303030;
+              font-weight: 500;
+              font-size: 13px;
+              width: calc(100% - 20px);
+              display: flex;
+            }
+            i{
+              color: #00b050;
+            }
           }
         }
       }
@@ -1440,8 +1480,11 @@ input[type="number"] {
         }
       }
     }
+    .col-md-12 {
+        height: 100%;
     .inr-dis-data {
       margin: 10px 0 0;
+      padding: 10px 0;
       p {
         font-size: 14px;
         font-style: normal;
@@ -1460,7 +1503,33 @@ input[type="number"] {
         width: 100%;
         margin: 0 0 15px;
       }
+      .swiper-pagination {
+        bottom: 0 !important;
+        padding: 0px 0 0px;
+        span{
+            width: 30px;
+            height: 5px;
+            border-radius: 0px;
+            background:#009456 ;
+        }
     }
+    .swiper-button-prev, .swiper-button-next
+        {
+            width: 40px;
+            height: 40px;
+            &::after{
+            color: #009456;
+            background: #fff;
+            border-radius: 50%;
+            height: 40px;
+            font-size: 20px;
+            width: 40px;
+            line-height: 40px;
+            text-align: center;
+            }
+        }
+    }
+}
     .inr-comment {
       display: flex;
       align-items: flex-start;
@@ -1762,12 +1831,14 @@ input[type="number"] {
       top: 10px;
       z-index: 1;
     }
+    .modal-body {
     .inner-profile-data {
       max-width: 100%;
       margin: 0px auto;
       .full-data-profile {
         border-bottom: none;
         margin-top: 0px;
+        box-shadow: none;
         .inr-comnts-modl {
           border-radius: 8px;
           background: #f0f0f0;
@@ -1842,6 +1913,7 @@ input[type="number"] {
       }
     }
   }
+}
 }
 .main-side-data {
   max-width: 320px;
@@ -2439,6 +2511,14 @@ section.let-started {
     padding: 10px;
     a, button{
         padding: 0;
+        transition: .5s;
+        &:hover{
+            background: transparent;
+        }
+        &:hover i{
+            color: #009456;
+            transition: .5s;
+        }
     }
 }
 
@@ -2459,6 +2539,4 @@ section.let-started {
   color:red;
 }
 
-.modal-body .inner-profile-data .full-data-profile{
-  box-shadow: unset;
-}
+

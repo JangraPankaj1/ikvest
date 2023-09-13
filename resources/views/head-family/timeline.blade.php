@@ -22,7 +22,8 @@
         <!-----------------Profile Name --------------------->
         <section class="for-evnt">
             <div class="container">
-                <div class="main-inner-timelines">
+                <div class="main-inner-timelines ">
+                    <div class="row">
                     <div class="col-md-4">
                         <div class="main-profile-event">
                             <div class="row">
@@ -56,8 +57,40 @@
                                                 </a>
                                             </div>
                                         </div>
-
-
+                                        <div class="inr-profle-data">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-md-start text-sm-start">
+                                                            <div class="mail-address">
+                                                                <h4><span>ian@ianikvest.com</span> <i class="fa fa-envelope" aria-hidden="true"></i></h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 text-md-start text-sm-start">
+                                                            <div class="mail-address">
+                                                                <h4><span>12-12-2012</span><i class="fa-solid fa-calendar-day"></i></h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 text-md-start text-sm-start">
+                                                            <div class="mail-address">
+                                                                <h4><span>5485484112</span><i class="fa-solid fa-phone"></i></h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 text-md-start text-sm-start">
+                                                            <div class="mail-address">
+                                                                <h4><span>Married</span><i class="fa-regular fa-life-ring"></i></h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 text-md-start text-sm-start">
+                                                            <div class="mail-address">
+                                                                <h4><span>Ian Knight</span><i class="fa-solid fa-pen-nib"></i></h4>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 text-md-start text-sm-start">
+                                                            <div class="mail-address">
+                                                                <h4><span>12-12-2012</span><i class="fa-regular fa-calendar-days"></i></h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         <div class="new-event">
                                             <a href="{{ route('post') }}">
                                                 <button>
@@ -241,13 +274,14 @@
                                                 @endphp
 
                                             @if ($imageNames && $imagePaths)
-                                            <div style="width:100%; display: flex; flex-direction: row;">
+                                            <div class="swiper mySwiper">
+                                            <div class="swiper-wrapper">
                                                 @foreach ($imagePaths as $index => $imagePath)
                                                 @php
                                                 $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
                                                 @endphp
 
-                                                <div style="width:100%; margin-right: 10px;"> <!-- Adjust margin as needed -->
+                                                <div class="swiper-slide"> <!-- Adjust margin as needed -->
                                                     @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
                                                     <img src="{{ asset($imagePath) }}" alt="Image" width="50" height="400">
                                                     @elseif (in_array($extension, ['mp4', 'webm']))
@@ -257,6 +291,10 @@
                                                     @endif
                                                 </div>
                                                 @endforeach
+                                            </div>
+                                            <div class="swiper-button-next"></div>
+                                            <div class="swiper-button-prev"></div>
+                                            <div class="swiper-pagination"></div>
                                             </div>
 
                                             @endif
@@ -363,6 +401,7 @@
 
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -398,9 +437,8 @@
                                 <div class="col-md-12">
 
                                     <div class="inr-dis-data">
-                                        <p><!-- here is fetch posts -->
-                                    </p>
-                                        <!-- here is fetch images or video if post exists -->
+                                        <p><!-- here is fetch posts --></p>
+                                        <div class="swiper modal_swiper"></div>
                                         <h5>All Comments</h5>
                                     </div>
                                 </div>
@@ -623,60 +661,6 @@ $(document).on('click', '#commentModal .modal-body button.modelDelete', function
     });
 }
 
-
-
-
-// function deleteComment(postId, comment) {
-//     // Show a confirmation dialog using SweetAlert
-//     Swal.fire({
-//         title: 'Are you sure?',
-//         text: "You won't be able to revert this!",
-//         icon: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Yes, delete it!'
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             // Get the CSRF token value from the meta tag
-//             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-//             // Create an object to hold your headers
-//             var headers = {
-//                 'X-CSRF-TOKEN': csrfToken
-//             };
-
-//             $.ajax({
-//                 type: "DELETE",
-//                 url: 'posts/' + postId + '/comments/' + comment,
-//                 headers: headers, // Include the headers object in your AJAX request
-//                 success: function(response) {
-//                     if (response.message) {
-//                         Swal.fire(
-//                             'Deleted!',
-//                             'Comment has been deleted.',
-//                             'success'
-//                         ).then(function() {
-//                             // Reload or refresh the page or perform any other action
-//                             location.reload();
-//                         });
-//                     }
-//                 },
-//                 error: function(err) {
-//                     console.error("Error deleting comment:", err);
-
-//                     // Display an error message using SweetAlert
-//                     Swal.fire({
-//                         icon: 'error',
-//                         title: 'Error',
-//                         text: 'An error occurred while deleting the comment',
-//                     });
-//                 }
-//             });
-//         }
-//     });
-// }
-
 //load data in model posts and comments
 $(document).ready(function() {
     $(".view-comments-button").click(function() {
@@ -693,20 +677,21 @@ $(document).ready(function() {
             success: function(data) {
                  console.log(data);
 
+                $(".modal_swiper").empty();
                 var post = data.post;
                 var commentsHtml = '';
                 var createdTime = moment(post.created_at).fromNow();
- 
+
 
                     if(post.user.image_path != null){
 
                         var postUserimagePathParts = post.user.image_path.split('/head-family');
                         var imageNamePostUser = postUserimagePathParts.pop(); // Get the last part of the path (the image file name)
                         var imageOfPostUser = '{{ asset('') }}' + postUserimagePathParts  + imageNamePostUser; //
-    
-    
+
+
                     }else{
-                        var imageOfPostUser = '{{ asset('images/admin.svg') }}';  
+                        var imageOfPostUser = '{{ asset("images/admin.svg") }}';
                     }
 
                     $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + '">');
@@ -721,43 +706,40 @@ $(document).ready(function() {
 
                 // Display post images or videos if they exist
                 if (post.docs && post.docs.length > 0) {
-                     console.log(post.docs+'pstdoc');
-                    var docsHtml = '<div style="margin-top:10px;">';
+
+                    var docsHtml = ' <div class="swiper-wrapper">';
                     var docsArray = JSON.parse(post.docs);
                     var docsPathArray = JSON.parse(post.docs_path);
 
                     docsArray.forEach(function(doc, index) {
                         // Check if it's an image or video based on file extension
                         var docPath = docsPathArray[index];
-                        console.log(docPath);
-
 
                         if (doc.match(/\.(jpeg|jpg|gif|png|mp4)$/)) {
+
+                            docsHtml += '<div class="swiper-slide">';
                             if (doc.endsWith('.mp4')) {
                                 // Extract the video path similar to how you extracted the image path
                                 var videoPathParts = docPath.split('/head-family');
                                 var videoName = videoPathParts.pop(); // Get the last part of the path (the video file name)
-                                var videoPath = videoPathParts.join('/') + '/' + videoName; // Reconstruct the path without the extra part
+                                var videoPath = videoPathParts.join('/') + '/' + videoName;
 
-                                // Use the video HTML element for videos with the adjusted path
                                 docsHtml += '<video controls><source src="' + videoPath + '" type="video/mp4"></video>';
                             } else {
-                                // Extract the image path for images
+
                                 var imagePathParts = docPath.split('/head-family');
-                                var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
-                                var imagePath = '{{ asset('') }}' + imagePathParts + imageName; // Reconstruct the path without the extra part
+                                var imageName = imagePathParts.pop();
 
+                                var imagePath = '{{ asset('') }}' + imagePathParts + imageName;
 
-
-
-                                // Display images with <img> tag
                                 docsHtml += '<img src="' + imagePath + '" alt="Image">';
                             }
+                            docsHtml += '</div> ';
                         }
                     });
 
-                    docsHtml += '</div>';
-                    $(".modal-body .inr-dis-data p").append(docsHtml);
+                    docsHtml += '</div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div>';
+                    $(".modal-body .inr-dis-data .modal_swiper").append(docsHtml);
                 }
 
                 // Function to capitalize the first letter of each word in a string
@@ -771,31 +753,21 @@ $(document).ready(function() {
                 if (post.comments.length === 0) {
                     commentsHtml = '<p>No comments yet</p>';
                 }else{
-                   post.comments.forEach(function(comment) {
-                   console.log(comment);
-                    // Extract the image path
-                   
-
+                    post.comments.forEach(function(comment) {
 
                     if(comment.user.image_path != null){
 
                         var imagePathParts = comment.user.image_path.split('/head-family');
-                        var imageName = imagePathParts.pop(); // Get the last part of the path (the image file name)
-                        var imagePath = '{{ asset('') }}' + imagePathParts + imageName; // Reconstruct the path without the extra part
-
-
+                        var imageName = imagePathParts.pop();
+                        var imagePath = '{{ asset('') }}' + imagePathParts + imageName;
                     }else{
-                        var imagePath = '{{ asset('images/admin.svg') }}';  
+                        var imagePath = '{{ asset('images/admin.svg') }}';
                     }
-
-
 
                     var highlightedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + comment.comment + '</span>' : '';
                     var capitalizedComment = comment.comment ? '<span style="color: #67727e; margin:7px;">' + capitalizeWords(comment.comment) + '</span>' : '';
 
                     var createdTimeComment = moment(comment.created_at).fromNow();
-
-
 
                     commentsHtml += '<div class="first-comnt">';
                     commentsHtml += '<div class="inr-connents-for">';
@@ -808,21 +780,9 @@ $(document).ready(function() {
 
                     }
 
-                    commentsHtml += '</div>';
-                    commentsHtml += '<div class="inr-dis-comment">';
-                    commentsHtml += '<p><span>' + comment.user.email + '</span>' + highlightedComment;
+                    commentsHtml += '</div><div class="inr-dis-comment"><p><span>' + comment.user.email + '</span>' + highlightedComment;
 
-                    // Delete button for comments authored by the logged-in user
-                    // if (authUser.id === comment.user.id) {
-
-                    //     commentsHtml += '<button class="delete-comment-button delete" data-post-id="' + post.id + '" data-comment-id="' + comment.id + '"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>';
-
-
-                    // }
-
-                    commentsHtml += '</p>';
-                    commentsHtml += '</div>';
-                    commentsHtml += '</div>';
+                    commentsHtml += '</p></div></div>';
                 });
             }
                 // Update the modal with the fetched post and comments
@@ -834,15 +794,10 @@ $(document).ready(function() {
                 $inrComntsModl.html(commentsHtml);
 
                 if ($inrComntsModl.find(".first-comnt").length > 3) {
-                    $inrComntsModl.addClass("scroll-comnts"); // Replace 'your-class-name' with the actual class name you want to add
+                    $inrComntsModl.addClass("scroll-comnts");
                 }
 
-                // $('.modal-body .inr-comnts-modl').empty();
                 $(".modal-body .inr-comnts-modl").html(commentsHtml);
-
-
-
-                 // Clear modal body
 
                 // Add click event handler for delete buttons
                 $(".delete-comment-button").click(function() {
@@ -851,9 +806,18 @@ $(document).ready(function() {
                     deleteComment(postId, comment);
                 });
 
-                // $(".modal-body .inr-comnts-modl").empty();
-
-
+                setTimeout(function () {
+                    new Swiper(".modal_swiper", {
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev",
+                        },
+                        pagination: {
+                            el: ".swiper-pagination",
+                            clickable: true,
+                        }
+                    });
+                }, 500);
             },
 
             error: function(err) {
@@ -873,9 +837,8 @@ document.addEventListener('input', function (e) {
 
 function adjustTextArea(textarea) {
     textarea.style.height = 'auto'; // Reset the height to auto
-    textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to fit the content
+    textarea.style.height = textarea.scrollHeight + 'px';
 
-    // If the text area is empty, set the height to 0
     if (textarea.value === '') {
         textarea.style.height = '0';
     }
@@ -903,6 +866,10 @@ $(document).ready(function() {
             // Collapse to show at most 4 lines (adjust max-height as needed)
             $commentText.css("max-height", "8em"); // 4 lines with 2em line height
         }
+    });
+
+    $(document).on( 'click', '.for-all-comments-show .btn-close', function () {
+        $(".modal_swiper").empty();
     });
 });
 
