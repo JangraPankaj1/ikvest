@@ -473,7 +473,7 @@
                     <p>If you delete you can't recover it.</p>
                     <div class="inr-btns">
                         <button type="button" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button">Delete</button>
+                        <button type="button" class="modelDelete">Delete</button>
                     </div>
                 </div>
             </div>
@@ -550,6 +550,7 @@ $(".comment-delete").click(function() {
 
     // When the modal's delete button is clicked
     $(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
+
         // Submit the delete form via AJAX
         $.ajax({
             type: 'Delete',
