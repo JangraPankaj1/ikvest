@@ -28,7 +28,15 @@
                                         <li><a href="{{ route('about-us') }}" class="{{ Request::routeIs('about-us') ? 'active' : '' }}">About Us</a></li>
                                         <li><a href="{{ route('family-tree') }}" class="{{ Request::routeIs('family-tree') ? 'active' : '' }}">Family Tree</a></li>
                                         <li><a href="{{ route('investing') }}" class="{{ Request::routeIs('investing') ? 'active' : '' }}">Investing</a></li>
-                                        <li><a href="{{ route('my-invest') }}" class="{{ Request::routeIs('my-invest') ? 'active' : '' }}">My Invest</a></li>
+
+                                        @auth
+                                        <li><a href="{{ route('my-ikvest') }}" class="{{ Request::routeIs('my-invest') ? 'active' : '' }}">My Invest</a></li>
+                                        
+                                        @endauth
+
+                                        <!-- Check if the user is authenticated -->
+
+
                                     </ul>
                                 </div>
 
@@ -65,7 +73,7 @@
                                         <li><a class="dropdown-item" href="{{ route('get.timeline.head') }}">Event</a></li>
                                         <li><a class="dropdown-item" href="{{ route('profile.view') }}">View Profile</a></li>
                                         <li><a class="dropdown-item"  href="{{ route('logout') }}">Log Out</a></li>
-                                        
+                                                                              
                                                                                
                                     </ul>
                                 </div>

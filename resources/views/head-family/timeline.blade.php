@@ -37,7 +37,7 @@
                                             @endif
                                         </div>
                                         <div class="profile-name">
-                                            <h4>{{ucfirst(Auth::user()->f_name)}}</h4>
+                                            <h4>{{ucfirst(Auth::user()->f_name)}} {{ Auth::user()->l_name }}</h4>
                                             <p>{{Auth::user()->email}}</p>
                                         </div>
 
@@ -46,10 +46,13 @@
                                                 <img src="{{ asset('web-images/mdi_family-tree.svg') }}" height="90" width="90" alt="Default Profile Image" id="existing-image-preview">
                                                 <p><span>{{ $memberCount }}</span>Family Members</p>
                                             </div>
+                                            @if(Auth::user()->bdy_date)
+
                                             <div class="inr-edit">
                                                 <img src="{{ asset('web-images/la_birthday-cake.svg') }}" />
                                                 <p>{{ Auth::user()->bdy_date}}</p>
                                             </div>
+                                            @endif
                                             <div class="inr-edit">
                                                 <a href="{{ route('profile.post'); }}">
                                                     <img src="{{ asset('web-images/edit.svg') }}" />
@@ -57,38 +60,53 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="inr-profle-data">
+                                          <div class="inr-profle-data">
                                                     <div class="row">
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>ian@ianikvest.com</span> <i class="fa fa-envelope" aria-hidden="true"></i></h4>
+                                                                <h4><span>{{ Auth::user()->email}}</span> <i class="fa fa-envelope" aria-hidden="true"></i></h4>
                                                             </div>
                                                         </div>
+                                                        @if(Auth::user()->bdy_date)
+
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>12-12-2012</span><i class="fa-solid fa-calendar-day"></i></h4>
+                                                                <h4><span>{{ Auth::user()->bdy_date}}</span><i class="fa-solid fa-calendar-day"></i></h4>
                                                             </div>
                                                         </div>
+                                                        @endif
+
+                                                        @if(Auth::user()->phone)
+
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>5485484112</span><i class="fa-solid fa-phone"></i></h4>
+                                                                <h4><span>{{ Auth::user()->phone}}</span><i class="fa-solid fa-phone"></i></h4>
                                                             </div>
                                                         </div>
+                                                        @endif
+
+                                                        @if(Auth::user()->marital_status)
+
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>Married</span><i class="fa-regular fa-life-ring"></i></h4>
+                                                                <h4><span>{{ Auth::user()->marital_status}}</span><i class="fa-regular fa-life-ring"></i></h4>
                                                             </div>
                                                         </div>
+                                                        @endif
+
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>Ian Knight</span><i class="fa-solid fa-pen-nib"></i></h4>
+                                                                
+                                                                <h4><span>{{ ucfirst(Auth::user()->f_name )}}  {{ Auth::user()->l_name }}</span><i class="fa-solid fa-pen-nib"></i></h4>
                                                             </div>
                                                         </div>
+                                                        @if(Auth::user()->mrg_date)
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>12-12-2012</span><i class="fa-regular fa-calendar-days"></i></h4>
+                                                                <h4><span>{{ Auth::user()->mrg_date}}</span><i class="fa-regular fa-calendar-days"></i></h4>
                                                             </div>
                                                         </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                         <div class="new-event">

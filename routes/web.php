@@ -16,7 +16,7 @@ Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('About-us',[HomeController::class,'aboutUsPage'])->name('about-us');
 Route::get('Family-tree',[HomeController::class,'familyTreePage'])->name('family-tree');
 Route::get('Investing',[HomeController::class,'investingPage'])->name('investing');
-Route::get('My-invest',[HomeController::class,'myInvestPage'])->name('my-invest');
+// Route::get('My-invest',[HomeController::class,'myInvestPage'])->name('my-invest');
 
 
 // ********** otp verification *********
@@ -126,10 +126,11 @@ Route::middleware('auth:web')->group(function(){
         Route::get('/posts/{post}/edit', [HeadFamilyController::class,'editPost'])->name('post.edit');
         Route::put('/posts/{id}', [HeadFamilyController::class,'updatePost'])->name('post.update');
 
-
         Route::post('/post/{id}/comments', [HeadFamilyController::class,'CommentOnPostHead'])->name('post.comments.head');
-
         Route::get('/posts/{postId}', [HeadFamilyController::class, 'getPostContent']);
+
+        Route::get('my-ikvest',[HeadFamilyController::class,'myIkvestPage'])->name('my-ikvest');
+
 
 
 

@@ -150,8 +150,6 @@ class HeadFamilyController extends Controller
 
         public function getPostContent($postId)
             {
-
-
                 // $post = Post::with(['comments', 'user'])->find($postId);
                 $post = Post::with(['comments.user', 'user'])->find($postId);
 
@@ -163,11 +161,34 @@ class HeadFamilyController extends Controller
                 return response()->json(['error' => 'Post not found'], 404);
             }
 
+            public function myIkvestPage()
+                {
+
+                  try {
+                    // Fetch the authenticated user's posts only
+                    $data = Post::where('posted_by', auth()->user()->id)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+                    // Fetch comments for the authenticated user's posts                 
+                    $comments = Comment::whereIn('post_id', $data->pluck('id'))
+                        ->select('comment')
+                        ->get();
+
+                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
+
+                    return view('head-family/my-ikvest', compact('data', 'comments', 'memberCount'));
+                } catch (Exception $e) {
+                    return back()->withErrors($e->getMessage());
+                }
+            }
+
+
 
         // ********* Upload Posts *******
 
         public function uploadPost(Request $request)
             {
+                // dd($request);
                 try {
                     $request->validate(
                         [
@@ -278,23 +299,6 @@ class HeadFamilyController extends Controller
 
          }
 
-          // ********** Delete Post **********
-
-        // public function deletePost($id)
-        //    {
-
-        //      try {
-
-        //          $post = Post::findOrFail($id);
-        //          $post->delete();
-
-        //          return back()->with('message','Post deleted successfully');
-
-        //      } catch (\Exception $e) {
-        //          // Return an error JSON response
-        //          return back()->with('error','Post not deleted ');
-        //      }
-        //   }
 
         // ********** Delete Post **********
 
