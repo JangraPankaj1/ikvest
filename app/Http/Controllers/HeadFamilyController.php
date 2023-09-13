@@ -182,8 +182,6 @@ class HeadFamilyController extends Controller
                 }
             }
 
-
-
         // ********* Upload Posts *******
 
         public function uploadPost(Request $request)
@@ -258,28 +256,53 @@ class HeadFamilyController extends Controller
          public function showTimelineHead(Request $request)
              {
 
-            try{
+                try{
 
-               $comments = DB::table('comments')
-               ->join('posts', 'comments.post_id', '=', 'posts.id')
-               ->select('comments.comment')
-                ->get();
-
-
-                $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-                    ->get(['posts.*', 'users.f_name','users.image_path']);
-
-                $memberCount = User::where('parent_id', auth()->user()->id)->count();
+                $comments = DB::table('comments')
+                ->join('posts', 'comments.post_id', '=', 'posts.id')
+                ->select('comments.comment')
+                    ->get();
 
 
-                return view('head-family/timeline', compact('data','comments', 'memberCount'));
+                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
+                        ->get(['posts.*', 'users.f_name','users.image_path']);
 
-          }catch (Exception $e) {
-                return back()->withErrors($e->getMessage());
+                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
+                    $profileData = User::where('parent_id', auth()->user()->id)->get(); 
 
-          }
+                    return view('head-family/timeline', compact('data','comments', 'memberCount','profileData'));
+
+            }catch (Exception $e) {
+                    return back()->withErrors($e->getMessage());
+
+            }
 
         }
+
+         // ********* Search Family Member*******
+         public function searchFamilyMember(Request $request,$name)
+             {
+
+                try{
+                    $name = $request->input('f_name');
+                    // Fetch data based on $name (e.g., using Eloquent)
+                    $user = User::where('f_name', 'LIKE', '%' . $name . '%')->first();           
+                    if (!$user) {
+                        return back()->with('error', 'User not found');
+                    }
+
+                    // Truncate the name to display only part of it
+                    $familyMemberName = Str::limit($user->f_name, 10); // Display the firs
+                    // dd($familyMemberName);
+                    return view('head-family/timeline', compact('familyMemberName'));
+
+               }catch (Exception $e) {
+                    return back()->withErrors($e->getMessage());
+
+             }
+          }
+
+        
            // ********* Add Comment*******
         public function CommentOnPostHead (Request $request, $id)
         {

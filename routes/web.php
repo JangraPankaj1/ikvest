@@ -131,8 +131,9 @@ Route::middleware('auth:web')->group(function(){
 
         Route::get('my-ikvest',[HeadFamilyController::class,'myIkvestPage'])->name('my-ikvest');
 
+        Route::get('timeline/profile/{name}',[HeadFamilyController::class,'searchFamilyMember'])->name('search.family.member');
 
-
+        
 
     });
 

@@ -11,16 +11,28 @@
                 </div>
             </div>
             <div class="profile-mmbr-data">
-                <!--------inner Profile card --------->
-                <div class="flex-main-itms">
+               <!--------inner Profile card --------->
+                @foreach($profileData as $key =>$data)
+                  <div class="flex-main-itms">
                     <div class="pic-lft">
-                        <img src="/images/who-group.png" />
+                        @if($data->image_path)
+                            <img src="{{ asset($data->image_path) }}" class="profile" alt="Profile Image" id="existing-image-preview">
+                        @else
+                            <img src="{{ asset('web-images/admin-edit.svg') }}"  alt="Default Profile Image">
+                            
+                        @endif
+
+                          <img src="/images/who-group.png"/>
+                      <!-- <a href="{{ route('searchFamilyMember') }}"><img src="/images/who-group.png"/></a> -->
                     </div>
                     <div class="right-data">
-                        <h4>Profile Name</h4>
+                  
+                        <a>{{ $data->f_name }}</a>
                         <p>Status</p>
-                    </div>
+
+                    </div>                 
                 </div>
+                @endforeach
                 <!--------inner Profile card --------->
             </div>
         </div>
