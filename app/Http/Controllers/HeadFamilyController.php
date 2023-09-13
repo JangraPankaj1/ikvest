@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Rules\TenDigitPhoneNumber;
 
+use Illuminate\Support\Facades\Validator;
 
 use DataTables;
 use DateTime;
@@ -201,9 +202,12 @@ class HeadFamilyController extends Controller
                     ->get(['posts.*', 'users.f_name']);
 
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
+                     
+                    return redirect()->route('get.timeline.head')
+                    ->with('data', $data)
+                    ->with('memberCount', $memberCount);
 
-
-                    return view('head-family/timeline', compact('data','memberCount'));
+                    // return view('head-family/timeline', compact('data','memberCount'));
 
 
                 }else{
@@ -217,9 +221,11 @@ class HeadFamilyController extends Controller
                     ->get(['posts.*', 'users.f_name']);
 
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
+                    return redirect()->route('get.timeline.head')
+                    ->with('data', $data)
+                    ->with('memberCount', $memberCount);
 
-
-                    return view('head-family/timeline', compact('data','memberCount'));
+                    // return view('head-family/timeline', compact('data','memberCount'));
                 }
             }catch (Exception $e) {
                 dd($e->getMessage());
@@ -400,10 +406,19 @@ class HeadFamilyController extends Controller
 
         // *********profile update*******
         public function profileUpdatePost(Request $request){
+
+                // Define the custom validation rule
+                    Validator::extend('Please Enter 10 digit', function ($attribute, $value, $parameters, $validator) {
+                        // Check if the value is not empty and contains exactly 10 digits
+                        return empty($value) || preg_match('/^\d{10}$/', $value);
+                    });
+
+
             $request->validate([
                 'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
                 'f_name'  => 'required|max:255', // Validation rule for first name
-                'phone' => [new TenDigitPhoneNumber], // Use the custom rule
+                'phone' => ['nullable', 'Please Enter 10 digit'], // Use the custom rule with 'nullable'
+
                 'bdy_date'  => 'required',
             ], [
                 'f_name.required' => 'The first name field is required.', 
@@ -510,7 +525,6 @@ class HeadFamilyController extends Controller
 
      public function updatePost(Request $request, Post $post)
                {
-
                 // dd($post);
                   try {
 
@@ -552,10 +566,10 @@ class HeadFamilyController extends Controller
                     dd($e->getMessage());
                     return back()->withErrors($e->getMessage());
                 }
-      }
+         }
 
     public function editEvent($id)
-    {
+     {
        try{
             $event = Event::find($id);
             return view('head-family/edit-event', compact('event'));

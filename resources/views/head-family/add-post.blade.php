@@ -34,7 +34,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="inr-uploads-events">
+
                                     <form id = "thisForm" id="upload-image" class="formRegister" action="{{ route('posts') }}" method="post"  enctype="multipart/form-data">
+
                                         @csrf
                                         <textarea placeholder="Enter Discription" name="post" required></textarea>
                                             <div class="error">
@@ -56,7 +58,7 @@
                                         </div>
                                         
                                         <div class="bottom-publish">
-                                            <button>Cancel</button>
+                                             <a href="{{ url()->previous() }}">Cancel</a>
                                             <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                     viewBox="0 0 30 30" fill="none">
                                                     <path

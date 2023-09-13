@@ -46,10 +46,9 @@
                                             </div>
 
                                         <div class="upload-files">
-
                                             <div class="add-pic">
                                                 <img src="{{asset('web-images/add-to-photos.svg')}}" />
-                                                <input type="file" name="image[]" accept=".pdf, .xml, .csv, .mp4" id="image" multiple>
+                                                <input type="file" name="image[]" accept=".mp4" id="image" multiple>
                                                 <div class="col-md-12 mb-2">
                                                 
 
@@ -76,7 +75,7 @@
                                         </div>
 
                                         <div class="bottom-publish">
-                                            <button>Cancel</button>
+                                        <a href="{{ url()->previous() }}">Cancel</a>
                                             <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                     viewBox="0 0 30 30" fill="none">
                                                     <path

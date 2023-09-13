@@ -452,12 +452,12 @@
                     <p>If you delete you can't recover it.</p>
                     <div class="inr-btns">
                         <button type="button" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button">Delete</button>
+                        <button type="button" class="modelDelete" >Delete</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
 
 
     <div class="modal fade for-delete" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel"
@@ -499,7 +499,8 @@ $(".delete-button").click(function() {
     console.log(postId);
 
     // When the modal's delete button is clicked
-    $("#exampleModal .modal-body button[type='button']").click(function() {
+      $(document).on('click', '#exampleModal .modal-body button.modelDelete', function() {
+
         // Submit the delete form via AJAX
         $.ajax({
             type: 'Delete',
@@ -536,7 +537,7 @@ $(".delete-button").click(function() {
 
 
 
-
+//delete comments
 $(document).ready(function() {
 // When the delete button is clicked
 $(".comment-delete").click(function() {
@@ -548,7 +549,7 @@ $(".comment-delete").click(function() {
 
 
     // When the modal's delete button is clicked
-    $("#commentModal .modal-body button[type='button']").click(function() {
+    $(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
         // Submit the delete form via AJAX
         $.ajax({
             type: 'Delete',
@@ -588,7 +589,7 @@ $(".comment-delete").click(function() {
 function deleteComment(postId, comment) {
 // When the delete button is clicked
 
-    $("#commentModal .modal-body button[type='button']").click(function() {
+$(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
         // Submit the delete form via AJAX
         $.ajax({
             type: 'Delete',
