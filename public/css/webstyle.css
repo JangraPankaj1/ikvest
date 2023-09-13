@@ -1867,7 +1867,7 @@ input[type=number] {
   display: none;
   transition: cubic-bezier(0.39, 0.575, 0.565, 1);
 }
-.main-side-data img.close-btn-sidebar {
+.main-side-data i.close-btn-sidebar {
   display: block;
   margin-left: auto;
   cursor: pointer;
@@ -1898,36 +1898,25 @@ input[type=number] {
   gap: 10px;
 }
 .main-side-data .family-mbr .inr-srch input {
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid #8d8d8d;
   background: #fff;
-  width: calc(100% - 110px);
+  width: 100%;
   height: 39px;
-  padding: 5px;
+  padding: 5px 30px 5px 5px;
 }
-.main-side-data .family-mbr .inr-srch button {
-  border-radius: 10px;
-  background: #4877cc;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  color: #fff;
-  padding: 8px 14px;
-  border: 1px solid #4877cc;
-  transition: 0.5s;
+.main-side-data .family-mbr .inr-srch input:focus {
+  outline: 1px solid #00b050;
 }
-.main-side-data .family-mbr .inr-srch button:hover {
-  color: #4877cc;
-  background: transparent;
+.main-side-data .family-mbr .inr-srch i {
+  font-size: 16px;
   transition: 0.5s;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 }
-.main-side-data .family-mbr .inr-srch button:hover:hover path {
-  fill: #4877cc;
-  transition: 0.5s;
-}
-.main-side-data .family-mbr .inr-srch button:hover svg {
-  transition: 0.5s;
+.main-side-data .family-mbr .inr-srch i:hover {
+  color: #00b050;
 }
 .main-side-data .profile-mmbr-data {
   margin-top: 31px;

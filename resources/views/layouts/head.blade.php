@@ -19,18 +19,17 @@
     <link rel="stylesheet" href="{!! asset('css/web-media-style.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/swiper-bundle.min.css') !!}">
 
-    <script src="//code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="{!! asset('js/new-bundle.js') !!}"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"  />
 
 
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
-    <!-- <script src="
-https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/js/lightbox.min.js
-"></script>
-<link href="
-https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/css/lightbox.min.css
-" rel="stylesheet"> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
