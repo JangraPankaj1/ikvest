@@ -329,6 +329,11 @@
   .inner-profile-data .full-data-profile {
     margin-top: 0;
   }
+  .inner-profile-data .full-data-profile .col-md-12 .inr-dis-data img, .inner-profile-data .full-data-profile .col-md-12 .inr-dis-data video {
+    width: 100%;
+    margin: 0 0 15px;
+    height: 100%;
+  }
   .for-all-comments-show .modal-dialog .inner-profile-data .full-data-profile .inr-comnts-modl .first-comnt .inr-connents-for {
     gap: 10px;
   }
@@ -841,7 +846,7 @@
 @media (max-width: 649px) {
   .main-inner-timelines {
     gap: 10px;
-    max-width: 80%;
+    max-width: 90%;
     flex-wrap: wrap;
     margin: 40px auto;
   }

@@ -89,8 +89,8 @@
         <!-- Initialize Swiper -->
 
 <script>
-    if( jQuery(".testimonial, .swiperr").length ){
-        var swiper = new Swiper(".testimonial, .swiper", {
+    if( jQuery(".testimonial, .mySwiper").length ){
+        var swiper = new Swiper(".testimonial, .mySwiper", {
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
