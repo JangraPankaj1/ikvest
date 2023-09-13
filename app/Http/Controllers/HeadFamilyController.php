@@ -428,9 +428,9 @@ class HeadFamilyController extends Controller
             
 
             if ($request->hasFile('image')) {
-            $profileName = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images'), $profileName);
-            $email = auth()->user()->email;
+                $profileName = $request->file('image')->getClientOriginalName();
+                $request->file('image')->move(public_path('images'), $profileName);
+                $email = auth()->user()->email;
 
                 $User = User::find(Auth::user()->id);
                 $User->f_name = $request->input('f_name');
@@ -442,10 +442,10 @@ class HeadFamilyController extends Controller
                 $User->email =  $email;
                 $User->bdy_date = $request->input('bdy_date');
                 $User->mrg_date = $request->input('mrg_date');
-            $User->profile_pic = $profileName;
-            $User->image_path = 'images/' . $profileName;
-            $User->update();
-            return back()->with('message','Profile Updated');
+                $User->profile_pic = $profileName;
+                $User->image_path = 'images/' . $profileName;
+                $User->update();
+                return back()->with('message','Profile Updated');
 
             }else{
 
@@ -523,12 +523,11 @@ class HeadFamilyController extends Controller
             // **********Update postt**********
 
 
-     public function updatePost(Request $request, Post $post)
+     public function updatePost(Request $request, $id)
                {
-                // dd($post);
-                  try {
+                     try {
 
-                    if ($request->hasFile('image')) {
+                       if ($request->hasFile('image')) {
                         $images = $request->file('image');
                         $imageData = [];
 
@@ -542,21 +541,22 @@ class HeadFamilyController extends Controller
                                 'image_path' => 'images/' . $imageName,
                             ];
                         }
-
-                       $post = new Post;
-                       $post->posted_by  = Auth::user()->id;
-                       $post->post_message  = $request->post_message;
-                       $post->docs = json_encode(array_column($imageData, 'image_name'));
-                       $post->docs_path = json_encode(array_column($imageData, 'image_path'));
-                       $post->save();
-
-                       return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
-
+                        $post = Post::find($id);
+                        // dd($post);
+                        $id =Auth::user()->id;
+                        $post->posted_by  = $id;
+                        $post->post_message  = $request->post_message;
+                        $post->docs = json_encode(array_column($imageData, 'image_name'));
+                        $post->docs_path = json_encode(array_column($imageData, 'image_path'));
+                        $post->save();
+                        return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
 
                     }else{
 
-                        $post = new Post;
-                        $post->posted_by  = Auth::user()->id;
+                        $post = Post::find($id);
+                        // dd($post);
+                        $id =Auth::user()->id;
+                        $post->posted_by  = $id;
                         $post->post_message  = $request->post_message;
                         $post->save();
                         return redirect("head-family/timeline")->with('success', 'Post updated succesfully');

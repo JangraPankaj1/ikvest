@@ -149,18 +149,19 @@
                                                             </p>  -->
 
                                                             <p>
-                                                                <span>{{ $user->email }}</span>
-                                                                @php
-                                                                    $commentText = ucfirst($comment->comment);
-                                                                    $displayComment = strlen($commentText) > 2000 ? substr($commentText, 0, 10000) : $commentText;
-                                                                @endphp
+    <span>{{ $user->email }}</span>
+    @php
+        $commentText = ucfirst($comment->comment);
+        $displayComment = strlen($commentText) > 2000 ? substr($commentText, 0, 10000) : $commentText;
+    @endphp
 
-                                                                <p class="comment-text{{ strlen($commentText) > 500 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
+    <p class="comment-text{{ strlen($commentText) > 500 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
 
-                                                                @if (strlen($commentText) > 300)
-                                                                    <a href="#" class="read-more">Read more</a>
-                                                                 @endif
-                                                            </p>
+    @if (strlen($commentText) > 300)
+        <a href="#" class="read-more">Read more</a>
+    @endif
+</p>
+
 
                                                         </div>
                                                     </div>
@@ -323,6 +324,8 @@
 
                                                                     </div>
                                                                     <div class="inr-dis-comment">
+
+                                                                    
                                                                             @php
                                                                                 $commentText = ucfirst($comment->comment);
                                                                                 $displayComment = strlen($commentText) > 2000 ? substr($commentText, 0, 10000) : $commentText;
@@ -371,7 +374,7 @@
 
 </div>
 
- <!-- Modal -->
+ <!-- Modal  for shoing all data posts and comments-->
  <div class="modal fade for-all-comments-show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -421,8 +424,8 @@
                                         <p><span><!-- here is fetch email --></span>
 
                                       <!-- here is fetch comment if comment exists -->
-
                                             </p>
+
                                     </div>
                                   </div>
                             </div>
@@ -589,7 +592,6 @@ $(".comment-delete").click(function() {
 
 function deleteComment(postId, comment) {
 // When the delete button is clicked
-
 $(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
         // Submit the delete form via AJAX
         $.ajax({
@@ -818,7 +820,6 @@ $(document).ready(function() {
 
                     //     commentsHtml += '<button class="delete-comment-button delete" data-post-id="' + post.id + '" data-comment-id="' + comment.id + '"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>';
 
-
                     // }
 
                     commentsHtml += '</p>';
@@ -841,8 +842,6 @@ $(document).ready(function() {
                 // $('.modal-body .inr-comnts-modl').empty();
                 $(".modal-body .inr-comnts-modl").html(commentsHtml);
 
-
-
                  // Clear modal body
 
                 // Add click event handler for delete buttons
@@ -851,10 +850,7 @@ $(document).ready(function() {
                     var comment = $(this).data("comment-id");
                     deleteComment(postId, comment);
                 });
-
                 // $(".modal-body .inr-comnts-modl").empty();
-
-
             },
 
             error: function(err) {
@@ -883,10 +879,8 @@ function adjustTextArea(textarea) {
 }
 
 
-</script>
 
-<script>
-
+//read more for comments
 $(document).ready(function() {
     $(".read-more").click(function(e) {
         e.preventDefault();
