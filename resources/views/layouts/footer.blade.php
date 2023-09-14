@@ -104,7 +104,7 @@
 </script>
 
 
-
+<?php if(Auth::check()){ ?>
 <script>
 
 //delete post
@@ -464,3 +464,4 @@ $(document).ready(function() {
     });
 });
 </script>
+<?php } ?>
