@@ -8,16 +8,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="inner-banner">
-                            <h1>Event</h1>
-                            <p><span>Home</span> >> Events</p>
+                            <h1>Member</h1>
+                            <p><span>Home</span> >> Member</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
     <!-----------------end Bannner --------------------->
     <div class="main-all-page-back-image-family">
         <!-----------------Profile Name --------------------->
@@ -31,66 +29,58 @@
                                 <div class="col-md-12">
                                     <div class="upload-image">
                                         <div class="upload-image-inr">
-                                            @if(Auth::user()->image_path)
-                                            <img src="{{ asset(Auth::user()->image_path) }}" alt="Profile Image" id="existing-image-preview">
+                                            @if($user->image_path)
+                                            <img src="{{ asset($user->image_path) }}" alt="Profile Image" id="existing-image-preview">
                                             @else
                                             <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
                                             @endif
                                         </div>
                                         <div class="profile-name">
-                                            <h4>{{ucfirst(Auth::user()->f_name)}} {{ Auth::user()->l_name }}</h4>
-                                            <p>{{Auth::user()->email}}</p>
+                                            <h4>{{ucfirst($user->f_name)}} {{ $user->l_name }}</h4>
+                                            <p>{{$user->email}}</p>
                                         </div>
 
-                                            <div class="member-show for-edit">
-                                                <div class="inr-edit mamber-list">
-                                                    <img src="{{ asset('web-images/mdi_family-tree.svg') }}" height="90" width="90" alt="Default Profile Image" id="existing-image-preview">
-                                                    <p><span>{{ $memberCount }}</span>Family Members</p>
-                                                </div>
-                                            @if(Auth::user()->bdy_date)
+                                        <div class="member-show for-edit">
+                                           
+                                            @if($user->bdy_date)
 
                                             <div class="inr-edit">
                                                 <img src="{{ asset('web-images/la_birthday-cake.svg') }}" />
-                                                <p>{{ Auth::user()->bdy_date}}</p>
+                                                <p>{{ $user->bdy_date}}</p>
                                             </div>
                                             @endif
-                                            <div class="inr-edit">
-                                                <a href="{{ route('profile.post'); }}">
-                                                    <img src="{{ asset('web-images/edit.svg') }}" />
-                                                    <p>Edit</p>
-                                                </a>
-                                            </div>
+                                           
                                          </div>
                                           <div class="inr-profle-data">
                                                     <div class="row">
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>{{ Auth::user()->email}}</span> <i class="fa fa-envelope" aria-hidden="true"></i></h4>
+                                                                <h4><span>{{ $user->email}}</span> <i class="fa fa-envelope" aria-hidden="true"></i></h4>
                                                             </div>
                                                         </div>
-                                                        @if(Auth::user()->bdy_date)
+                                                        @if($user->bdy_date)
 
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>{{ Auth::user()->bdy_date}}</span><i class="fa-solid fa-calendar-day"></i></h4>
-                                                            </div>
-                                                        </div>
-                                                        @endif
-
-                                                        @if(Auth::user()->phone)
-
-                                                        <div class="col-md-12 text-md-start text-sm-start">
-                                                            <div class="mail-address">
-                                                                <h4><span>{{ Auth::user()->phone}}</span><i class="fa-solid fa-phone"></i></h4>
+                                                                <h4><span>{{$user->bdy_date}}</span><i class="fa-solid fa-calendar-day"></i></h4>
                                                             </div>
                                                         </div>
                                                         @endif
 
-                                                        @if(Auth::user()->marital_status)
+                                                        @if($user->phone)
 
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>{{ Auth::user()->marital_status}}</span><i class="fa-regular fa-life-ring"></i></h4>
+                                                                <h4><span>{{ $user->phone}}</span><i class="fa-solid fa-phone"></i></h4>
+                                                            </div>
+                                                        </div>
+                                                        @endif
+
+                                                        @if($user->marital_status)
+
+                                                        <div class="col-md-12 text-md-start text-sm-start">
+                                                            <div class="mail-address">
+                                                                <h4><span>{{ $user->marital_status}}</span><i class="fa-regular fa-life-ring"></i></h4>
                                                             </div>
                                                         </div>
                                                         @endif
@@ -98,38 +88,27 @@
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
                                                                 
-                                                                <h4><span>{{ ucfirst(Auth::user()->f_name )}}  {{ Auth::user()->l_name }}</span><i class="fa-solid fa-pen-nib"></i></h4>
+                                                                <h4><span>{{ ucfirst($user->f_name )}}  {{ $user->l_name }}</span><i class="fa-solid fa-pen-nib"></i></h4>
                                                             </div>
                                                         </div>
-                                                        @if(Auth::user()->mrg_date)
+                                                        @if($user->mrg_date)
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>{{ Auth::user()->mrg_date}}</span><i class="fa-regular fa-calendar-days"></i></h4>
+                                                                <h4><span>{{ $user->mrg_date}}</span><i class="fa-regular fa-calendar-days"></i></h4>
                                                             </div>
                                                         </div>
                                                         @endif
                                                     </div>
-                                                </div>
-                                        <div class="new-event">
-                                            <a href="{{ route('post') }}">
-                                                <button>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
-                                                        <path d="M4.5498 15C4.5498 20.7781 9.22173 25.45 14.9998 25.45C20.7779 25.45 25.4498 20.7781 25.4498 15C25.4498 9.22192 20.7779 4.54999 14.9998 4.54999C9.22173 4.54999 4.5498 9.22192 4.5498 15ZM6.2498 15C6.2498 10.1581 10.1579 6.24999 14.9998 6.24999C19.8417 6.24999 23.7498 10.1581 23.7498 15C23.7498 19.8419 19.8417 23.75 14.9998 23.75C10.1579 23.75 6.2498 19.8419 6.2498 15Z" fill="white" stroke="white" stroke-width="0.5" />
-                                                        <path d="M9.6001 14.15H9.3501V14.4V15.6V15.85H9.6001H20.4001H20.6501V15.6V14.4V14.15H20.4001H9.6001Z" fill="white" stroke="white" stroke-width="0.5" />
-                                                        <path d="M14.3999 9.34998H14.1499V9.59998V20.4V20.65H14.3999H15.5999H15.8499V20.4V9.59998V9.34998H15.5999H14.3999Z" fill="white" stroke="white" stroke-width="0.5" />
-                                                    </svg>
-                                                    New Event
-                                                </button>
-                                            </a>
-                                        </div>
+                                                </div>                                      
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                            <div class="col-md-8">
-                                <div class="inner-profile-data">
+                    <div class="col-md-8">
+
+                        <div class="inner-profile-data">
                                     @if ($errors->any())
                                                 <div class="alert alert-danger">
                                                     <ul>
@@ -213,9 +192,11 @@
                                                                 @endif
                                                             </p>
 
+
                                                         </div>
                                                     </div>
                                                     @endforeach
+
                                                     @endforeach
                                                 </div>
                                             @endif
@@ -303,7 +284,7 @@
                                                         <div class="swiper-slide"> <!-- Adjust margin as needed -->
                                                             @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
 
-                                                             <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
+                                                            <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
 
                                                                 <img src="{{ asset($imagePath) }}"  alt="Image" width="50" height="400"> </a>
 
@@ -345,6 +326,7 @@
                                                     </div>
 
                                                     <button type="submit"><img src="{{ asset('web-images/comnt.svg')}}" /></button>
+
                                                 </div>
                                             </form>
                                         </div>
@@ -460,6 +442,7 @@
 
                             <div class="row">
                                 <div class="col-md-12">
+
                                     <div class="inr-dis-data">
                                         <p><!-- here is fetch posts --></p>
                                         <div class="swiper modal_swiper"></div>
@@ -483,7 +466,8 @@
                                         <p><span><!-- here is fetch email --></span>
 
                                       <!-- here is fetch comment if comment exists -->
-                                        </p>
+                                            </p>
+
                                     </div>
                                   </div>
                             </div>
@@ -538,9 +522,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+         </div>
+     </div>
 
-@include('layouts.sidebar-profile');
 @endsection
 

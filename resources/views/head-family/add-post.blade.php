@@ -34,9 +34,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="inr-uploads-events">
-
                                     <form id = "thisForm" id="upload-image" class="formRegister" action="{{ route('posts') }}" method="post"  enctype="multipart/form-data">
-
                                         @csrf
                                         <textarea placeholder="Enter Discription" name="post" required></textarea>
                                             <div class="error">

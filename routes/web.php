@@ -127,13 +127,16 @@ Route::middleware('auth:web')->group(function(){
         Route::put('/posts/{id}', [HeadFamilyController::class,'updatePost'])->name('post.update');
 
         Route::post('/post/{id}/comments', [HeadFamilyController::class,'CommentOnPostHead'])->name('post.comments.head');
-        Route::get('/posts/{postId}', [HeadFamilyController::class, 'getPostContent']);
+        Route::get('/posts/{postId}', [HeadFamilyController::class, 'getPostContent'])->name('post.get');
 
         Route::get('my-ikvest',[HeadFamilyController::class,'myIkvestPage'])->name('my-ikvest');
 
-        Route::get('timeline/profile/{name}',[HeadFamilyController::class,'searchFamilyMember'])->name('search.family.member');
+        Route::get('/search-family-member',[HeadFamilyController::class,'searchFamilyMember'])->name('search.family.member');
 
-        
+        Route::get('member-profile/{id}',[HeadFamilyController::class,'memberProfile'])->name
+        ('member.profile');
+
+
 
     });
 

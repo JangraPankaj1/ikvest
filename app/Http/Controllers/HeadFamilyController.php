@@ -161,6 +161,7 @@ class HeadFamilyController extends Controller
                 return response()->json(['error' => 'Post not found'], 404);
             }
 
+             // ********* get data self profile head family*******
             public function myIkvestPage()
                 {
 
@@ -175,12 +176,44 @@ class HeadFamilyController extends Controller
                         ->get();
 
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
+                    $profileData = User::where('parent_id', auth()->user()->id)->get(); 
 
-                    return view('head-family/my-ikvest', compact('data', 'comments', 'memberCount'));
+
+                    return view('head-family/my-ikvest', compact('data', 'comments', 'memberCount','profileData'));
                 } catch (Exception $e) {
                     return back()->withErrors($e->getMessage());
                 }
             }
+
+            
+             // ********* get data self profile head family*******
+             public function memberProfile(Request $request, $id)
+                 {
+                    try {
+
+                            $user = User::find($id);
+                            // Check if the user exists
+                            if (!$user) {
+                                return back()->with('error', 'User not found');
+                            }
+                        // Fetch the authenticated user's posts only
+                        $data = Post::where('posted_by', $id)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+
+                        // Fetch comments for the authenticated user's posts                 
+                        $comments = Comment::whereIn('post_id', $data->pluck('id'))
+                            ->select('comment')
+                            ->get();
+                        // dd($comments);
+
+
+
+                        return view('head-family/member-profile', compact('data', 'comments','user'));
+                    } catch (Exception $e) {
+                        return back()->withErrors($e->getMessage());
+                    }
+                }
 
         // ********* Upload Posts *******
 
@@ -276,36 +309,70 @@ class HeadFamilyController extends Controller
                     return back()->withErrors($e->getMessage());
 
             }
-
         }
 
-         // ********* Search Family Member*******
-         public function searchFamilyMember(Request $request,$name)
-             {
+             // ********* Search Family Member*******
+        // ********* Search Family Member*******
+        public function searchFamilyMember(Request $request)
+        {
+            try {
+                
+                $name = $request->input('search');              
+                // Split the search query into words
+                $keywords = explode(' ', $name);
 
-                try{
-                    $name = $request->input('f_name');
-                    // Fetch data based on $name (e.g., using Eloquent)
-                    $user = User::where('f_name', 'LIKE', '%' . $name . '%')->first();           
-                    if (!$user) {
-                        return back()->with('error', 'User not found');
-                    }
+                // Initialize a query builder for users
+                $query = User::query();
 
-                    // Truncate the name to display only part of it
-                    $familyMemberName = Str::limit($user->f_name, 10); // Display the firs
-                    // dd($familyMemberName);
-                    return view('head-family/timeline', compact('familyMemberName'));
+                // Add a WHERE clause to filter users by parent_id
+                $query->where('parent_id', auth()->user()->id);
 
-               }catch (Exception $e) {
-                    return back()->withErrors($e->getMessage());
+                // Loop through each keyword and add a WHERE clause
+                foreach ($keywords as $keyword) {
+                    $query->where(function ($query) use ($keyword) {
+                        $query->orWhere('f_name', 'LIKE', '%' . $keyword . '%');
+                        $query->orWhere('l_name', 'LIKE', '%' . $keyword . '%');
+                    });
+                }
 
-             }
-          }
+                // Execute the query and get the results
+                $users = $query->get();
 
-        
+                // Check if any users were found
+                if ($users->isEmpty()) {
+                    return response()->json(['message' => 'User not found'], 200);
+                }
+
+                // You can format the data you want to send back in the JSON response
+                $userList = $users->map(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'f_name' => $user->f_name,
+                        'l_name' => $user->l_name,
+                        'image_path' => $user->image_path,
+                        'bdy_date' => $user->bdy_date,
+
+
+                        // Add other fields as needed
+                    ];
+                });
+
+                return response()->json(['users' => $userList], 200);
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        }
+
+         
+ 
            // ********* Add Comment*******
         public function CommentOnPostHead (Request $request, $id)
         {
+
+            if($request->comment==null){
+                return back()->with('message','Please add a comment');
+
+            }
 
            $validatedData = $request->validate([
                'comment' => 'required',

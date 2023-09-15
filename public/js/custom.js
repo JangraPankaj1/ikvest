@@ -1,95 +1,4 @@
- <!-----------------Footer --------------------->
- <footer>
-            <div class="main-ftr">
-                <div class="container">
-                    <div class="row align-items-start">
-                        <div class="col-md-4">
-                            <div class="ftr-logo">
-                                <a href="#">
-                                    <img src="{{asset('images/IkVest-Logo.svg')}}" />
-                                </a>
-                                <a href="#">
-                                    <img src="{{ asset('web-images/defam-logo.svg') }}" />
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="adders-ftr">
-                                <h4>Address</h4>
-                                <a href="#">
-                                    <div class="list-icon">
-                                        <div class="icon-lft-ftr">
-                                            <img src="{{ asset('web-images/marker.svg') }}" />
-                                        </div>
-                                        <div class="text-for-right">
-                                            <p>2399 Wolff Extensions South Dakota, 39505 USA</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="adders-ftr contact">
-                                <h4>Contact Us</h4>
-                                <a href="tel:9876 5431 236">
-                                    <div class="list-icon">
-                                        <div class="icon-lft-ftr">
-                                            <img src="{{ asset('web-images/phone.svg') }}" />
-                                        </div>
-                                        <div class="text-for-right">
-                                            <p>9876 5431 236</p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="mailto:ian.knight@gmail.com">
-                                    <div class="list-icon">
-                                        <div class="icon-lft-ftr">
-                                            <img src="{{ asset('web-images/envelope.svg')}}" />
-                                        </div>
-                                        <div class="text-for-right">
-                                            <p>ian.knight@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="social-icon-ftr adders-ftr">
-                                <h4>Socials</h4>
-                                <a href="#">
-                                    <img src="{{ asset('web-images/facebook.svg')}}" /> </a>
-                                    <img src="{{ asset('web-images/twitter.svg')}}" /> </a>
-                                    <img src="{{ asset('web-images/instagram.svg')}}" /> </a>
-                                    <img src="{{ asset('web-images/pinterest.svg')}}" /> </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="main-copy-right">
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <div class="copy-right-left">
-                                    <p>Copyright © 2023 Ikvest Pvt Ltd. All Rights Reserved</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="copy-right-right">
-                                    <a href="#">
-                                        Ikvest Terms & conditions
-                                    </a>
-                                    <a href="#">Defam Terms & conditions</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-----------------end Footer --------------------->
-
-        <!-- Initialize Swiper -->
-
 <script>
-
     if( jQuery(".testimonial, .mySwiper").length ){
         var swiper = new Swiper(".testimonial, .mySwiper", {
             navigation: {
@@ -102,7 +11,6 @@
           },
         });
     }
-
 </script>
 
 
@@ -119,12 +27,11 @@ $(".delete-button").click(function() {
 
     // When the modal's delete button is clicked
       $(document).on('click', '#exampleModal .modal-body button.modelDelete', function() {
-        var url = '{{ route("post.delete", ":id") }}';
-        url = url.replace(':id', postId);
+
         // Submit the delete form via AJAX
         $.ajax({
             type: 'Delete',
-             url: url,
+             url: 'post/' + postId ,
             data: {
                 _token: '{{ csrf_token() }}', // Add CSRF token if needed
             },
@@ -170,14 +77,11 @@ $(".comment-delete").click(function() {
 
     // When the modal's delete button is clicked
     $(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
-      
-        var url = '{{ route("comments.destroy", ["postId" => ":postId", "comment" => ":commentId"]) }}';
-url = url.replace(':postId', postId).replace(':commentId', comment);
 
         // Submit the delete form via AJAX
         $.ajax({
             type: 'Delete',
-            url: url,
+            url: 'posts/' + postId + '/comments/' + comment,
             data: {
                 _token: '{{ csrf_token() }}', // Add CSRF token if needed
             },
@@ -213,15 +117,10 @@ url = url.replace(':postId', postId).replace(':commentId', comment);
 function deleteComment(postId, comment) {
 // When the delete button is clicked
 $(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
-    
-    var url = '{{ route("comments.destroy", ["postId" => ":postId", "comment" => ":commentId"]) }}';
-url = url.replace(':postId', postId).replace(':commentId', comment);
-
-
         // Submit the delete form via AJAX
         $.ajax({
             type: 'Delete',
-            url: url,
+            url: 'posts/' + postId + '/comments/' + comment,
             data: {
                 _token: '{{ csrf_token() }}', // Add CSRF token if needed
             },
@@ -253,21 +152,17 @@ url = url.replace(':postId', postId).replace(':commentId', comment);
 
 //load data in model posts and comments
 $(document).ready(function() {
-
     $(".view-comments-button").click(function() {
+
         var postId = $(this).data("post-id");
         console.log(postId);
 
         var image = @json(auth()->user()->image_path); // Serialize the user object to JSON
         var name = @json(auth()->user()->f_name); // Serialize the user object to JSON
         var authUser = @json(auth()->user()); // Serialize the user object to JSON
-        var url = '{{ route("post.get", ":id") }}';
-        url = url.replace(':id', postId);
-
         $.ajax({
             type: "GET",
-            url : url,
-            // url: 'posts/' + postId,
+            url: 'posts/' + postId,
             success: function(data) {
                  console.log(data);
 
@@ -299,44 +194,42 @@ $(document).ready(function() {
                 $(".modal-body .inr-dis-data p").text(post.post_message);
 
                 // Display post images or videos if they exist
-                // Display post images or videos if they exist
-    if (post.docs && post.docs.length > 0) {
-        var docsHtml = ' <div class="swiper-wrapper">';
-        var docsArray = JSON.parse(post.docs);
-        var docsPathArray = JSON.parse(post.docs_path);
+                if (post.docs && post.docs.length > 0) {
 
-        // Define a single lightbox group for all images and videos
-        var lightboxGroup = 'myLightboxGroup';
+                    var docsHtml = ' <div class="swiper-wrapper">';
+                    var docsArray = JSON.parse(post.docs);
+                    var docsPathArray = JSON.parse(post.docs_path);
 
-        docsArray.forEach(function (doc, index) {
-            // Check if it's an image or video based on file extension
-            var docPath = docsPathArray[index];
+                    docsArray.forEach(function(doc, index) {
+                        // Check if it's an image or video based on file extension
+                        var docPath = docsPathArray[index];
 
-                    if (doc.match(/\.(jpeg|jpg|gif|png|mp4)$/)) {
-                        docsHtml += '<div class="swiper-slide">';
-                        if (doc.endsWith('.mp4')) {
-                            // Extract the video path similar to how you extracted the image path
-                            var videoPathParts = docPath.split('/head-family');
-                            var videoName = videoPathParts.pop(); // Get the last part of the path (the video file name)
-                            var videoPath = videoPathParts.join('/') + '/' + videoName;
+                        if (doc.match(/\.(jpeg|jpg|gif|png|mp4)$/)) {
 
-                            docsHtml += '<video controls><source src="' + videoPath + '" type="video/mp4"></video>';
-                        } else {
-                            var imagePathParts = docPath.split('/head-family');
-                            var imageName = imagePathParts.pop();
-                            var imagePath = '{{ asset('') }}' + imagePathParts + imageName;
+                            docsHtml += '<div class="swiper-slide">';
+                            if (doc.endsWith('.mp4')) {
+                                // Extract the video path similar to how you extracted the image path
+                                var videoPathParts = docPath.split('/head-family');
+                                var videoName = videoPathParts.pop(); // Get the last part of the path (the video file name)
+                                var videoPath = videoPathParts.join('/') + '/' + videoName;
 
-                            docsHtml += '<a class="example-image-link" href="' + imagePath + '" data-lightbox="' + lightboxGroup + '"><img src="' + imagePath + '" alt="Image"></a>';
+                                docsHtml += '<video controls><source src="' + videoPath + '" type="video/mp4"></video>';
+                            } else {
+
+                                var imagePathParts = docPath.split('/head-family');
+                                var imageName = imagePathParts.pop();
+
+                                var imagePath = '{{ asset('') }}' + imagePathParts + imageName;
+
+                                docsHtml += '<img src="' + imagePath + '" alt="Image">';
+                            }
+                            docsHtml += '</div> ';
                         }
-                        docsHtml += '</div> ';
-                    }
-                });
+                    });
 
-                // Close the lightbox container
-                docsHtml += '</div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div>';
-                $(".modal-body .inr-dis-data .modal_swiper").append(docsHtml);
-            }
-
+                    docsHtml += '</div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div>';
+                    $(".modal-body .inr-dis-data .modal_swiper").append(docsHtml);
+                }
 
                 // Function to capitalize the first letter of each word in a string
                 function capitalizeWords(string) {
@@ -480,129 +373,5 @@ $(document).ready(function() {
         $(".main-side-data").toggle();
     });
 });
-
-//lightbox
-lightbox.option({
-'resizeDuration': 200,
-'wrapAround': true
-})
-
 </script>
-
-<script type="text/javascript">
-        $(document).ready(function (e) {
-            $('#image').change(function(){
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                    $('#preview-image-before-upload').attr('src', e.target.result);
-                    $('#preview-image-before-upload').show(); // Show the new image preview
-                    $('#existing-image-preview').hide(); // Hide the existing image preview
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
-        });
-
-</script>
-<script type="text/javascript">
-            $(document).ready(function (e) {
-                $('#image').change(function(){
-                    // Clear any previous previews
-                    $('#preview-container').html('');
-    
-                    // Loop through selected files and create previews
-                    for (let i = 0; i < this.files.length; i++) {
-                        let reader = new FileReader();
-                        reader.onload = (e) => {
-                            let preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
-                            $('#preview-container').append(preview);
-                        }
-                        reader.readAsDataURL(this.files[i]);
-                    }
-    
-                    $('#preview-container').show(); // Show the container for the new image previews
-                });
-            });
-</script>
-
-<script>
-    //search functionality code sidebar
-$(document).ready(function() {
-
-    var $searchInput = $('#search-input');
-    var $searchButton = $('#search-button');
-    var $errorMessage = $('#error-message');
-    
-    // Listen for clicks on the search button
-    $('.searchButton').on('click', function() {      
-        // Get the search query
-        var searchQuery = $('input[name="search"]').val().toLowerCase();
-       
-        // Send an AJAX request to your search route
-        $.ajax({
-
-            url: '{{ route('search.family.member') }}',
-            type: 'GET',
-            data: { search: searchQuery },
-            success: function(response) {
-                console.log(response);
-                // Update the profile-mmbr-data div with the filtered family members
-                displaySearchResults(response.users);
-            },
-            error: function(error) {
-                console.error(error);
-            }
-        });
-    });
-});
-
-
-function displaySearchResults(users) {
-
-    // Clear the current content of profile-mmbr-data
-    $('.profile-mmbr-data').empty();
-
-    // Check if the 'users' array is not empty
-    if (users.length > 0) {
-        // Iterate through the users and create HTML for each user
-        users.forEach(function (user) {
-            var userHtml = '<div class="flex-main-itms">';
-            userHtml += '<div class="pic-lft">';
-            
-            var memberProfileUrl = "{{ route('member.profile', ['id' => ':id']) }}".replace(':id', user.id);
-
-            
-            
-            var imageOfsearchUser = user.image_path ? '{{ asset('') }}' + user.image_path : '{{ asset("images/admin.svg") }}';
-            
-            userHtml += '<a href="' + memberProfileUrl + '">';
-            userHtml += '<img src="' + imageOfsearchUser + '" class="profile" alt="Profile Image" id="existing-image-preview">';
-            userHtml += '</a>';
-            userHtml += '</div>';
-            userHtml += '<div class="right-data">';
-            userHtml += '<a href="' + memberProfileUrl + '">' + user.f_name;
-
-            if (user.l_name) {
-                userHtml += ' ' + user.l_name;
-            }
-
-            userHtml += '</a>';
-            if(user.bdy_date){
-                userHtml += '<a href="' + memberProfileUrl + '"><p>'+ user.bdy_date+'</p></a>';
-
-            }
-            userHtml += '</div>';
-            userHtml += '</div>';
-
-            // Append the user HTML to profile-mmbr-data
-            $('.profile-mmbr-data').append(userHtml);
-        });
-    } else {
-        // If 'users' array is empty, you can display a message or take other actions
-        $('.profile-mmbr-data').html('<p>No Family Member found.</p>');
-    }
-}
-
-// Call the function with the 'usersData' variable you generated in your Blade template
-</script>
-
 <?php } ?>

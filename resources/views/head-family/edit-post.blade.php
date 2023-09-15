@@ -100,24 +100,4 @@
     </div>
     @endsection
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function (e) {
-                $('#image').change(function(){
-                    // Clear any previous previews
-                    $('#preview-container').html('');
-    
-                    // Loop through selected files and create previews
-                    for (let i = 0; i < this.files.length; i++) {
-                        let reader = new FileReader();
-                        reader.onload = (e) => {
-                            let preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
-                            $('#preview-container').append(preview);
-                        }
-                        reader.readAsDataURL(this.files[i]);
-                    }
-    
-                    $('#preview-container').show(); // Show the container for the new image previews
-                });
-            });
-        </script>
+       
