@@ -46,6 +46,7 @@
                         <div class="row">
                           <div class="col-md-3">
                             <div class="get-started">
+                            <input type="file" name="image" placeholder="Choose image" id="image">
                                 <!-- <img src="{{ asset('web-images/admin-edit.svg') }}" class="profile" /> -->
                                   <img src="{{ asset('web-images/edit-icon.svg') }}" class="edit-icon" />
                                             @if(Auth::user()->image_path)
@@ -57,11 +58,7 @@
                                           
                                             <div class="col-md-12 mb-2">
                                         <img id="preview-image-before-upload" src="#" class="profile" alt="Preview"  style="display: none;">
-
                                      </div>
-                                <input type="file" name="image" placeholder="Choose image" id="image">
-                               
-                                    
                                 </div>
                             
                                 </div>
@@ -106,12 +103,12 @@
                                         </label>
                                         <label>Marital Status
                                         <div class="inrr-select">
-                                            <select name="marital_status">
-                                            <option value="Single" {{ old('marital_status', auth()->user()->marital_status) == 'Single' ? 'selected' : '' }}>Single</option>
-                                                <option value="Married" {{ old('marital_status', auth()->user()->marital_status) == 'Married' ? 'selected' : '' }}>Married</option>
-                                                <option value="Unmarried" {{ old('marital_status', auth()->user()->marital_status) == 'Unmarried' ? 'selected' : '' }}>Unmarried</option>
-                                                <option value="Divorced" {{ old('marital_status', auth()->user()->marital_status) == 'Divorced' ? 'selected' : '' }}>Divorced</option>
-                                                <option value="Widowed" {{ old('marital_status', auth()->user()->marital_status) == 'Widowed' ? 'selected' : '' }}>Widowed</option>
+                                            <select id="marital-status" name="marital_status">
+                                           
+                                                <option class="Married" value="Married" {{ old('marital_status', auth()->user()->marital_status) == 'Married' ? 'selected' : '' }}>Married</option>
+                                                <option class="Unmarried" value="Unmarried" {{ old('marital_status', auth()->user()->marital_status) == 'Unmarried' ? 'selected' : '' }}>Unmarried</option>
+                                                <option class="Divorced" value="Divorced" {{ old('marital_status', auth()->user()->marital_status) == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+                                                <option class="Widowed" value="Widowed" {{ old('marital_status', auth()->user()->marital_status) == 'Widowed' ? 'selected' : '' }}>Widowed</option>
                                             </select>
                                             <div class="error">
                                                 @error("marital_status")
@@ -122,11 +119,11 @@
                                     </label>
 
                                       
-                                        <label>Current Spouse
-                                            <input type="text" value="{{ auth()->user()->current_spouse }}" name="current_spouse" placeholder="Current Spouse" />
+                                        <label id="current-spouse">Current Spouse
+                                            <input type="text" value="{{ auth()->user()->current_spouse }}" name="current_spouse"   placeholder="Current Spouse" />
                                         </label>
                                         
-                                        <label>Marrige Anniversary
+                                        <label id="marriage-anniversary" >Marrige Anniversary
                                             <input type="date" value="{{ auth()->user()->mrg_date }}" name="mrg_date" placeholder="Marriage Anniversary" />
                                         </label>
                                     </div>

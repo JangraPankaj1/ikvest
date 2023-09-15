@@ -2008,6 +2008,13 @@ section.let-started form .get-started {
   height: 181px;
   position: relative;
 }
+section.let-started form .get-started input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+}
 section.let-started form .get-started img.profile {
   width: 100%;
   border: 5px solid #4877cc;

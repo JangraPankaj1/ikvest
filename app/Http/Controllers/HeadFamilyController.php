@@ -286,30 +286,29 @@ class HeadFamilyController extends Controller
          }
     // ********* Show timeline *******
 
-         public function showTimelineHead(Request $request)
-             {
-
-                try{
-
-                $comments = DB::table('comments')
-                ->join('posts', 'comments.post_id', '=', 'posts.id')
-                ->select('comments.comment')
-                    ->get();
-
-
-                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
-                        ->get(['posts.*', 'users.f_name','users.image_path']);
-
+    public function showTimelineHead(Request $request)
+            {
+                try {
+                    $comments = DB::table('comments')
+                        ->join('posts', 'comments.post_id', '=', 'posts.id')
+                        ->select('comments.comment')
+                        ->get();
+            
+                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
+                        ->orderBy('posts.created_at', 'desc')
+                        ->select('posts.*', 'users.f_name', 'users.image_path')
+                        ->paginate(10); // Adjust the number per page as needed
+            
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
-                    $profileData = User::where('parent_id', auth()->user()->id)->get(); 
-
-                    return view('head-family/timeline', compact('data','comments', 'memberCount','profileData'));
-
-            }catch (Exception $e) {
+                    $profileData = User::where('parent_id', auth()->user()->id)->get();
+            
+                    return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData'));
+            
+                } catch (Exception $e) {
                     return back()->withErrors($e->getMessage());
-
+                }
             }
-        }
+            
 
              // ********* Search Family Member*******
         // ********* Search Family Member*******

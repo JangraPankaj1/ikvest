@@ -526,20 +526,17 @@ lightbox.option({
 
 <script>
     //search functionality code sidebar
-$(document).ready(function() {
-
+    $(document).ready(function() {
     var $searchInput = $('#search-input');
-    var $searchButton = $('#search-button');
     var $errorMessage = $('#error-message');
-    
-    // Listen for clicks on the search button
-    $('.searchButton').on('click', function() {      
+
+    // Function to handle the search
+    function performSearch() {
         // Get the search query
-        var searchQuery = $('input[name="search"]').val().toLowerCase();
-       
+        var searchQuery = $searchInput.val().toLowerCase();
+
         // Send an AJAX request to your search route
         $.ajax({
-
             url: '{{ route('search.family.member') }}',
             type: 'GET',
             data: { search: searchQuery },
@@ -552,8 +549,15 @@ $(document).ready(function() {
                 console.error(error);
             }
         });
-    });
+    }
+
+    // Listen for clicks on the search button
+    $('.searchButton').on('click', performSearch);
+
+    // Listen for keyup events on the search input field
+    $searchInput.on('keyup', performSearch);
 });
+
 
 
 function displaySearchResults(users) {
@@ -602,7 +606,36 @@ function displaySearchResults(users) {
     }
 }
 
-// Call the function with the 'usersData' variable you generated in your Blade template
+// edit profile hide and show maritaial status
+
+$(document).ready(function() {
+    // Initial state based on the selected option
+    updateFieldsVisibility();
+
+    // Listen for changes in the select element
+    $('#marital-status').on('change', function() {
+        updateFieldsVisibility();
+    });
+
+    // Function to update the visibility of input fields based on the selected option
+    function updateFieldsVisibility() {
+        var selectedOption = $('#marital-status').val();
+
+        if (selectedOption === 'Unmarried') {
+            $('#current-spouse').hide();
+            $('#marriage-anniversary').hide();
+        } else {
+            $('#current-spouse').show();
+            $('#marriage-anniversary').show();
+        }
+    }
+});
+
+
+
+
+
+
 </script>
 
 <?php } ?>

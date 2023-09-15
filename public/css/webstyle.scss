@@ -2073,6 +2073,13 @@ section.let-started {
     width: 181px;
     height: 181px;
     position: relative;
+     input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      z-index: 1;
+  }
     img.profile {
       width: 100%;
       border: 5px solid #4877cc;

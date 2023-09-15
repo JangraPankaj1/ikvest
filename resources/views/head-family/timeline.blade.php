@@ -430,6 +430,34 @@
                 </div>
             </div>
         </section>
+
+
+            <!--------------------------------pagenation------------------------>
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 px-0">
+                            <div class="main-inner-pagenation">
+                                <button class="active">next</button>
+                                <div class="inr-tabs">
+                                {{ $data->links() }}
+                                </div>
+                                <button>prev</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--------------------------------end pagenation------------------------>
+
+
+
+
+
+
+
+
+
         <!-----------------end sticky Profile Name --------------------->
     </div>
 

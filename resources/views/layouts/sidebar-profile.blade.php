@@ -8,9 +8,8 @@
                 <div class="inr-srch">
                 <input type="text" name="search" id="search-input" />
                     <i class="fa fa-search searchButton" ></i>
-                </div>
+                </div>               
                 <div id="error-message" style="color: red;"></div>
-
             </div>
             <div class="profile-mmbr-data">
                <!--------inner Profile card --------->

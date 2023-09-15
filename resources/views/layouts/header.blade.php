@@ -61,14 +61,14 @@
                                         </div>
                                         <div class="inr-wlcm-togl">
                                             <p>Welcome!</p>
-                                            <b>{{ Auth::user()->f_name }}</b>
+                                            <b>{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</b>
                                         </div>
                                     </div>
 
                                     <ul class="dropdown-menu test class">
                                         <div class="inr-wlcm-togl">
                                             <p>Welcome!</p>
-                                            <b>{{ Auth::user()->f_name }}</b>
+                                            <b>{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</b>
                                         </div>
                                         <li><a class="dropdown-item" href="{{ route('get.timeline.head') }}">Event</a></li>
                                         <li><a class="dropdown-item" href="{{ route('profile.view') }}">View Profile</a></li>
