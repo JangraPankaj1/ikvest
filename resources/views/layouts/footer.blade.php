@@ -586,7 +586,7 @@ function displaySearchResults(users) {
             userHtml += '<a href="' + memberProfileUrl + '">' + user.f_name;
 
             if (user.l_name) {
-                userHtml += ' ' + user.l_name;
+                userHtml += ' ' + user.l_name ;
             }
 
             userHtml += '</a>';
