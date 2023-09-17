@@ -412,6 +412,22 @@
                 </div>
             </div>
         </section>
+
+         <!--------------------------------pagenation------------------------>
+         <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 px-0">
+                            <div class="main-inner-pagenation">
+                                <div class="inr-tabs">
+                                     {!! $data->links() !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--------------------------------end pagenation------------------------>
         <!-----------------end sticky Profile Name --------------------->
     </div>
 

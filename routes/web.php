@@ -136,6 +136,8 @@ Route::middleware('auth:web')->group(function(){
         Route::get('member-profile/{id}',[HeadFamilyController::class,'memberProfile'])->name
         ('member.profile');
 
+        Route::get('/load-more-family-members', [HeadFamilyController::class, 'loadMoreFamilyMembers'])
+        ->name('load.more.family.members');
 
 
     });

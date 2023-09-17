@@ -8,6 +8,8 @@ use App\Models\Event;
 use App\Models\Post;
 use App\Models\Comment;
 use App\Rules\TenDigitPhoneNumber;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -30,6 +32,10 @@ use Illuminate\Support\Facades\Auth;
 class HeadFamilyController extends Controller
 {
     //
+    public $page_number=10;
+
+    use WithPagination;
+    
     public function dashboard()
     {
 
@@ -144,6 +150,24 @@ class HeadFamilyController extends Controller
         }
 
     }
+             
+                public function loadMoreFamilyMembers(Request $request)
+                {
+                   
+
+                       $page = $request->input('page', 1);
+                        $perPage = 5; // Number of records to load per page
+
+                        // Query your database to fetch the next set of family members
+                        $profileData = User::where('parent_id', auth()->user()->id)
+                            ->skip(($page - 1) * $perPage)
+                            ->take($perPage)
+                            ->get();
+                   
+                
+                        return response()->json(['profileData' => $profileData]);
+                  }
+    
 
               // ********* get content Posts *******
 
@@ -169,7 +193,8 @@ class HeadFamilyController extends Controller
                     // Fetch the authenticated user's posts only
                     $data = Post::where('posted_by', auth()->user()->id)
                         ->orderBy('created_at', 'desc')
-                        ->get();
+                        ->paginate(5); // Adjust the number per page as needed
+
                     // Fetch comments for the authenticated user's posts                 
                     $comments = Comment::whereIn('post_id', $data->pluck('id'))
                         ->select('comment')
@@ -199,15 +224,13 @@ class HeadFamilyController extends Controller
                         // Fetch the authenticated user's posts only
                         $data = Post::where('posted_by', $id)
                             ->orderBy('created_at', 'desc')
-                            ->get();
+                            ->paginate(5); // Adjust the number per page as needed
 
                         // Fetch comments for the authenticated user's posts                 
                         $comments = Comment::whereIn('post_id', $data->pluck('id'))
                             ->select('comment')
                             ->get();
                         // dd($comments);
-
-
 
                         return view('head-family/member-profile', compact('data', 'comments','user'));
                     } catch (Exception $e) {
@@ -284,6 +307,9 @@ class HeadFamilyController extends Controller
                 return back()->withErrors($e->getMessage());
             }
          }
+         
+
+
     // ********* Show timeline *******
 
     public function showTimelineHead(Request $request)
@@ -297,7 +323,7 @@ class HeadFamilyController extends Controller
                     $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
                         ->orderBy('posts.created_at', 'desc')
                         ->select('posts.*', 'users.f_name', 'users.image_path')
-                        ->paginate(10); // Adjust the number per page as needed
+                        ->paginate(5); // Adjust the number per page as needed
             
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
                     $profileData = User::where('parent_id', auth()->user()->id)->get();
@@ -310,10 +336,9 @@ class HeadFamilyController extends Controller
             }
             
 
-             // ********* Search Family Member*******
         // ********* Search Family Member*******
         public function searchFamilyMember(Request $request)
-        {
+          {
             try {
                 
                 $name = $request->input('search');              
@@ -362,7 +387,10 @@ class HeadFamilyController extends Controller
             }
         }
 
-         
+        
+
+         //load more function
+
  
            // ********* Add Comment*******
         public function CommentOnPostHead (Request $request, $id)

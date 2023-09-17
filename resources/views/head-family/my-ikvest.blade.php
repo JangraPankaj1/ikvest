@@ -200,18 +200,18 @@
                                                             </p>  -->
 
                                                             <p>
-    <span>{{ $user->email }}</span>
-    @php
-        $commentText = ucfirst($comment->comment);
-        $displayComment = strlen($commentText) > 2000 ? substr($commentText, 0, 10000) : $commentText;
-    @endphp
+                                                                    <span>{{ $user->email }}</span>
+                                                                    @php
+                                                                        $commentText = ucfirst($comment->comment);
+                                                                        $displayComment = strlen($commentText) > 2000 ? substr($commentText, 0, 10000) : $commentText;
+                                                                    @endphp
 
-    <p class="comment-text{{ strlen($commentText) > 500 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
+                                                                    <p class="comment-text{{ strlen($commentText) > 500 ? ' collapsed' : '' }}">{{ $displayComment }}</p>
 
-    @if (strlen($commentText) > 300)
-        <a href="#" class="read-more">Read more</a>
-    @endif
-</p>
+                                                                    @if (strlen($commentText) > 300)
+                                                                        <a href="#" class="read-more">Read more</a>
+                                                                    @endif
+                                                            </p>
 
 
                                                         </div>
@@ -432,6 +432,22 @@
                 </div>
             </div>
         </section>
+        
+                     <!--------------------------------pagenation------------------------>
+                     <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 px-0">
+                            <div class="main-inner-pagenation">
+                                <div class="inr-tabs">
+                                     {!! $data->links() !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--------------------------------end pagenation------------------------>
         <!-----------------end sticky Profile Name --------------------->
     </div>
 
