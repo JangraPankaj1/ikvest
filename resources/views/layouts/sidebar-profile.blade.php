@@ -35,7 +35,7 @@
                 </div>
                 
                 @empty
-                <p>No family members found.</p>
+                <p>No family members found .</p>
                 
         @endforelse
                 <!--------inner Profile card --------->
