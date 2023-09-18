@@ -30,7 +30,7 @@
                                         <li><a href="{{ route('investing') }}" class="{{ Request::routeIs('investing') ? 'active' : '' }}">Investing</a></li>
 
                                         @auth
-                                        <li><a href="{{ route('my-ikvest') }}" class="{{ Request::routeIs('my-invest') ? 'active' : '' }}">My Invest</a></li>
+                                        <li><a href="{{ route('my-ikvest') }}" class="{{ Request::routeIs('my-invest') ? 'active' : '' }}">My Ikvest</a></li>
                                         
                                         @endauth
 
@@ -71,6 +71,7 @@
                                             <b>{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</b>
                                         </div>
                                         <li><a class="dropdown-item" href="{{ route('get.timeline.head') }}">Event</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('get.investment') }}">Investment Docs</a></li>
                                         <li><a class="dropdown-item" href="{{ route('profile.view') }}">View Profile</a></li>
                                         <li><a class="dropdown-item"  href="{{ route('logout') }}">Log Out</a></li>
                                                                               

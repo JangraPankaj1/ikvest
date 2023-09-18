@@ -7,15 +7,16 @@ use App\Http\Controllers\Social\GoogleController;
 use App\Http\Controllers\Social\FacebookController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\HeadFamilyController;
+use App\Http\Controllers\HeadInvestmentController;
 use App\Http\Controllers\FamilyMemberController;
 
 
 // ********** Home Page *********
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('About-us',[HomeController::class,'aboutUsPage'])->name('about-us');
-Route::get('Family-tree',[HomeController::class,'familyTreePage'])->name('family-tree');
-Route::get('Investing',[HomeController::class,'investingPage'])->name('investing');
+Route::get('about-us',[HomeController::class,'aboutUsPage'])->name('about-us');
+Route::get('family-tree',[HomeController::class,'familyTreePage'])->name('family-tree');
+Route::get('investing',[HomeController::class,'investingPage'])->name('investing');
 // Route::get('My-invest',[HomeController::class,'myInvestPage'])->name('my-invest');
 
 
@@ -135,9 +136,13 @@ Route::middleware('auth:web')->group(function(){
 
         Route::get('member-profile/{id}',[HeadFamilyController::class,'memberProfile'])->name
         ('member.profile');
+        Route::get('/investment-docs',[HeadInvestmentController::class,'showInvestmentPage'])->name
+        ('get.investment');
 
-        // Route::get('/load-more-family-members', [HeadFamilyController::class, 'loadMoreFamilyMembers'])
-        // ->name('load.more.family.members');
+        Route::post('/investment-docs',[HeadInvestmentController::class,'uploadDocs'])->name
+        ('investment.post');
+      
+     
     });
 
 

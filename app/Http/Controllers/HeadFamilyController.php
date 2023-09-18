@@ -31,10 +31,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HeadFamilyController extends Controller
 {
-    //
-    public $page_number=10;
-
-    use WithPagination;
     
     public function dashboard()
     {

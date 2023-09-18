@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function investments(): HasMany
+    {
+        return $this->hasMany(investments::class);
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'posted_by'); // 'posted_by' is the custom foreign key column

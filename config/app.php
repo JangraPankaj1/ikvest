@@ -184,6 +184,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
 
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Cohensive\Embed\EmbedServiceProvider::class,
+
 
 
 
@@ -217,6 +219,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'OtpValidator' => Ferdous\OtpValidator\OtpValidatorServiceProvider::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Embed' => Cohensive\Embed\Facades\Embed::class,
+
 
 
         // 'ExampleClass' => App\Example\ExampleClass::class,
