@@ -6,7 +6,7 @@
             <div class="family-mbr">
                 <h2>Family Members</h2>
                 <div class="inr-srch">
-                <input type="text" name="search" id="search-input" />
+                <input type="text" name="search" id="search-input"/>
                     <i class="fa fa-search searchButton" ></i>
                 </div>               
                 <div id="error-message" style="color: red;"></div>
@@ -33,11 +33,15 @@
                     @endif
                     </div>                 
                 </div>
+                
                 @empty
-                <p>No family members found.</p>
+                <p>No family members found .</p>
+                
         @endforelse
                 <!--------inner Profile card --------->
+
             </div>
+
         </div>
     </div>
 </div>

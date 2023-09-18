@@ -288,12 +288,12 @@ $(document).ready(function() {
                         var imageOfPostUser = '{{ asset("images/admin.svg") }}';
                     }
 
-                    $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + '">');
+                    $(".modal-body .lft-img").html('<img src="' + imageOfPostUser + '" alt="' + post.user.f_name + post.user.l_name +'">');
                 // Populate post author's information and content
                 // var image = image ? image : "{{ asset('images/admin.svg') }}";
                 // $(".modal-body .lft-img").html('<img src="' + image + '" alt="' + name + '">');
 
-                $(".modal-body h4").text(post.user.f_name);
+                $(".modal-body h4").text(post.user.f_name  + ' '+ post.user.l_name);
                 $(".modal-body  #both").html(createdTime + '<span>.</span><i class="fa-solid fa-earth-americas"></i>');
 
                 $(".modal-body .inr-dis-data p").text(post.post_message);
@@ -368,7 +368,7 @@ $(document).ready(function() {
                     commentsHtml += '<div class="first-comnt">';
                     commentsHtml += '<div class="inr-connents-for">';
                     commentsHtml += '<img src="' + imagePath + '"  alt="' + comment.user.f_name + '">';
-                    commentsHtml += '<p>' + comment.user.f_name + '</p>';
+                    commentsHtml += '<p>' + comment.user.f_name + ' '+ comment.user.l_name +'</p>';
                     commentsHtml += '<p>' + createdTimeComment + '</p>';
                     if (authUser.id === comment.user.id) {
 
@@ -606,6 +606,7 @@ function displaySearchResults(users) {
     }
 }
 
+
 // edit profile hide and show maritaial status
 
 $(document).ready(function() {
@@ -632,10 +633,7 @@ $(document).ready(function() {
 });
 
 
-
-
-
-
+  
 </script>
 
 <?php } ?>
