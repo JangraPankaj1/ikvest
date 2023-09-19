@@ -121,7 +121,6 @@ Route::middleware('auth:web')->group(function(){
 
         Route::delete('/posts/{postId}/comments/{comment}',[HeadFamilyController::class,'deleteComment'])->name('comments.destroy');
         Route::delete('/post/{postId}',[HeadFamilyController::class,'deletePost'])->name('post.delete');
-
         Route::delete('/event/{postId}/comments/{comment}',[HeadFamilyController::class,'commentDelete'])->name('comments.destroy.without.model');
 
         Route::get('/posts/{post}/edit', [HeadFamilyController::class,'editPost'])->name('post.edit');
@@ -136,13 +135,20 @@ Route::middleware('auth:web')->group(function(){
 
         Route::get('member-profile/{id}',[HeadFamilyController::class,'memberProfile'])->name
         ('member.profile');
-        Route::get('/investment-docs',[HeadInvestmentController::class,'showInvestmentPage'])->name
+
+        Route::get('/add-investment-docs',[HeadInvestmentController::class,'showAddInvestmentPage'])->name
         ('get.investment');
 
         Route::post('/investment-docs',[HeadInvestmentController::class,'uploadDocs'])->name
         ('investment.post');
-      
-     
+
+        Route::get('/investment-docs',[HeadInvestmentController::class,'showInvestmentPage'])->name
+        ('get.view.investment');
+        Route::delete('/investment/{postId}',[HeadInvestmentController::class,'deletePostInvestment'])->name('investment.delete');
+
+
+
+
     });
 
 

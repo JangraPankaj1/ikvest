@@ -31,7 +31,7 @@
 
                                         @auth
                                         <li><a href="{{ route('my-ikvest') }}" class="{{ Request::routeIs('my-invest') ? 'active' : '' }}">My Ikvest</a></li>
-                                        
+
                                         @endauth
 
                                         <!-- Check if the user is authenticated -->
@@ -45,7 +45,7 @@
 
                         <div class="col-lg-3 col-md-8 col-sm-8">
                             <div class="admin-details">
-                               
+
                             @auth
 
                                 <div class="dropdown">
@@ -57,7 +57,7 @@
                                             @else
                                             <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
                                             @endif
-                                            
+
                                         </div>
                                         <div class="inr-wlcm-togl">
                                             <p>Welcome!</p>
@@ -71,21 +71,21 @@
                                             <b>{{ Auth::user()->f_name }} {{ Auth::user()->l_name }}</b>
                                         </div>
                                         <li><a class="dropdown-item" href="{{ route('get.timeline.head') }}">Event</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('get.investment') }}">Investment Docs</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('get.view.investment') }}">Investment Docs</a></li>
                                         <li><a class="dropdown-item" href="{{ route('profile.view') }}">View Profile</a></li>
                                         <li><a class="dropdown-item"  href="{{ route('logout') }}">Log Out</a></li>
-                                                                              
-                                                                               
+
+
                                     </ul>
                                 </div>
                                 @endauth
-                                    
+
                                 @guest
-                                <a href="{{ route('login') }}"><img src="{{ asset('web-images/admin.svg') }}"/></a>
+                                <a href="{{ route('login') }}">Login</a>
                                 @endguest
-                                
+
                             </div>
-                           
+
                         </div>
 
 
@@ -93,7 +93,7 @@
                         <!-- <div class="col-lg-3 col-md-8 col-sm-8">
 
                             <div class="main-admin-icon-only">
-                          
+
 
                                 @auth
                                      Welcome, {{ Auth::user()->f_name }}

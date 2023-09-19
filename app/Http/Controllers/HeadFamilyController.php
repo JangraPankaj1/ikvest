@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HeadFamilyController extends Controller
 {
-    
+
     public function dashboard()
     {
 
@@ -70,7 +70,7 @@ class HeadFamilyController extends Controller
      {
         return view('head-family.view-profile');
      }
-     
+
 // random generate string tokens
      function generateRandomString($length) {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -146,10 +146,9 @@ class HeadFamilyController extends Controller
         }
 
     }
-             
-                public function loadMoreFamilyMembers(Request $request)
+     public function loadMoreFamilyMembers(Request $request)
                 {
-                   
+
 
                        $page = $request->input('page', 1);
                         $perPage = 5; // Number of records to load per page
@@ -159,11 +158,11 @@ class HeadFamilyController extends Controller
                             ->skip(($page - 1) * $perPage)
                             ->take($perPage)
                             ->get();
-                   
-                
+
+
                         return response()->json(['profileData' => $profileData]);
                   }
-    
+
 
               // ********* get content Posts *******
 
@@ -191,13 +190,13 @@ class HeadFamilyController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(5); // Adjust the number per page as needed
 
-                    // Fetch comments for the authenticated user's posts                 
+                    // Fetch comments for the authenticated user's posts
                     $comments = Comment::whereIn('post_id', $data->pluck('id'))
                         ->select('comment')
                         ->get();
 
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
-                    $profileData = User::where('parent_id', auth()->user()->id)->get(); 
+                    $profileData = User::where('parent_id', auth()->user()->id)->get();
 
 
                     return view('head-family/my-ikvest', compact('data', 'comments', 'memberCount','profileData'));
@@ -206,7 +205,7 @@ class HeadFamilyController extends Controller
                 }
             }
 
-            
+
              // ********* get data self profile head family*******
              public function memberProfile(Request $request, $id)
                  {
@@ -222,7 +221,7 @@ class HeadFamilyController extends Controller
                             ->orderBy('created_at', 'desc')
                             ->paginate(5); // Adjust the number per page as needed
 
-                        // Fetch comments for the authenticated user's posts                 
+                        // Fetch comments for the authenticated user's posts
                         $comments = Comment::whereIn('post_id', $data->pluck('id'))
                             ->select('comment')
                             ->get();
@@ -240,12 +239,12 @@ class HeadFamilyController extends Controller
             {
                 // dd($request);
                 try {
+
                     $request->validate(
                         [
                             'post' => 'required',
                         ]
                     );
-
 
                 if ($request->hasFile('image')) {
                     $images = $request->file('image');
@@ -269,17 +268,17 @@ class HeadFamilyController extends Controller
                    $post->docs = json_encode(array_column($imageData, 'image_name'));
                    $post->docs_path = json_encode(array_column($imageData, 'image_path'));
                    $post->save();
+
                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
                     ->get(['posts.*', 'users.f_name']);
 
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
-                     
+
                     return redirect()->route('get.timeline.head')
                     ->with('data', $data)
                     ->with('memberCount', $memberCount);
 
                     // return view('head-family/timeline', compact('data','memberCount'));
-
 
                 }else{
 
@@ -303,7 +302,6 @@ class HeadFamilyController extends Controller
                 return back()->withErrors($e->getMessage());
             }
          }
-         
 
 
     // ********* Show timeline *******
@@ -315,29 +313,29 @@ class HeadFamilyController extends Controller
                         ->join('posts', 'comments.post_id', '=', 'posts.id')
                         ->select('comments.comment')
                         ->get();
-            
+
                     $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
                         ->orderBy('posts.created_at', 'desc')
                         ->select('posts.*', 'users.f_name', 'users.image_path')
                         ->paginate(5); // Adjust the number per page as needed
-            
+
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
                     $profileData = User::where('parent_id', auth()->user()->id)->get();
-            
+
                     return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData'));
-            
+
                 } catch (Exception $e) {
                     return back()->withErrors($e->getMessage());
                 }
             }
-            
+
 
         // ********* Search Family Member*******
         public function searchFamilyMember(Request $request)
           {
             try {
-                
-                $name = $request->input('search');              
+
+                $name = $request->input('search');
                 // Split the search query into words
                 $keywords = explode(' ', $name);
 
@@ -383,11 +381,11 @@ class HeadFamilyController extends Controller
             }
         }
 
-        
+
 
          //load more function
 
- 
+
            // ********* Add Comment*******
         public function CommentOnPostHead (Request $request, $id)
         {
@@ -538,11 +536,11 @@ class HeadFamilyController extends Controller
 
                 'bdy_date'  => 'required',
             ], [
-                'f_name.required' => 'The first name field is required.', 
-                'bdy_date.required' => 'The Birthday field is required.', 
+                'f_name.required' => 'The first name field is required.',
+                'bdy_date.required' => 'The Birthday field is required.',
 
             ]);
-            
+
 
             if ($request->hasFile('image')) {
                 $profileName = $request->file('image')->getClientOriginalName();

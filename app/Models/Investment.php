@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Investment extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'investments_docs';
+
 
     /**
      * The attributes that are mass assignable.
@@ -29,15 +31,12 @@ class Investment extends Authenticatable
         'video_link',
         'video_type',
 
-        
     ];
 
-
     public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
+        {
+            return $this->belongsTo(User::class);
+        }
 
 
 }

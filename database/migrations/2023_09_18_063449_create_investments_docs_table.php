@@ -13,18 +13,17 @@ return new class extends Migration
      */
     public function up()
      {
-        Schema::create('investments_docs', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id'); // Assuming the user ID column is unsigned
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Adjust 'user
-
-            $table->text('description');
-            $table->text('docs')->nullable();
-            $table->text('docs_path')->nullable();
-            $table->text('video_link')->nullable();
-            $table->text('video_type')->nullable();
-            $table->timestamps();
-        });
+            Schema::create('investments_docs', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('user_id'); // Assuming the user ID column is unsigned
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Adjust 'user
+                $table->text('description');
+                $table->text('docs')->nullable();
+                $table->text('docs_path')->nullable();
+                $table->text('video_link')->nullable();
+                $table->text('video_type')->nullable();
+                $table->timestamps();
+            });
      }
 
     /**

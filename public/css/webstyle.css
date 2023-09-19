@@ -2470,4 +2470,24 @@ section.let-started form .right-get-started button:hover {
 
 .error {
   color: red;
+}
+
+/* width */
+.main-side-data::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.main-side-data::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.main-side-data::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.main-side-data::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }/*# sourceMappingURL=webstyle.css.map */

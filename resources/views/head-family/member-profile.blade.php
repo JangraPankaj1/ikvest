@@ -41,7 +41,7 @@
                                         </div>
 
                                         <div class="member-show for-edit">
-                                           
+
                                             @if($user->bdy_date)
 
                                             <div class="inr-edit">
@@ -49,7 +49,7 @@
                                                 <p>{{ $user->bdy_date}}</p>
                                             </div>
                                             @endif
-                                           
+
                                          </div>
                                           <div class="inr-profle-data">
                                                     <div class="row">
@@ -87,7 +87,7 @@
 
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                
+
                                                                 <h4><span>{{ ucfirst($user->f_name )}}  {{ $user->l_name }}</span><i class="fa-solid fa-pen-nib"></i></h4>
                                                             </div>
                                                         </div>
@@ -99,7 +99,7 @@
                                                         </div>
                                                         @endif
                                                     </div>
-                                                </div>                                      
+                                                </div>
                                     </div>
                                 </div>
                             </div>
@@ -205,6 +205,10 @@
                                                     {{ session()->get("message") }}
                                                 </div>
                                             @endif
+                                            @if (count($data) === 0)
+                                                <p> No data found.</p>
+                                            @else
+
                             @foreach($data as $key=>$post)
                              @foreach ($post->user()->latest()->get() as $user)
 
@@ -276,10 +280,10 @@
                                                     @foreach ($imagePaths as $index => $imagePath)
                                                     @php
                                                     $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
-                                                    $lightboxGroup = (count($imagePaths) > 1) ? 'roadtrip' : 'image-1'; 
+                                                    $lightboxGroup = (count($imagePaths) > 1) ? 'roadtrip' : 'image-1';
                                                     @endphp
-                                               
-                                               
+
+
 
                                                         <div class="swiper-slide"> <!-- Adjust margin as needed -->
                                                             @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
@@ -289,7 +293,7 @@
                                                                 <img src="{{ asset($imagePath) }}"  alt="Image" width="50" height="400"> </a>
 
                                                             @elseif (in_array($extension, ['mp4', 'webm']))
-                                                            
+
                                                             <video controls width="200">
                                                                 <source src="{{ asset($imagePath) }}" type="video/mp4">
                                                             </video>
@@ -405,6 +409,7 @@
                             </div>
                             @endforeach
                             @endforeach
+                            @endif
 
                         </div>
                     </div>

@@ -33,14 +33,14 @@
             <section class="let-started">
                 <div class="container">
                     <div class="row">
-                        
+
                                 <div class="col-lg-12">
                                     <div class="started-first">
                                         <h2>Lets Get You Started First</h2>
                                     </div>
                                 </div>
                        </div>
-                                
+
                          <form id ="thisForm"  class="formRegister" action="{{ route('profile.post') }}" method="post"  enctype="multipart/form-data">
                              @csrf
                         <div class="row">
@@ -53,18 +53,18 @@
                                                 <img src="{{ asset(Auth::user()->image_path) }}" class="profile" alt="Profile Image" id="existing-image-preview">
                                             @else
                                                 <img src="{{ asset('web-images/admin-edit.svg') }}"  alt="Default Profile Image">
-                                                
+
                                             @endif
-                                          
+
                                             <div class="col-md-12 mb-2">
                                         <img id="preview-image-before-upload" src="#" class="profile" alt="Preview"  style="display: none;">
                                      </div>
                                 </div>
-                            
+
                                 </div>
                                 <div class="col-md-9">
                                     <div class="right-get-started">
-                               
+
                                     <div class="inr-fill-form">
                                         <label>First Name
                                             <input type="text" name="f_name" value="{{ auth()->user()->f_name }}" placeholder="First Name" />
@@ -74,11 +74,11 @@
                                             @enderror
                                           </div>
                                         </label>
-                                       
+
                                         <label>Last Name
                                             <input type="text" name="l_name" value="{{ auth()->user()->l_name }}" placeholder="Last Name" />
                                             <div class="error">
-                                         
+
                                           </div>
                                         </label>
                                         <label>Email
@@ -104,7 +104,7 @@
                                         <label>Marital Status
                                         <div class="inrr-select">
                                             <select id="marital-status" name="marital_status">
-                                           
+
                                                 <option class="Married" value="Married" {{ old('marital_status', auth()->user()->marital_status) == 'Married' ? 'selected' : '' }}>Married</option>
                                                 <option class="Unmarried" value="Unmarried" {{ old('marital_status', auth()->user()->marital_status) == 'Unmarried' ? 'selected' : '' }}>Unmarried</option>
                                                 <option class="Divorced" value="Divorced" {{ old('marital_status', auth()->user()->marital_status) == 'Divorced' ? 'selected' : '' }}>Divorced</option>
@@ -118,18 +118,18 @@
                                         </div>
                                     </label>
 
-                                      
-                                        <label id="current-spouse">Current Spouse
-                                            <input type="text" value="{{ auth()->user()->current_spouse }}" name="current_spouse"   placeholder="Current Spouse" />
+
+                                        <label id="current-spouse"> Spouse
+                                            <input type="text" value="{{ auth()->user()->current_spouse }}" name="current_spouse"   placeholder="Spouse" />
                                         </label>
-                                        
+
                                         <label id="marriage-anniversary" >Marrige Anniversary
                                             <input type="date" value="{{ auth()->user()->mrg_date }}" name="mrg_date" placeholder="Marriage Anniversary" />
                                         </label>
                                     </div>
                                     <label>Description
                                         <textarea rows="5" name="description" placeholder="Description">{{ auth()->user()->description }}</textarea>
-                                      
+
                                     </label>
                                     <button>Save and Continue</button>
                               </div>
@@ -142,6 +142,6 @@
 
                 </div>
             </section>
-        </div>    
+        </div>
     </div>
     @endsection

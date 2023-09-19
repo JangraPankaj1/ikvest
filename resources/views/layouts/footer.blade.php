@@ -170,7 +170,7 @@ $(".comment-delete").click(function() {
 
     // When the modal's delete button is clicked
     $(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
-      
+
         var url = '{{ route("comments.destroy", ["postId" => ":postId", "comment" => ":commentId"]) }}';
 url = url.replace(':postId', postId).replace(':commentId', comment);
 
@@ -213,7 +213,7 @@ url = url.replace(':postId', postId).replace(':commentId', comment);
 function deleteComment(postId, comment) {
 // When the delete button is clicked
 $(document).on('click', '#commentModal .modal-body button.modelDelete', function() {
-    
+
     var url = '{{ route("comments.destroy", ["postId" => ":postId", "comment" => ":commentId"]) }}';
 url = url.replace(':postId', postId).replace(':commentId', comment);
 
@@ -475,8 +475,7 @@ $(document).ready(function() {
         $(".modal_swiper").empty();
     });
 
-
-    $(".close-btn-sidebar, .member-show").click(function () {
+    $(".close-btn-sidebar, .mamber-list").click(function () {
         $(".main-side-data").toggle();
     });
 });
@@ -508,7 +507,7 @@ lightbox.option({
                 $('#image').change(function(){
                     // Clear any previous previews
                     $('#preview-container').html('');
-    
+
                     // Loop through selected files and create previews
                     for (let i = 0; i < this.files.length; i++) {
                         let reader = new FileReader();
@@ -518,7 +517,7 @@ lightbox.option({
                         }
                         reader.readAsDataURL(this.files[i]);
                     }
-    
+
                     $('#preview-container').show(); // Show the container for the new image previews
                 });
             });
@@ -571,29 +570,33 @@ function displaySearchResults(users) {
         users.forEach(function (user) {
             var userHtml = '<div class="flex-main-itms">';
             userHtml += '<div class="pic-lft">';
-            
+
             var memberProfileUrl = "{{ route('member.profile', ['id' => ':id']) }}".replace(':id', user.id);
 
-            
-            
+
+
             var imageOfsearchUser = user.image_path ? '{{ asset('') }}' + user.image_path : '{{ asset("images/admin.svg") }}';
-            
+
             userHtml += '<a href="' + memberProfileUrl + '">';
             userHtml += '<img src="' + imageOfsearchUser + '" class="profile" alt="Profile Image" id="existing-image-preview">';
             userHtml += '</a>';
             userHtml += '</div>';
             userHtml += '<div class="right-data">';
-            userHtml += '<a href="' + memberProfileUrl + '">' + user.f_name;
+            userHtml += '<div style="margin-top:6px;">';
+
+            userHtml += user.f_name;
 
             if (user.l_name) {
                 userHtml += ' ' + user.l_name ;
             }
 
-            userHtml += '</a>';
-            if(user.bdy_date){
-                userHtml += '<a href="' + memberProfileUrl + '"><p>'+ user.bdy_date+'</p></a>';
 
-            }
+            // if(user.bdy_date){
+            //     userHtml += '<a href="' + memberProfileUrl + '"><p>'+ user.bdy_date+'</p></a>';
+
+            // }
+            userHtml += '</div>';
+
             userHtml += '</div>';
             userHtml += '</div>';
 
@@ -633,7 +636,53 @@ $(document).ready(function() {
 });
 
 
-  
+//delete investment post
+$(document).ready(function() {
+// When the delete button is clicked
+$(".delete-button-investment").click(function() {
+    // Store the item ID from the data attribute
+    var postId = $(this).data("id");
+    console.log(postId);
+
+    // When the modal's delete button is clicked
+      $(document).on('click', '#exampleModal .modal-body button.modelDelete', function() {
+        var url = '{{ route("investment.delete", ":id") }}';
+        url = url.replace(':id', postId);
+        // Submit the delete form via AJAX
+        $.ajax({
+            type: 'Delete',
+             url: url,
+            data: {
+                _token: '{{ csrf_token() }}', // Add CSRF token if needed
+            },
+            success: function(response) {
+                  console.log(response);
+
+                // Handle success, e.g., show a success message
+                if (response.message) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Investment Post has been deleted.',
+                        'success'
+                    ).then(function() {
+                        // Reload or refresh the page or perform any other action
+                        location.reload();
+                    });
+                }
+            },
+            error: function(xhr) {
+                // Handle errors, e.g., show an error message
+                console.error(xhr.responseText);
+            },
+        });
+
+        // After submitting the form, close the modal
+        $("#exampleModal").modal("hide");
+    });
+  });
+});
+
+
 </script>
 
 <?php } ?>

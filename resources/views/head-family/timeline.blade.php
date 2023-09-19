@@ -97,7 +97,7 @@
 
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                
+
                                                                 <h4><span>{{ ucfirst(Auth::user()->f_name )}}  {{ Auth::user()->l_name }}</span><i class="fa-solid fa-pen-nib"></i></h4>
                                                             </div>
                                                         </div>
@@ -232,16 +232,17 @@
                                 @if (auth()->user()->id === $user->id)
 
                                     <div class="dropdown">
-                                        <button class="three-dots btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
 
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ route('post.edit', $post->id) }}"> <i class="fas fa-pencil"></i></a>
+                                            <button class="three-dots btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
 
-                                            <button class="dropdown-item delete-button" data-id="{{$post->id}}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-trash"></i></button>
-                                        </div>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ route('post.edit', $post->id) }}"> <i class="fas fa-pencil"></i></a>
+                                                <button class="dropdown-item delete-button" data-id="{{$post->id}}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-trash"></i></button>
+                                            </div>
+
                                     </div>
 
                                     @endif
@@ -295,10 +296,8 @@
                                                     @foreach ($imagePaths as $index => $imagePath)
                                                     @php
                                                     $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
-                                                    $lightboxGroup = (count($imagePaths) > 1) ? 'roadtrip' : 'image-1'; 
+                                                    $lightboxGroup = (count($imagePaths) > 1) ? 'roadtrip' : 'image-1';
                                                     @endphp
-                                               
-                                               
 
                                                         <div class="swiper-slide"> <!-- Adjust margin as needed -->
                                                             @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
@@ -308,7 +307,7 @@
                                                                 <img src="{{ asset($imagePath) }}"  alt="Image" width="50" height="400"> </a>
 
                                                             @elseif (in_array($extension, ['mp4', 'webm']))
-                                                            
+
                                                             <video controls width="200">
                                                                 <source src="{{ asset($imagePath) }}" type="video/mp4">
                                                             </video>
@@ -429,11 +428,11 @@
                     </div>
                 </div>
             </div>
-            
+
         </section>
 
 
-        
+
             <!--------------------------------pagenation------------------------>
             <section>
                 <div class="container">
