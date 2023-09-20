@@ -167,8 +167,8 @@
                                                 <div class="accordion-body">
                                                 @foreach ($post->comments()->latest()->take(2)->get() as $comment)
                                                 @foreach ($comment->user()->latest()->get() as $user)
-                                                    <div class="first-comnt">
-                                                        <div class="inr-connents-for">
+                                                      <div class="first-comnt">
+                                                         <div class="inr-connents-for">
                                                             @if ($user->image_path)
                                                             <img src="{{ asset($user->image_path) }}" height="30" width="30" alt="Profile Image" id="existing-image-preview">
                                                             @else
@@ -225,12 +225,12 @@
                                                     {{ session()->get("message") }}
                                                 </div>
                                             @endif
-                            @foreach($data as $key=>$post)
-                            @foreach ($post->user()->latest()->get() as $user)
+                                   @foreach($data as $key=>$post)
+                                     @foreach ($post->user()->latest()->get() as $user)
 
 
-                            <div class="full-data-profile">
-                                @if (auth()->user()->id === $user->id)
+                                   <div class="full-data-profile">
+                                  @if (auth()->user()->id === $user->id)
 
                                     <div class="dropdown">
 
@@ -248,7 +248,7 @@
 
                                     @endif
 
-                                <div class="row">
+                                  <div class="row">
                                     <div class="col-md-12">
                                         <div class="inr-img-data">
                                             <div class="lft-img">
@@ -278,8 +278,8 @@
                                                 @endif -->
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                  </div>
+                                  <div class="row">
                                     <div class="col-md-12">
                                         <div class="inr-dis-data">
                                             <p>{{ ucfirst($post->post_message) }}</p>
@@ -292,9 +292,8 @@
 
                                                 @if ($imageNames && $imagePaths)
                                                     @php
-                                                        $lightboxGroup = base64_encode(random_bytes(10)); // Assign a unique lightbox group based on the post ID
-                                                        $imageCount = count($imageNames); // Count the number of images
-
+                                                        $lightboxGroup = 'post_' . $post->id;
+                                                         $imageCount = count($imageNames); // Count the number of images
                                                         @endphp
 
                                                             <div class="swiper mySwiper">
@@ -303,10 +302,10 @@
                                                                     @php
                                                                     $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
                                                                     @endphp
-                                                                <div class="swiper-slide"> <!-- Adjust margin as needed -->
-                                                                    @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                                                  <div class="swiper-slide">
+                                                                     @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm']))
 
-                                                                    @if ($imageCount)
+                                                                     @if ($imageCount)
 
                                                                         @php
                                                                         $imagePairs = array_chunk($imagePaths, 4);
@@ -325,17 +324,18 @@
                                                                                     $kfade = $kpair == 3? 'kfade':'';
                                                                                 @endphp
                                                                                 @endif
-                                                                                <div class="image {{$kfade}}">
 
-                                                                                <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
+                                                                                <div class="image  {{$kfade}}">
+                                                                                   <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
                                                                                     <img src="{{ asset($imagePath) }}" alt="Image">
-                                                                                    @if ($imageCount  > 4 and $kpair == 3)div class="image {{$kfade}}"
+                                                                                    @if ($imageCount  > 4 and $kpair == 3)
                                                                                     <div class="fade-overlay">
                                                                                         <span class="count-image"> {{$imageCount - 4 == 0?'':'+'.$imageCount-4}}</span>
-                                                                                            </div>
-                                                                                        @endif
+                                                                                    </div>
 
+                                                                                        @endif
                                                                                     </a>
+
                                                                                 </div>
                                                                                     @endforeach
 
@@ -346,11 +346,8 @@
                                                                                 @elseif (in_array($extension, ['mp4', 'webm']))
                                                                                 <video controls width="200">
                                                                                     <source src="{{ asset($imagePath) }}" type="video/mp4">
-                                                                            </video>
-                                                                            @else
-                                                                            <div class="error-message">
-                                                                                <p style="color:red;">Invalid file format for {{ $imageNames[$index] }}. Only JPG, JPEG, PNG, and GIF are allowed.</p>
-                                                                            </div>
+                                                                                </video>
+
                                                                             @endif
                                                                                 </div>
                                                                                 @endforeach
@@ -360,6 +357,17 @@
                                                 @endif
 
                                             @endif
+
+                                            <!-- Add birthday users -->
+                                             <!-- @if ($birthdayUsers->isNotEmpty())
+                                                <div class="birthday-users">
+                                                    <ul>
+                                                        @foreach ($birthdayUsers as $user)
+                                                            <li>Happy Birthday {{ $user->f_name }} {{ $user->l_name }} ({{ $user->bdy_date }})</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif -->
 
                                         </div>
                                     </div>

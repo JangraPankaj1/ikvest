@@ -335,7 +335,7 @@ input[type="number"] {
                 color: #4877cc;
                 content: '';
                 position: absolute;
-                background-image: url('../../../web-images/delete-icon-modal.svg');
+                background-image: url('../../../web-images/logoGreen.png');
                 background-size: 16px 16px;
                 height: 16px;
                 width: 16px;
@@ -412,9 +412,25 @@ input[type="number"] {
     ul {
         li {
             font-size: 18px;
+            position: relative;
             &::marker {
                 font-size: 20px;
                 color: #fff;
+                display: none;
+                content: '';
+            }
+            &::before {
+                font-weight: 800;
+                font-size: 18px;
+                color: #4877cc;
+                content: '';
+                position: absolute;
+                background-image: url('../../../web-images/logoWhite.png');
+                background-size: 16px 16px;
+                height: 16px;
+                width: 16px;
+                left: -25px;
+                top: 5px;
             }
 
         }
@@ -1808,7 +1824,12 @@ input[type="number"] {
                 letter-spacing: -0.4px;
                 margin-top: 24px;
               }
+              a.delete-image {
+                position: relative;
+                z-index: 99;
+              }
             }
+
           }
           .bottom-publish {
             margin-top: 26px;

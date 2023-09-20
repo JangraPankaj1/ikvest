@@ -321,7 +321,7 @@ input[type=number] {
   color: #4877cc;
   content: "";
   position: absolute;
-  background-image: url("../../../web-images/delete-icon-modal.svg");
+  background-image: url("../../../web-images/logoGreen.png");
   background-size: 16px 16px;
   height: 16px;
   width: 16px;
@@ -393,10 +393,26 @@ input[type=number] {
 }
 .main-why-site .why-site-left ul li {
   font-size: 18px;
+  position: relative;
 }
 .main-why-site .why-site-left ul li::marker {
   font-size: 20px;
   color: #fff;
+  display: none;
+  content: "";
+}
+.main-why-site .why-site-left ul li::before {
+  font-weight: 800;
+  font-size: 18px;
+  color: #4877cc;
+  content: "";
+  position: absolute;
+  background-image: url("../../../web-images/logoWhite.png");
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  left: -25px;
+  top: 5px;
 }
 .main-why-site .why-site-right {
   text-align: right;
@@ -1753,6 +1769,10 @@ input[type=number] {
   line-height: 168.231%;
   letter-spacing: -0.4px;
   margin-top: 24px;
+}
+.for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .upload-files .add-pic a.delete-image {
+  position: relative;
+  z-index: 99;
 }
 .for-create-event .main-all-page-back-image-family section .inr-create-event .inr-uploads-events .bottom-publish {
   margin-top: 26px;

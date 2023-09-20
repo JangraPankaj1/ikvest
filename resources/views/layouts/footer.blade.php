@@ -22,7 +22,7 @@
                                             <img src="{{ asset('web-images/marker.svg') }}" />
                                         </div>
                                         <div class="text-for-right">
-                                            <p>2399 Wolff Extensions South Dakota, 39505 USA</p>
+                                            <p>Ian Knight Holding BV Dijnselburgerlaan 7 3705LP Zeist The Netherlands</p>
                                         </div>
                                     </div>
                                 </a>
@@ -37,7 +37,7 @@
                                             <img src="{{ asset('web-images/phone.svg') }}" />
                                         </div>
                                         <div class="text-for-right">
-                                            <p>9876 5431 236</p>
+                                            <p>+31 6 22428425</p>
                                         </div>
                                     </div>
                                 </a>
@@ -47,7 +47,7 @@
                                             <img src="{{ asset('web-images/envelope.svg')}}" />
                                         </div>
                                         <div class="text-for-right">
-                                            <p>ian.knight@gmail.com</p>
+                                            <p>Ian.Knight@Enluse.com</p>
                                         </div>
                                     </div>
                                 </a>
@@ -644,12 +644,12 @@ $(document).ready(function (e) {
 
                 if (file.type.startsWith('image/')) {
                     // Display image preview
-                    preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
+                    preview = $('<img>').attr('src', e.target.result).css('max-width', '75px');
                 } else if (file.type.startsWith('video/')) {
                     // Display video preview
                     preview = $('<video>').attr('src', e.target.result)
                                           .attr('controls', 'true')
-                                          .css('max-width', '200px');
+                                          .css('max-width', '75px');
 
                     // Display video name
                     let videoName = $('<p>').text(file.name);

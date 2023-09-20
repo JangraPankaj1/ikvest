@@ -46,7 +46,7 @@
                                         <div class="upload-files">
                                             <div class="add-pic">
                                                 <img src="{{asset('web-images/add-to-photos.svg')}}" />
-                                                <input type="file" name="image[]" accept=".mp4" id="image_add_post" multiple>
+                                                <input type="file" name="image[]" accept=".png, .jpeg, .jpg, .gif, .mp4, .mp3" id="image_add_post" multiple>
                                                 <div class="col-md-12 mb-2">
                                                     <div id="preview-post-container" style="display: none;">
                                                     <div id="video-preview"></div> <!-- Add this div for video name -->

@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Rules\TenDigitPhoneNumber;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -238,13 +239,13 @@ class HeadFamilyController extends Controller
 
         public function uploadPost(Request $request)
             {
-                // dd($request);
                 try {
 
                     $request->validate(
-                        [
+                          [
                             'post' => 'required',
-                        ]
+                            'image.*' => 'mimetypes:image/png,image/jpg,image/jpeg,image/svg+xml,video/mp4|max:51200', // Allow PNG, JPG, SVG, and MP4 files with a max file size of 50MB
+                            ]
                     );
 
                 if ($request->hasFile('image')) {
@@ -275,9 +276,17 @@ class HeadFamilyController extends Controller
 
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
 
+                    $currentDate = now();
+
+                    $birthdayUsers = User::whereMonth('bdy_date', $currentDate->month)
+                        ->whereDay('bdy_date', $currentDate->day)
+                        ->get();
+
+
                     return redirect()->route('get.timeline.head')
                     ->with('data', $data)
-                    ->with('memberCount', $memberCount);
+                    ->with('memberCount', $memberCount)
+                    ->with('birthdayUsers', $birthdayUsers);
 
                     // return view('head-family/timeline', compact('data','memberCount'));
 
@@ -291,10 +300,19 @@ class HeadFamilyController extends Controller
                     $data = Post::join('users', 'posts.posted_by', '=', 'users.id')->orderBy('posts.created_at', 'desc')
                     ->get(['posts.*', 'users.f_name']);
 
+                    $currentDate = now();
+
+                    $birthdayUsers = User::whereMonth('bdy_date', $currentDate->month)
+                        ->whereDay('bdy_date', $currentDate->day)
+                        ->get();
+
+
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
                     return redirect()->route('get.timeline.head')
                     ->with('data', $data)
-                    ->with('memberCount', $memberCount);
+                    ->with('memberCount', $memberCount)
+                    ->with('birthdayUsers', $birthdayUsers);
+
 
                     // return view('head-family/timeline', compact('data','memberCount'));
                 }
@@ -304,12 +322,47 @@ class HeadFamilyController extends Controller
             }
          }
 
+            //delete edit images
+            public function deleteImage($id, $imageIndex)
+            {
+                // Retrieve the post
+                $post = Post::findOrFail($id);
+
+                // Decode the JSON arrays
+                $images = json_decode($post->docs);
+                $imagePaths = json_decode($post->docs_path);
+
+                // Check if the arrays are not empty and if the specified index exists
+                if (is_array($images) && is_array($imagePaths) && isset($images[$imageIndex]) && isset($imagePaths[$imageIndex])) {
+                    // Delete the image file from the server using Storage
+                    if (count($imagePaths) > $imageIndex) {
+                        Storage::delete($imagePaths[$imageIndex]);
+
+                        // Remove the image and its path from the arrays without re-indexing
+                        array_splice($images, $imageIndex, 1);
+                        array_splice($imagePaths, $imageIndex, 1);
+
+                        // Update the post with the modified arrays
+                        $post->docs = json_encode($images);
+                        $post->docs_path = json_encode($imagePaths);
+                        $post->save();
+
+                        // Redirect back to the edit page or another appropriate page
+                        return redirect()->back()->with('success', 'Image deleted successfully.');
+                    }
+                }
+
+                // If the image doesn't exist or arrays are empty, handle the error or return a response accordingly
+                return redirect()->back()->with('error', 'Image not found.');
+            }
+
 
     // ********* Show timeline *******
 
-    public function showTimelineHead(Request $request)
+        public function showTimelineHead(Request $request)
             {
                 try {
+
                     $comments = DB::table('comments')
                         ->join('posts', 'comments.post_id', '=', 'posts.id')
                         ->select('comments.comment')
@@ -323,13 +376,20 @@ class HeadFamilyController extends Controller
                     $memberCount = User::where('parent_id', auth()->user()->id)->count();
                     $profileData = User::where('parent_id', auth()->user()->id)->get();
 
-                    return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData'));
+                     // Get the current date
+                    $currentDate = now();
+
+                    $birthdayUsers = User::whereMonth('bdy_date', $currentDate->month)
+                        ->whereDay('bdy_date', $currentDate->day)
+                        ->get();
+
+
+                    return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData','birthdayUsers'));
 
                 } catch (Exception $e) {
                     return back()->withErrors($e->getMessage());
                 }
             }
-
 
         // ********* Search Family Member*******
         public function searchFamilyMember(Request $request)
@@ -524,16 +584,16 @@ class HeadFamilyController extends Controller
         public function profileUpdatePost(Request $request){
 
                 // Define the custom validation rule
-                    Validator::extend('Please Enter 10 digit', function ($attribute, $value, $parameters, $validator) {
-                        // Check if the value is not empty and contains exactly 10 digits
-                        return empty($value) || preg_match('/^\d{10}$/', $value);
-                    });
+                    // Validator::extend('Please Enter 10 digit', function ($attribute, $value, $parameters, $validator) {
+                    //     // Check if the value is not empty and contains exactly 10 digits
+                    //     return empty($value) || preg_match('/^\d{10}$/', $value);
+                    // });
 
 
             $request->validate([
                 'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
                 'f_name'  => 'required|max:255', // Validation rule for first name
-                'phone' => ['nullable', 'Please Enter 10 digit'], // Use the custom rule with 'nullable'
+                // 'phone' => ['nullable', 'Please Enter 10 digit'], // Use the custom rule with 'nullable'
 
                 'bdy_date'  => 'required',
             ], [

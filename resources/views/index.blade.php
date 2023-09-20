@@ -68,7 +68,7 @@
                             <div class="why-site-left">
                                 <h2> Why this website? </h2>
                                 <p>To provide an opportunity for everyone to actively participate in the history of ones own family hierarchy.</p>
-                                <strong>By:-</strong>
+                                <strong>By</strong>
                                 <ul>
                                       <li>
                                       Viewing, creating and updating their own or part of their Family Tree.
@@ -83,8 +83,6 @@
                                     <li> Learning the processes of investing for family security and prosperity. </li>
 
                                 </ul>
-
-
                             </div>
                         </div>
                         <div class="col-md-6">

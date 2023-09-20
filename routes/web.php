@@ -146,6 +146,7 @@ Route::middleware('auth:web')->group(function(){
         ('get.view.investment');
         Route::delete('/investment/{postId}',[HeadInvestmentController::class,'deletePostInvestment'])->name('investment.delete');
 
+        Route::get('/posts/delete-image/{id}/{imageIndex}', [HeadFamilyController::class, 'deleteImage'])->name('deleteimage');
 
 
 

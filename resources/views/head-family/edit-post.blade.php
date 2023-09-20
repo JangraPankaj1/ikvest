@@ -46,8 +46,9 @@
 
                                         <div class="upload-files">
                                             <div class="add-pic">
-                                                <img src="{{asset('web-images/add-to-photos.svg')}}" />
-                                                <input type="file" name="image[]" accept=".mp4" id="edit-post-image" multiple>
+                                            <img src="{{asset('web-images/add-to-photos.svg')}}" />
+                                            <input type="file" name="image[]" accept=".mp4" id="edit-post-image" multiple>
+
                                                    <div class="col-md-12 mb-2">
 
                                                     @if ($post->docs_path)
@@ -56,9 +57,10 @@
                                                         $imagePaths = json_decode($post->docs_path); // Decode the JSON array
                                                       @endphp
                                                       @if (is_array($images) && is_array($imagePaths) && count($images) === count($imagePaths))
-                                                      @for ($i = 0; $i < count($images); $i++)
+                                                      @for ($index = 0; $index < count($images); $index++)
 
-                                                      <img src="{{ asset($imagePaths[$i]) }}" height="50"width="50"alt="Image">
+                                                      <img src="{{ asset($imagePaths[$index]) }}" height="50"width="50"alt="Image">
+                                                      <a href="{{ route('deleteimage', ['id' => $post->id, 'imageIndex' => $index]) }}" class="delete-image" data-image-id="{{ $post->id }}-{{ $index }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                           @endfor
 
                                                         @endif
