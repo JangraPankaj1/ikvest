@@ -682,12 +682,12 @@ $(document).ready(function (e) {
 
                 if (file.type.startsWith('image/')) {
                     // Display image preview
-                    preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
+                    preview = $('<img>').attr('src', e.target.result).css('max-width', '75px');
                 } else if (file.type.startsWith('video/')) {
                     // Display video preview
                     preview = $('<video>').attr('src', e.target.result)
                                           .attr('controls', 'true')
-                                          .css('max-width', '200px');
+                                          .css('max-width', '75px');
 
                     // Display video name
                     let videoName = $('<p>').text(file.name);

@@ -308,6 +308,25 @@ input[type=number] {
 .main-all-page-back-image .main-who-we-are .who-we-are-left ol li {
   padding-left: 10px;
   margin-bottom: 5px;
+  font-size: 18px;
+  position: relative;
+}
+.main-all-page-back-image .main-who-we-are .who-we-are-left ol li::marker {
+  content: "";
+  display: none;
+}
+.main-all-page-back-image .main-who-we-are .who-we-are-left ol li::before {
+  font-weight: 800;
+  font-size: 18px;
+  color: #4877cc;
+  content: "";
+  position: absolute;
+  background-image: url("../../../web-images/delete-icon-modal.svg");
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  left: -18px;
+  top: 5px;
 }
 .main-all-page-back-image .main-who-we-are .who-we-are-right {
   text-align: left;
@@ -351,6 +370,9 @@ input[type=number] {
   background-position: center;
   background-size: cover;
 }
+.main-why-site .why-site-left {
+  color: #fff;
+}
 .main-why-site .why-site-left h2 {
   color: #fff;
   font-family: "Poppins", sans-serif !important;
@@ -365,7 +387,16 @@ input[type=number] {
   font-size: 20px;
   font-style: normal;
   line-height: normal;
-  margin: 0;
+}
+.main-why-site .why-site-left strong {
+  font-size: 20px;
+}
+.main-why-site .why-site-left ul li {
+  font-size: 18px;
+}
+.main-why-site .why-site-left ul li::marker {
+  font-size: 20px;
+  color: #fff;
 }
 .main-why-site .why-site-right {
   text-align: right;
@@ -443,6 +474,7 @@ input[type=number] {
   font-weight: 400;
   line-height: 47px;
   margin: 0;
+  font-style: italic;
 }
 .main-ikvest .ikvest-right .icon-list .icon-right {
   margin-top: 11px;
@@ -483,6 +515,10 @@ input[type=number] {
   font-weight: 400;
   line-height: 47px;
   margin: 0;
+  font-style: italic;
+}
+.main-defam .defam-right .icon-list .text-for-icon p span {
+  color: #4877cc;
 }
 .main-defam .defam-right .icon-list .icon-right {
   margin-top: 11px;
@@ -1689,7 +1725,7 @@ input[type=number] {
   border-radius: 10px;
   border: 1px solid #8d8d8d;
   background: #f1f2f5;
-  height: 361px;
+  min-height: 361px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2509,6 +2545,7 @@ section.let-started form .right-get-started button:hover {
 .image-pair .image {
   position: relative;
   overflow: hidden;
+  border: 1px solid #b7b7b7;
 }
 
 .image-pair .image img {

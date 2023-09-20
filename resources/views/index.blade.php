@@ -66,15 +66,25 @@
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <div class="why-site-left">
-                                <h2>Why this website?</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur. Vulputate consectetur vel magna vel
-                                    egestas. In nunc sed hendrerit nulla vel. Ut eget aliquam volutpat sed diam
-                                    adipiscing. Ut elementum aliquam varius euismod auctor sagittis. Tincidunt urna
-                                    risus venenatis mi aliquet a pretium faucibus. Scelerisque ornare est habitant
-                                    mauris tristique. Sollicitudin tellus felis nisl pharetra tellus sit sit. Augue
-                                    vel sed felis euismod sed fames eget tincidunt. Sollicitudin quis nisl dictumst
-                                    sollicitudin turpis proin nisl. Diam diam blandit sit feugiat sagittis integer
-                                    malesuada. Nec nunc eu erat eu.</p>
+                                <h2> Why this website? </h2>
+                                <p>To provide an opportunity for everyone to actively participate in the history of ones own family hierarchy.</p>
+                                <strong>By:-</strong>
+                                <ul>
+                                      <li>
+                                      Viewing, creating and updating their own or part of their Family Tree.
+                                      </li>
+                                      <li>
+                                      Sharing important events and information, knowing who’s who.
+                                      </li>
+
+                                </ul>
+                               <strong> And</strong>
+                                <ul>
+                                    <li> Learning the processes of investing for family security and prosperity. </li>
+
+                                </ul>
+
+
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -88,7 +98,5 @@
         </section>
 
     </div>
-
-
 
 @endsection

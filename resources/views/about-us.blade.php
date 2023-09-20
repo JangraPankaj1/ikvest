@@ -30,16 +30,21 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="ikvest-right">
-                                    <h2>IKVEST</h2>
+                                    <h2>Ikvest Creed</h2>
                                     <div class="icon-list">
                                         <div class="text-for-icon">
-                                            <p>Private investment company</p>
+                                            <p>Trading in stocks and shares, investors are we,
+Managing our families assets, always risk free.
+We share our processes, the best ways to invest,
+For interested parties, to be better than the rest.
+Being debt free, is every family members need,
+Helping everyone get there, is the Ikvest creed. </p>
                                         </div>
-                                        <div class="icon-right">
+                                        <!-- <div class="icon-right">
                                             <img src="{{ asset('web-images/IkVest-tree.svg') }}" />
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <div class="icon-list">
+                                    <!-- <div class="icon-list">
                                         <div class="text-for-icon">
                                             <p>Portfolio Management</p>
                                         </div>
@@ -70,7 +75,7 @@
                                         <div class="icon-right">
                                             <img src="{{ asset('web-images/IkVest-tree.svg') }}" />
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -83,16 +88,21 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="defam-right">
-                                    <h2>DEFAM</h2>
+                                    <h2>Defam Creed</h2>
                                     <div class="icon-list">
                                         <div class="text-for-icon">
-                                            <p>Create and Manage the Tree</p>
+                                            <p>Our family four generation ago, who was who,
+                                            The impact of their life, tell us what was true.
+                                            Across the Globe, are Family members unknown,
+                                            Do they know I exist, has my profile been shown.
+                                            A Family tree, a mechanism for communications,
+                                            This is the <span>Defam</span> creed, to know all our relations.</p>
                                         </div>
-                                        <div class="icon-right">
+                                        <!-- <div class="icon-right">
                                             <img src="{{ asset('web-images/defam-tree.svg') }}" />
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <div class="icon-list">
+                                    <!-- <div class="icon-list">
                                         <div class="text-for-icon">
                                             <p>Editing Family Changes</p>
                                         </div>
@@ -131,7 +141,7 @@
                                         <div class="icon-right">
                                             <img src="{{ asset('web-images/defam-tree.svg') }}" />
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-md-5">

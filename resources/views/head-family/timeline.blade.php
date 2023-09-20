@@ -308,10 +308,10 @@
 
                                                                     @if ($imageCount)
 
-                                                                                    @php
-                                                                                    $imagePairs = array_chunk($imagePaths, 4);
-                                                                                    $pairCount = count($imagePairs); // Group images into pairs
-                                                                                    @endphp
+                                                                        @php
+                                                                        $imagePairs = array_chunk($imagePaths, 4);
+                                                                        $pairCount = count($imagePairs); // Group images into pairs
+                                                                        @endphp
 
 
                                                                             @foreach ($imagePairs as $pairIndex => $pair)
@@ -326,9 +326,10 @@
                                                                                 @endphp
                                                                                 @endif
                                                                                 <div class="image {{$kfade}}">
+
                                                                                 <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
                                                                                     <img src="{{ asset($imagePath) }}" alt="Image">
-                                                                                    @if ($imageCount  > 4 and $kpair == 3)
+                                                                                    @if ($imageCount  > 4 and $kpair == 3)div class="image {{$kfade}}"
                                                                                     <div class="fade-overlay">
                                                                                         <span class="count-image"> {{$imageCount - 4 == 0?'':'+'.$imageCount-4}}</span>
                                                                                             </div>
