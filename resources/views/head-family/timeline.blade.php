@@ -18,6 +18,7 @@
     </section>
 
 
+
     <!-----------------end Bannner --------------------->
     <div class="main-all-page-back-image-family">
         <!-----------------Profile Name --------------------->
@@ -187,10 +188,10 @@
                                                         </div>
                                                         <div class="inr-dis-comment">
 
-                                                             <!-- <p>
-                                                                <span>{{$user->email }}</span>
-                                                                @if ($comment->comment)
-                                                                 {{ ucfirst($comment->comment) }}
+                                                            <!-- <p>
+                                                            <span>{{$user->email }}</span>
+                                                            @if ($comment->comment)
+                                                                {{ ucfirst($comment->comment) }}
 
 
                                                                 @else
@@ -225,7 +226,7 @@
                                                 </div>
                                             @endif
                             @foreach($data as $key=>$post)
-                             @foreach ($post->user()->latest()->get() as $user)
+                            @foreach ($post->user()->latest()->get() as $user)
 
 
                             <div class="full-data-profile">
@@ -246,7 +247,6 @@
                                     </div>
 
                                     @endif
-
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -290,39 +290,76 @@
                                                     $imagePaths = json_decode($post->docs_path, true);
                                                 @endphp
 
-                                            @if ($imageNames && $imagePaths)
-                                            <div class="swiper mySwiper">
-                                             <div class="swiper-wrapper">
-                                                    @foreach ($imagePaths as $index => $imagePath)
+                                                @if ($imageNames && $imagePaths)
                                                     @php
-                                                    $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
-                                                    $lightboxGroup = (count($imagePaths) > 1) ? 'roadtrip' : 'image-1';
-                                                    @endphp
+                                                        $lightboxGroup = base64_encode(random_bytes(10)); // Assign a unique lightbox group based on the post ID
+                                                        $imageCount = count($imageNames); // Count the number of images
 
-                                                        <div class="swiper-slide"> <!-- Adjust margin as needed -->
-                                                            @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                                        @endphp
 
-                                                             <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
+                                                            <div class="swiper mySwiper">
+                                                                <div class="swiper-wrapper">
+                                                                    @foreach ($imagePaths as $index => $imagePath)
+                                                                    @php
+                                                                    $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
+                                                                    @endphp
+                                                                <div class="swiper-slide"> <!-- Adjust margin as needed -->
+                                                                    @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
 
-                                                                <img src="{{ asset($imagePath) }}"  alt="Image" width="50" height="400"> </a>
+                                                                    @if ($imageCount)
 
-                                                            @elseif (in_array($extension, ['mp4', 'webm']))
+                                                                                    @php
+                                                                                    $imagePairs = array_chunk($imagePaths, 4);
+                                                                                    $pairCount = count($imagePairs); // Group images into pairs
+                                                                                    @endphp
 
-                                                            <video controls width="200">
-                                                                <source src="{{ asset($imagePath) }}" type="video/mp4">
-                                                            </video>
-                                                            @endif
 
-                                                        </div>
-                                                    @endforeach
-                                            </div>
-                                            <!-- <div class="swiper-button-next"></div>
-                                            <div class="swiper-button-prev"></div>
-                                            <div class="swiper-pagination"></div> -->
-                                            </div>
+                                                                            @foreach ($imagePairs as $pairIndex => $pair)
+                                                                            @if ($pairIndex == 0)
+                                                                            <div class="image-pair">
+                                                                                @foreach ($pair as $kpair => $imagePath)
+                                                                            @php $kfade = '';@endphp
+                                                                                @if($imageCount > 4)
+                                                                                @php
+
+                                                                                    $kfade = $kpair == 3? 'kfade':'';
+                                                                                @endphp
+                                                                                @endif
+                                                                                <div class="image {{$kfade}}">
+                                                                                <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
+                                                                                    <img src="{{ asset($imagePath) }}" alt="Image">
+                                                                                    @if ($imageCount  > 4 and $kpair == 3)
+                                                                                    <div class="fade-overlay">
+                                                                                        <span class="count-image"> {{$imageCount - 4 == 0?'':'+'.$imageCount-4}}</span>
+                                                                                            </div>
+                                                                                        @endif
+
+                                                                                    </a>
+                                                                                </div>
+                                                                                    @endforeach
+
+                                                                                </div>
+                                                                                @endif
+                                                                                @endforeach
+                                                                                @endif
+                                                                                @elseif (in_array($extension, ['mp4', 'webm']))
+                                                                                <video controls width="200">
+                                                                                    <source src="{{ asset($imagePath) }}" type="video/mp4">
+                                                                            </video>
+                                                                            @else
+                                                                            <div class="error-message">
+                                                                                <p style="color:red;">Invalid file format for {{ $imageNames[$index] }}. Only JPG, JPEG, PNG, and GIF are allowed.</p>
+                                                                            </div>
+                                                                            @endif
+                                                                                </div>
+                                                                                @endforeach
+                                                                            </div>
+                                                        <!-- Add your Swiper navigation buttons and pagination here if needed -->
+                                                    </div>
+                                                @endif
 
                                             @endif
-                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
@@ -434,19 +471,9 @@
 
 
             <!--------------------------------pagenation------------------------>
-            <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 px-0">
-                            <div class="main-inner-pagenation">
-                                <div class="inr-tabs">
-                                     {!! $data->links() !!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
+            {!! $data->render('vendor/pagination/default') !!}
+
             <!--------------------------------end pagenation------------------------>
 
 
@@ -568,6 +595,6 @@
         </div>
     </div>
 
-@include('layouts.sidebar-profile');
+@include('layouts.sidebar-profile')
 @endsection
 

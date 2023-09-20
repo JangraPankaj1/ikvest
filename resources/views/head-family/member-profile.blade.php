@@ -152,7 +152,7 @@
                                                             @else
                                                             <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
                                                             @endif
-                                                            <h5>{{ $user->f_name }}</h5>
+                                                            <h5>{{ $user->f_name }} {{ $user->l_name }}</h5>
                                                             <p>{{ $comment->created_at->diffForHumans() }}</p>
 
                                                                 @if (auth()->user()->id === $user->id)
@@ -200,7 +200,7 @@
                                                     @endforeach
                                                 </div>
                                             @endif
-                                            @if (session()->has("message"))
+                                             @if (session()->has("message"))
                                                 <div class="alert alert-success">
                                                     {{ session()->get("message") }}
                                                 </div>
@@ -244,7 +244,7 @@
                                             </div>
 
                                             <div class="right-data">
-                                                <h4>{{$user->f_name}}</h4>
+                                                <h4>{{$user->f_name}} {{$user->l_name}}</h4>
                                                 <p>{{ $post->created_at->diffForHumans() }}<span>.</span>
                                                 <i class="fa-solid fa-earth-americas"></i></p>
                                             </div>
@@ -357,7 +357,7 @@
                                                                         @else
                                                                         <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
                                                                         @endif
-                                                                        <h5>{{ $user->f_name }}</h5>
+                                                                        <h5>{{ $user->f_name }} {{ $user->l_name }}</h5>
                                                                         <p>{{ $comment->created_at->diffForHumans() }}</p>
 
                                                                             @if (auth()->user()->id === $user->id)
@@ -419,19 +419,8 @@
         </section>
 
          <!--------------------------------pagenation------------------------>
-         <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 px-0">
-                            <div class="main-inner-pagenation">
-                                <div class="inr-tabs">
-                                     {!! $data->links() !!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+         {!! $data->render('vendor/pagination/default') !!}
+
             <!--------------------------------end pagenation------------------------>
         <!-----------------end sticky Profile Name --------------------->
     </div>

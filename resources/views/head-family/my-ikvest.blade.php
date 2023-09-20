@@ -96,7 +96,7 @@
 
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                
+
                                                                 <h4><span>{{ ucfirst(Auth::user()->f_name )}}  {{ Auth::user()->l_name }}</span><i class="fa-solid fa-pen-nib"></i></h4>
                                                             </div>
                                                         </div>
@@ -173,7 +173,7 @@
                                                             @else
                                                             <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
                                                             @endif
-                                                            <h5>{{ $user->f_name }}</h5>
+                                                            <h5>{{ $user->f_name }} {{ $user->l_name}}</h5>
                                                             <p>{{ $comment->created_at->diffForHumans() }}</p>
 
                                                                 @if (auth()->user()->id === $user->id)
@@ -261,7 +261,7 @@
                                             </div>
 
                                             <div class="right-data">
-                                                <h4>{{$user->f_name}}</h4>
+                                                <h4>{{$user->f_name}} {{$user->l_name}}</h4>
                                                 <p>{{ $post->created_at->diffForHumans() }}<span>.</span>
                                                 <i class="fa-solid fa-earth-americas"></i></p>
                                             </div>
@@ -298,7 +298,7 @@
                                             @foreach ($imagePaths as $index => $imagePath)
                                                     @php
                                                     $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
-                                                    $lightboxGroup = (count($imagePaths) > 1) ? 'roadtrip' : 'image-1'; 
+                                                    $lightboxGroup = (count($imagePaths) > 1) ? 'roadtrip' : 'image-1';
                                                     @endphp
 
 
@@ -310,7 +310,7 @@
                                                         <img src="{{ asset($imagePath) }}"  alt="Image" width="50" height="400"> </a>
 
                                                        @elseif (in_array($extension, ['mp4', 'webm']))
-                                                     
+
                                                        <video controls width="200">
                                                         <source src="{{ asset($imagePath) }}" type="video/mp4">
                                                       </video>
@@ -374,7 +374,7 @@
                                                                         @else
                                                                         <img src="{{ asset('images/admin.svg') }}" height="30" width="30" alt="Default Profile Image" id="existing-image-preview">
                                                                         @endif
-                                                                        <h5>{{ $user->f_name }}</h5>
+                                                                        <h5>{{ $user->f_name }} {{ $user->l_name }}</h5>
                                                                         <p>{{ $comment->created_at->diffForHumans() }}</p>
 
                                                                             @if (auth()->user()->id === $user->id)
@@ -432,21 +432,10 @@
                 </div>
             </div>
         </section>
-        
+
                      <!--------------------------------pagenation------------------------>
-                     <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 px-0">
-                            <div class="main-inner-pagenation">
-                                <div class="inr-tabs">
-                                     {!! $data->links() !!}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                     {!! $data->render('vendor/pagination/default') !!}
+
             <!--------------------------------end pagenation------------------------>
         <!-----------------end sticky Profile Name --------------------->
     </div>
@@ -559,8 +548,8 @@
             </div>
         </div>
     </div>
-    
-@include('layouts.sidebar-profile');
+
+@include('layouts.sidebar-profile')
 @endsection
 
 

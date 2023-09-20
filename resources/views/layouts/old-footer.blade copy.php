@@ -88,7 +88,22 @@
 
         <!-- Initialize Swiper -->
 
+<script>
 
+    if( jQuery(".testimonial, .mySwiper").length ){
+        var swiper = new Swiper(".testimonial, .mySwiper", {
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+        });
+    }
+
+</script>
 
 
 <?php if(Auth::check()){ ?>
@@ -281,8 +296,46 @@ $(document).ready(function() {
                 $(".modal-body h4").text(post.user.f_name  + ' '+ post.user.l_name);
                 $(".modal-body  #both").html(createdTime + '<span>.</span><i class="fa-solid fa-earth-americas"></i>');
 
+                $(".modal-body .inr-dis-data p").text(post.post_message);
 
+                // Display post images or videos if they exist
+                // Display post images or videos if they exist
+    if (post.docs && post.docs.length > 0) {
+        var docsHtml = ' <div class="swiper-wrapper">';
+        var docsArray = JSON.parse(post.docs);
+        var docsPathArray = JSON.parse(post.docs_path);
 
+        // Define a single lightbox group for all images and videos
+        var lightboxGroup = 'myLightboxGroup';
+
+        docsArray.forEach(function (doc, index) {
+            // Check if it's an image or video based on file extension
+            var docPath = docsPathArray[index];
+
+                    if (doc.match(/\.(jpeg|jpg|gif|png|mp4)$/)) {
+                        docsHtml += '<div class="swiper-slide">';
+                        if (doc.endsWith('.mp4')) {
+                            // Extract the video path similar to how you extracted the image path
+                            var videoPathParts = docPath.split('/head-family');
+                            var videoName = videoPathParts.pop(); // Get the last part of the path (the video file name)
+                            var videoPath = videoPathParts.join('/') + '/' + videoName;
+
+                            docsHtml += '<video controls><source src="' + videoPath + '" type="video/mp4"></video>';
+                        } else {
+                            var imagePathParts = docPath.split('/head-family');
+                            var imageName = imagePathParts.pop();
+                            var imagePath = '{{ asset('') }}' + imagePathParts + imageName;
+
+                            docsHtml += '<a class="example-image-link" href="' + imagePath + '" data-lightbox="' + lightboxGroup + '"><img src="' + imagePath + '" alt="Image"></a>';
+                        }
+                        docsHtml += '</div> ';
+                    }
+                });
+
+                // Close the lightbox container
+                docsHtml += '</div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div>';
+                $(".modal-body .inr-dis-data .modal_swiper").append(docsHtml);
+            }
 
 
                 // Function to capitalize the first letter of each word in a string
@@ -629,137 +682,25 @@ $(".delete-button-investment").click(function() {
   });
 });
 
-// edit post upload preview
-$(document).ready(function (e) {
-    $('#edit-post-image').change(function () {
-        // Clear any previous previews
-        $('#edit-post-preview-container').html('');
+  // add post upload preview
+            $(document).ready(function (e) {
+                $('#image_add_post').change(function(){
+                    // Clear any previous previews
+                    $('#preview-post-container').html('');
 
-        // Loop through selected files and create previews
-        for (let i = 0; i < this.files.length; i++) {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                let file = this.files[i];
-                let preview;
+                    // Loop through selected files and create previews
+                    for (let i = 0; i < this.files.length; i++) {
+                        let reader = new FileReader();
+                        reader.onload = (e) => {
+                            let preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
+                            $('#preview-post-container').append(preview);
+                        }
+                        reader.readAsDataURL(this.files[i]);
+                    }
 
-                if (file.type.startsWith('image/')) {
-                    // Display image preview
-                    preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
-                } else if (file.type.startsWith('video/')) {
-                    // Display video preview
-                    preview = $('<video>').attr('src', e.target.result)
-                                          .attr('controls', 'true')
-                                          .css('max-width', '200px');
-
-                    // Display video name
-                    let videoName = $('<p>').text(file.name);
-                    $('#edit-post-preview-container').append(videoName);
-                }
-
-                // Append the preview to the container
-                $('#edit-post-preview-container').append(preview);
-            }
-            reader.readAsDataURL(this.files[i]);
-        }
-
-        $('#edit-post-preview-container').show(); // Show the container for the new previews
-    });
-});
-
-
-  //add post upload preview
-  $(document).ready(function (e) {
-    $('#image_add_post').change(function () {
-        // Clear any previous previews
-        $('#preview-post-container').html('');
-
-        // Loop through selected files and create previews
-        for (let i = 0; i < this.files.length; i++) {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                let file = this.files[i];
-                let preview;
-
-                if (file.type.startsWith('image/')) {
-                    // Display image preview
-                    preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
-                } else if (file.type.startsWith('video/')) {
-                    // Display video preview
-                    preview = $('<video>').attr('src', e.target.result)
-                                          .attr('controls', 'true')
-                                          .css('max-width', '200px');
-
-                    // Display video name
-                    let videoName = $('<p>').text(file.name);
-                    $('#preview-post-container').append(videoName);
-                }
-
-                // Append the preview to the container
-                $('#preview-post-container').append(preview);
-            }
-            reader.readAsDataURL(this.files[i]);
-        }
-
-        $('#preview-post-container').show(); // Show the container for the new previews
-    });
-});
-
-
-// $(document).ready(function (e) {
-//     $('#image_add_post').change(function () {
-//         // Clear any previous previews
-//         $('#preview-post-container').html('');
-
-//         // Define the maximum allowed file size in bytes (e.g., 10 MB)
-//         const maxFileSize = 100 * 1024 * 1024; // 100 MB
-
-//         // Define maximum allowed counts for photos and videos
-//         const maxPhotoCount = 20;
-//         const maxVideoCount = 10;
-
-//         // Initialize counters
-//         let photoCount = 0;
-//         let videoCount = 0;
-
-//         // Loop through selected files and create previews
-//         for (let i = 0; i < this.files.length; i++) {
-//             const file = this.files[i];
-//             const fileSize = file.size;
-
-//             if (fileSize > maxFileSize) {
-//                 // Display an error message for files exceeding the maximum size
-//                 alert('File "' + file.name + '" exceeds the maximum allowed size of 100 MB.');
-//                 continue; // Skip this file
-//             }
-
-//             if (file.type.startsWith('image/') && photoCount < maxPhotoCount) {
-//                 // Display image preview
-//                 const preview = $('<img>').attr('src', URL.createObjectURL(file)).css('max-width', '200px');
-//                 $('#preview-post-container').append(preview);
-//                 photoCount++;
-//             } else if (file.type.startsWith('video/') && videoCount < maxVideoCount) {
-//                 // Display video preview
-//                 const preview = $('<video>').attr('src', URL.createObjectURL(file))
-//                     .attr('controls', 'true')
-//                     .css('max-width', '200px');
-
-//                 // Display video name
-//                 const videoName = $('<p>').text(file.name);
-//                 $('#preview-post-container').append(preview, videoName);
-//                 videoCount++;
-//             } else {
-//                 // Display an error message for exceeding the photo or video limits
-//                 alert('This types of files not allowed.');
-//             }
-//         }
-
-//         $('#preview-post-container').show(); // Show the container for the new previews
-//     });
-// });
-
-
-
-
+                    $('#preview-post-container').show(); // Show the container for the new image previews
+                });
+            });
 
 </script>
 

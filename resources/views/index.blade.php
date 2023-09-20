@@ -12,16 +12,16 @@
                             <div class="col-md-6">
                                 <div class="who-we-are-left">
                                     <h1>Who are We?</h1>
-                                    <p>Lorem ipsum dolor sit amet consectetur. Lacus magna eget velit eu blandit
-                                        facilisis
-                                        nunc est. Ut gravida netus vel viverra risus sodales risus. Amet penatibus
-                                        aenean
-                                        donec aliquam rhoncus. Sed quis est dolor ac quisque. Nunc mi amet justo odio
-                                        volutpat nunc. Vel vestibulum massa lectus quam convallis. Duis massa accumsan
-                                        viverra ligula malesuada mauris adipiscing. Donec faucibus consequat varius in
-                                        interdum consectetur purus. Turpis dui diam ultrices velit libero viverra amet
-                                        placerat volutpat.
-                                        Mauris lorem laoreet vel sit. Commodo a scelerisque eget.</p>
+                                    <p>A retired family with 2 main goals.</p>
+                                    <ol>
+
+                                        <li>
+                                        Provide a process to share family histories, both past and present.
+                                        </li>
+                                        <li>
+                                        Provide a mechanism to learn investing for family security and prosperity.
+                                        </li>
+                                    </ol>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -48,14 +48,10 @@
                             <div class="col-md-6 text-right">
                                 <div class="we-do-right">
                                     <h2>What do we Do.</h2>
-                                    <p>Lorem ipsum dolor sit amet consectetur. Gravida ac tempor ut diam mi purus porta
-                                        sagittis. Egestas quis dictum enim enim arcu sapien pellentesque arcu sed. Quam
-                                        morbi sed lacus vitae. Purus velit ultricies sed feugiat porta tortor morbi
-                                        tellus. Eget dui nibh diam mollis ut. Cum enim imperdiet cum massa duis velit
-                                        quis id proin. Platea nibh dictumst scelerisque turpis amet consequat.
-                                        Scelerisque semper blandit suscipit tincidunt quis sem vel. Vel nisl at amet
-                                        porta pharetra dolor in. Purus morbi turpis vitae neque pharetra. Quam a
-                                        curabitur in cursus ac cras. Pellentesque </p>
+                                    <p>We are retired Professional Business people with over 50 years experience in the global industrial market place.</p>
+                                    <p>
+                                    Investors and retail traders in the global stock markets. We manage our families investment portfolios and actively trade the stocks.
+                                    </p>
                                 </div>
                             </div>
                         </div>

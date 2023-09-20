@@ -73,6 +73,7 @@ class HeadFamilyController extends Controller
 
 // random generate string tokens
      function generateRandomString($length) {
+
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $string = '';
 
@@ -146,7 +147,7 @@ class HeadFamilyController extends Controller
         }
 
     }
-     public function loadMoreFamilyMembers(Request $request)
+           public function loadMoreFamilyMembers(Request $request)
                 {
 
 
@@ -636,52 +637,97 @@ class HeadFamilyController extends Controller
             }
 
             // **********Update postt**********
+            public function updatePost(Request $request, $id)
+              {
+                try {
+                     $post = Post::find($id);
 
+                    if (!$post) {
+                        return back()->with('error', 'Post not found');
+                    }
 
-     public function updatePost(Request $request, $id)
-               {
-                     try {
+                    // Check if new images were uploaded
+                    if ($request->hasFile('image')) {
+                        $newImages = $request->file('image');
+                        $newImageData = [];
 
-                       if ($request->hasFile('image')) {
-                        $images = $request->file('image');
-                        $imageData = [];
+                        foreach ($newImages as $newImage) {
+                            $imageName = $newImage->getClientOriginalName();
+                            $newImage->move(public_path('images'), $imageName);
 
-                        foreach ($images as $image) {
-
-                            $imageName = $image->getClientOriginalName();
-                            $image->move(public_path('images'), $imageName);
-
-                            $imageData[] = [
+                            $newImageData[] = [
                                 'image_name' => $imageName,
                                 'image_path' => 'images/' . $imageName,
                             ];
                         }
-                        $post = Post::find($id);
-                        // dd($post);
-                        $id =Auth::user()->id;
-                        $post->posted_by  = $id;
-                        $post->post_message  = $request->post_message;
-                        $post->docs = json_encode(array_column($imageData, 'image_name'));
-                        $post->docs_path = json_encode(array_column($imageData, 'image_path'));
-                        $post->save();
-                        return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
 
-                    }else{
+                        // Merge the new image data with the existing data
+                        $existingImages = json_decode($post->docs, true) ?: [];
+                        $existingImagePaths = json_decode($post->docs_path, true) ?: [];
 
-                        $post = Post::find($id);
-                        // dd($post);
-                        $id =Auth::user()->id;
-                        $post->posted_by  = $id;
-                        $post->post_message  = $request->post_message;
-                        $post->save();
-                        return redirect("head-family/timeline")->with('success', 'Post updated succesfully');
+                        $mergedImages = array_merge($existingImages, array_column($newImageData, 'image_name'));
+                        $mergedImagePaths = array_merge($existingImagePaths, array_column($newImageData, 'image_path'));
 
+                        $post->docs = json_encode($mergedImages);
+                        $post->docs_path = json_encode($mergedImagePaths);
                     }
-                }catch (Exception $e) {
-                    dd($e->getMessage());
+
+                    // Update post message
+                    $post->post_message = $request->post_message;
+                    $post->save();
+
+                    return redirect("head-family/timeline")->with('success', 'Post updated successfully');
+                } catch (Exception $e) {
                     return back()->withErrors($e->getMessage());
                 }
-         }
+            }
+
+
+            // public function updatePost(Request $request, $id)
+            // {
+            //     try {
+            //         $post = Post::find($id);
+
+            //         if (!$post) {
+            //             return back()->with('error', 'Post not found');
+            //         }
+
+            //         // Check if new images were uploaded
+            //         if ($request->hasFile('image')) {
+            //             $newImages = $request->file('image');
+            //             $newImageData = [];
+
+            //             foreach ($newImages as $newImage) {
+            //                 $imageName = $newImage->getClientOriginalName();
+            //                 $newImage->move(public_path('images'), $imageName);
+
+            //                 $newImageData[] = [
+            //                     'image_name' => $imageName,
+            //                     'image_path' => 'images/' . $imageName,
+            //                 ];
+            //             }
+
+            //             // Merge the new image data with the existing data
+            //             $existingImages = json_decode($post->docs, true) ?: [];
+            //             $existingImagePaths = json_decode($post->docs_path, true) ?: [];
+
+            //             $mergedImages = array_merge($existingImages, array_column($newImageData, 'image_name'));
+            //             $mergedImagePaths = array_merge($existingImagePaths, array_column($newImageData, 'image_path'));
+
+            //             $post->docs = json_encode($mergedImages);
+            //             $post->docs_path = json_encode($mergedImagePaths);
+            //         }
+
+            //         // Update post message
+            //         $post->post_message = $request->post_message;
+            //         $post->save();
+
+            //         return redirect("head-family/timeline")->with('success', 'Post updated successfully');
+            //     } catch (Exception $e) {
+            //         return back()->withErrors($e->getMessage());
+            //     }
+            // }
+
 
     public function editEvent($id)
      {

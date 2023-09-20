@@ -1,17 +1,17 @@
 @extends('layouts.master')
 @section('main-content')
 <style>
-        #preview-container {
+        #preview-post-container {
             display: flex;
             flex-wrap: wrap;
         }
 
-        #preview-container img {
+        #preview-post-container img {
             margin: 10px;
         }
 </style>
     <div class="wrapper for-create-event">
-    
+
         <section>
             <div class="main-back-bnr">
                 <div class="container">
@@ -46,15 +46,17 @@
                                         <div class="upload-files">
                                             <div class="add-pic">
                                                 <img src="{{asset('web-images/add-to-photos.svg')}}" />
-                                                <input type="file" name="image[]" accept=".mp4" id="image" multiple>
+                                                <input type="file" name="image[]" accept=".mp4" id="image_add_post" multiple>
                                                 <div class="col-md-12 mb-2">
-                                                    <div id="preview-container" style="display: none;">
+                                                    <div id="preview-post-container" style="display: none;">
+                                                    <div id="video-preview"></div> <!-- Add this div for video name -->
+
                                                     </div>
                                                 </div>
                                                  <span>Add Photos/Videos</span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="bottom-publish">
                                              <a href="{{ url()->previous() }}">Cancel</a>
                                             <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
@@ -81,24 +83,3 @@
     </div>
     @endsection
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function (e) {
-                $('#image').change(function(){
-                    // Clear any previous previews
-                    $('#preview-container').html('');
-    
-                    // Loop through selected files and create previews
-                    for (let i = 0; i < this.files.length; i++) {
-                        let reader = new FileReader();
-                        reader.onload = (e) => {
-                            let preview = $('<img>').attr('src', e.target.result).css('max-width', '200px');
-                            $('#preview-container').append(preview);
-                        }
-                        reader.readAsDataURL(this.files[i]);
-                    }
-    
-                    $('#preview-container').show(); // Show the container for the new image previews
-                });
-            });
-        </script>

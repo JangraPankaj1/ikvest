@@ -1,17 +1,16 @@
 @extends('layouts.master')
 @section('main-content')
 <style>
-        #preview-container {
+        #edit-post-preview-container {
             display: flex;
             flex-wrap: wrap;
         }
 
-        #preview-container img {
+        #edit-post-preview-container {
             margin: 10px;
         }
 </style>
     <div class="wrapper for-create-event">
-    
         <section>
             <div class="main-back-bnr">
                 <div class="container">
@@ -48,9 +47,8 @@
                                         <div class="upload-files">
                                             <div class="add-pic">
                                                 <img src="{{asset('web-images/add-to-photos.svg')}}" />
-                                                <input type="file" name="image[]" accept=".mp4" id="image" multiple>
-                                                <div class="col-md-12 mb-2">
-                                                
+                                                <input type="file" name="image[]" accept=".mp4" id="edit-post-image" multiple>
+                                                   <div class="col-md-12 mb-2">
 
                                                     @if ($post->docs_path)
                                                      @php
@@ -65,10 +63,11 @@
 
                                                         @endif
                                                         @endif
-                                                        <div id="preview-container" style="display: none;">
+                                                        <div id="edit-post-preview-container" style="display: none;">
 
                                                 </div>
                                                 </div>
+
                                                  <span>Add Photos/Videos</span>
                                             </div>
 
@@ -76,7 +75,7 @@
 
                                         <div class="bottom-publish">
                                         <a href="{{ url()->previous() }}">Cancel</a>
-                                            <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                 <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                     viewBox="0 0 30 30" fill="none">
                                                     <path
                                                         d="M4.5498 15C4.5498 20.7781 9.22173 25.45 14.9998 25.45C20.7779 25.45 25.4498 20.7781 25.4498 15C25.4498 9.22198 20.7779 4.55005 14.9998 4.55005C9.22173 4.55005 4.5498 9.22198 4.5498 15ZM6.2498 15C6.2498 10.1581 10.1579 6.25005 14.9998 6.25005C19.8417 6.25005 23.7498 10.1581 23.7498 15C23.7498 19.842 19.8417 23.75 14.9998 23.75C10.1579 23.75 6.2498 19.842 6.2498 15Z"
@@ -100,4 +99,3 @@
     </div>
     @endsection
 
-       

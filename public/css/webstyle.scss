@@ -317,9 +317,17 @@ input[type="number"] {
         font-weight: 500;
         line-height: normal;
       }
+      ol {
+        padding-left: 15px;
+        margin: 0;
+        li {
+            padding-left: 10px;
+            margin-bottom: 5px;
+        }
+    }
     }
     .who-we-are-right {
-      text-align: right;
+      text-align: left;
       img {
         width: 474px;
       }
@@ -333,10 +341,10 @@ input[type="number"] {
       }
     }
     .we-do-right {
-      text-align: right;
+      text-align: left;
       h2 {
         color: #4877cc;
-        text-align: right;
+        text-align: left;
         font-family: "Poppins", sans-serif !important;
         font-size: 48px;
         font-style: normal;
@@ -345,9 +353,9 @@ input[type="number"] {
       }
       p {
         max-width: 555px;
-        margin-left: auto;
+        margin-right: auto;
         color: #575757;
-        text-align: right;
+        text-align: left;
         font-family: "Poppins", sans-serif !important;
         font-size: 20px;
         font-style: normal;
@@ -2557,3 +2565,63 @@ section.let-started {
   .main-side-data::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+  .image-pair {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+.image-pair .image {
+    position: relative;
+    overflow: hidden;
+}
+
+.image-pair .image img {
+    width: 100%;
+    max-height: 200px;
+}
+
+.image-pair .image.kfade {
+    position: relative;
+}
+
+.image-pair .image.kfade img {
+    opacity: 0.7; /* Adjust the opacity as needed */
+}
+
+.image-pair .image.kfade .fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    font-size:50px;
+    color: #ffffff;
+    background: rgba(0,0,0,0.5);
+}
+
+.image-pair .image.kfade:hover .kfade-overlay {
+    opacity: 1;
+}
+
+.image-pair .image.kfade .kfade-overlay span {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+}
+
+.image-pair .image.kfade .kfade-overlay p.image-count {
+    color: #fff;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* end css  */
