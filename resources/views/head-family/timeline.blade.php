@@ -243,7 +243,6 @@
                                                 <a class="dropdown-item" href="{{ route('post.edit', $post->id) }}"> <i class="fas fa-pencil"></i></a>
                                                 <button class="dropdown-item delete-button" data-id="{{$post->id}}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-trash"></i></button>
                                             </div>
-
                                     </div>
 
                                     @endif
@@ -292,7 +291,7 @@
 
                                                 @if ($imageNames && $imagePaths)
                                                     @php
-                                                        $lightboxGroup = 'post_' . $post->id;
+                                                         $lightboxGroup = 'post_' . $post->id;
                                                          $imageCount = count($imageNames); // Count the number of images
                                                         @endphp
 
@@ -304,8 +303,7 @@
                                                                     @endphp
                                                                   <div class="swiper-slide">
                                                                      @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm']))
-
-                                                                     @if ($imageCount)
+                                                                      @if ($imageCount)
 
                                                                         @php
                                                                         $imagePairs = array_chunk($imagePaths, 4);
@@ -338,7 +336,6 @@
 
                                                                                 </div>
                                                                                     @endforeach
-
                                                                                 </div>
                                                                                 @endif
                                                                                 @endforeach
@@ -443,8 +440,6 @@
                                                                             @if (strlen($commentText) > 300)
                                                                                 <a href="#" class="read-more">Read more</a>
                                                                             @endif
-
-
 
                                                                     </div>
                                                                 </div>
