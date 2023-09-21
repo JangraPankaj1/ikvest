@@ -515,7 +515,7 @@ input[type="number"] {
           font-weight: 400;
           line-height: 28px;
           margin: 0;
-=        }
+       }
       }
       .icon-right {
         margin-top: 11px;
@@ -2623,13 +2623,38 @@ section.let-started {
   .main-side-data::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
-
-  .image-pair {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px; /* Adjust the gap as needed */
+  .image-pair
+  {
+    width: 100%;
+  }
+  .image-pair.active-inner {
+    display: flex;
+    gap: 10px;
 }
-
+  .image-pair.active {
+    display: grid;
+    flex-wrap: wrap;
+    gap: 10px;
+    grid-template-rows: repeat(2,minmax(0,1fr));
+    grid-auto-flow: column;
+}
+.image {
+  grid-column: span 2/span 2;
+  grid-column-start: 1;
+  display: grid;
+}
+.image.second {
+  grid-column-start: 3 !important;
+  grid-column: span 2/span 2;
+}
+.image.thrice {
+  display: grid;
+  grid-column: span 4/span 4;
+}
+.image.kfade.\34 {
+  grid-column: span 2/span 2;
+  display: grid;
+}
 .image-pair .image {
     position: relative;
     overflow: hidden;
@@ -2639,6 +2664,7 @@ section.let-started {
 .image-pair .image img {
     width: 100%;
     max-height: 200px;
+    object-fit: cover;
 }
 
 .image-pair .image.kfade {
@@ -2684,3 +2710,12 @@ section.let-started {
 }
 
 /* end css  */
+.image.single {
+  width: 100%;
+}
+.image.thrice {
+  width: 100%;
+}
+// .image:nth-child(even) {
+//   width: 50%;
+// }

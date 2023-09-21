@@ -90,12 +90,6 @@
                                                         </div>
                                                         @endif
 
-                                                        <div class="col-md-12 text-md-start text-sm-start">
-                                                            <div class="mail-address">
-
-                                                                <h4><span>{{ ucfirst(Auth::user()->f_name )}}  {{ Auth::user()->l_name }}</span><i class="fa-solid fa-pen-nib"></i></h4>
-                                                            </div>
-                                                        </div>
                                                         @if(Auth::user()->mrg_date)
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
@@ -226,7 +220,7 @@
                                     <div class="full-data-profile">
                                       @if (auth()->user()->id === $user->id)
 
-                                    <div class="dropdown">
+                                       <div class="dropdown">
 
                                             <button class="three-dots btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                                 aria-expanded="false">
@@ -237,131 +231,127 @@
                                                 <a class="dropdown-item" href="{{ route('post.edit', $post->id) }}"> <i class="fas fa-pencil"></i></a>
                                                 <button class="dropdown-item delete-button" data-id="{{$post->id}}" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-trash"></i></button>
                                             </div>
-                                    </div>
-
+                                      </div>
                                     @endif
 
                                   <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="inr-img-data">
+                                      <div class="col-md-12">
+                                         <div class="inr-img-data">
                                             <div class="lft-img">
-                                                @if($user->image_path)
-                                                <img src="{{ asset($user->image_path) }}" alt="Profile Image" id="existing-image-preview">
-                                                @else
-                                                <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
-                                                @endif
-                                            </div>
+                                                    @if($user->image_path)
+                                                    <img src="{{ asset($user->image_path) }}" alt="Profile Image" id="existing-image-preview">
+                                                    @else
+                                                    <img src="{{ asset('images/admin.svg') }}" alt="Default Profile Image" id="existing-image-preview">
+                                                    @endif
+                                                    </div>
 
-                                            <div class="right-data">
-                                                <h4>{{$user->f_name}} {{$user->l_name}}</h4>
-                                                <p>{{ $post->created_at->diffForHumans() }}<span>.</span>
-                                                <i class="fa-solid fa-earth-americas"></i></p>
-                                            </div>
-                                            <!-- @if (auth()->user()->id === $user->id) -->
+                                                    <div class="right-data">
+                                                        <h4>{{$user->f_name}} {{$user->l_name}}</h4>
+                                                        <p>{{ $post->created_at->diffForHumans() }}<span>.</span>
+                                                        <i class="fa-solid fa-earth-americas"></i></p>
+                                                    </div>
+                                                    <!-- @if (auth()->user()->id === $user->id) -->
 
-                                            <!-- <form id="deletePost" action="{{ route('post.delete', $post->id) }}" class="flex justify-between space-x-2" method="POST">
+                                                    <!-- <form id="deletePost" action="{{ route('post.delete', $post->id) }}" class="flex justify-between space-x-2" method="POST">
 
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="delete" id="deletePostButton"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
-                                            </form>
-                                                @endif
-                                            @if (auth()->user()->id === $user->id)
-                                                    <a href="{{ route('post.edit', $post->id) }}" class="edit-post-button">Edit</a>
-                                                @endif -->
-                                        </div>
-                                    </div>
-                                  </div>
-                                  <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="inr-dis-data">
-                                            <p>{{ ucfirst($post->post_message) }}</p>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="delete" id="deletePostButton"><img class="delete" src="{{ asset('web-images/material-symbols_delete.svg')}}"></button>
+                                                    </form>
+                                                        @endif
+                                                    @if (auth()->user()->id === $user->id)
+                                                            <a href="{{ route('post.edit', $post->id) }}" class="edit-post-button">Edit</a>
+                                                        @endif -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="inr-dis-data">
+                                                              <p>{{ ucfirst($post->post_message) }}</p>
 
-                                            @if ($post->docs && $post->docs_path)
-                                                @php
-                                                    $imageNames = json_decode($post->docs, true);
-                                                    $imagePaths = json_decode($post->docs_path, true);
-                                                @endphp
+                                                            @if ($post->docs && $post->docs_path)
+                                                                @php
+                                                                    $imageNames = json_decode($post->docs, true);
+                                                                    $imagePaths = json_decode($post->docs_path, true);
+                                                                @endphp
 
-                                                @if ($imageNames && $imagePaths)
-                                                    @php
-                                                         $lightboxGroup = 'post_' . $post->id;
-                                                         $imageCount = count($imageNames); // Count the number of images
-                                                        @endphp
-
-                                                            <div class="swiper mySwiper">
-                                                                <div class="swiper-wrapper">
-                                                                    @foreach ($imagePaths as $index => $imagePath)
+                                                                @if ($imageNames && $imagePaths)
                                                                     @php
-                                                                    $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
+                                                                    $lightboxGroup = 'post_' . $post->id;
+                                                                    $imageCount = count($imageNames);
+                                                                    $counter = 1;
                                                                     @endphp
-                                                                  <div class="swiper-slide">
-                                                                     @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
-                                                                      @if ($imageCount)
 
-                                                                        @php
-                                                                        $imagePairs = array_chunk($imagePaths, 4);
-                                                                        $pairCount = count($imagePairs); // Group images into pairs
-                                                                        @endphp
+                                                                    <div class="swiper mySwiper {{$imageCount}} {{count($imagePaths)}}">
+                                                                        <div class="swiper-wrapper">
+                                                                            
+                                                                            <div class="swiper-slide ">
+                                                                                <div class="image-pair @if($imageCount > 2) active  @endif @if($imageCount == 2) active-inner  @endif">
+                                                                                @foreach ($imagePaths as $index => $imagePath)
+                                                                                    @php
+                                                                                        $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
+                                                                                        
+                                                                                    @endphp
+                                                                                    
+                                                                                    @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                                                                            @php
+                                                                                            $imagePairs = array_chunk($imagePaths, 4);
+                                                                                            $pairCount = count($imagePairs); // Group images into pairs
+                                                                                            $kfade = $index == 3? 'kfade':'';
+                                                                                            $single = $index == 0 && $imageCount == 1 ? 'single' : '';
+                                                                                            $thrice = $index == 2 && $imageCount == 3 ? 'thrice' : '';
+                                                                                            $second = $index == 1 ? 'second' : '';
 
 
-                                                                            @foreach ($imagePairs as $pairIndex => $pair)
-                                                                            @if ($pairIndex == 0)
-                                                                            <div class="image-pair">
-                                                                                @foreach ($pair as $kpair => $imagePath)
-                                                                            @php $kfade = '';@endphp
-                                                                                @if($imageCount > 4)
-                                                                                @php
+                                                                                            @endphp                                                                                            
+                                                                                            <div class="image {{$kfade}} {{$counter}} {{$second}} {{$single}} {{$thrice}} @if($index > 3) d-none  @endif">
 
-                                                                                    $kfade = $kpair == 3? 'kfade':'';
-                                                                                @endphp
-                                                                                @endif
+                                                                                                <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
+                                                                                                    <img src="{{ asset($imagePath) }}" alt="Image">
+                                                                                                    @if ( $index == 3 && $imageCount >4)
+                                                                                                        <div class="fade-overlay">
+                                                                                                            <span class="count-image"> {{$imageCount - 4 == 0?'':'+'.$imageCount-4}}</span>
+                                                                                                        </div>
+                                                                                                    @endif
+                                                                                                </a>
+                                                                                            </div>                                                                                            
 
-                                                                                <div class="image  {{$kfade}}">
-                                                                                   <a class="example-image-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
-                                                                                    <img src="{{ asset($imagePath) }}" alt="Image">
-                                                                                    @if ($imageCount  > 4 and $kpair == 3)
-                                                                                    <div class="fade-overlay">
-                                                                                        <span class="count-image"> {{$imageCount - 4 == 0?'':'+'.$imageCount-4}}</span>
-                                                                                    </div>
-
-                                                                                        @endif
+                                                                                            @php
+                                                                                                $counter++;
+                                                                                            @endphp
+                                                                                        
+                                                                                    @elseif (in_array($extension, ['mp4', 'webm']))
+                                                                                    <a class="example-video-link" href="{{ asset($imagePath) }}" data-lightbox="{{ $lightboxGroup }}">
+                                                                                        <video controls width="200" class="mfp-iframe">
+                                                                                            <source src="{{ asset($imagePath) }}" type="video/mp4">
+                                                                                        </video>
                                                                                     </a>
-                                                                                </div>
-                                                                                    @endforeach
-                                                                                </div>
-                                                                                @endif
-                                                                                @endforeach
-                                                                                @endif
-                                                                                @elseif (in_array($extension, ['mp4', 'webm']))
-                                                                                <video controls width="200">
-                                                                                    <source src="{{ asset($imagePath) }}" type="video/mp4">
-                                                                                </video>
-
-                                                                            @endif
-                                                                                </div>
+                                                                                    
+                                                                                    @endif
+                                                                                     
                                                                                 @endforeach
                                                                             </div>
-                                                        <!-- Add your Swiper navigation buttons and pagination here if needed -->
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Add your Swiper navigation buttons and pagination here if needed -->
+                                                                    </div>
+                                                                @endif
+                                                            @endif
+
+                                                                                 {{-- @if ($birthdayUsers->isNotEmpty())
+                                                                                    <div class="birthday-users">
+                                                                                        <ul>
+                                                                                            @foreach ($birthdayUsers as $user)
+                                                                                                <li>Happy Birthday {{ $user->f_name }} {{ $user->l_name }} ({{ $user->bdy_date }})</li>
+                                                                                            @endforeach
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                @endif  --}}
+
                                                     </div>
-                                                @endif
-
-                                            @endif
-
-                                            <!-- Add birthday users -->
-                                             <!-- @if ($birthdayUsers->isNotEmpty())
-                                                <div class="birthday-users">
-                                                    <ul>
-                                                        @foreach ($birthdayUsers as $user)
-                                                            <li>Happy Birthday {{ $user->f_name }} {{ $user->l_name }} ({{ $user->bdy_date }})</li>
-                                                        @endforeach
-                                                    </ul>
                                                 </div>
-                                            @endif -->
-
-                                        </div>
-                                    </div>
-                                </div>
+                                            </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="inr-comment">
@@ -451,7 +441,7 @@
                                             @endif
                                         </div>
                                     </div>
-
+                                
                                 </div>
                             </div>
                             @endforeach

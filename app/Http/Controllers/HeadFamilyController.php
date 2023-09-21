@@ -324,7 +324,7 @@ class HeadFamilyController extends Controller
 
             //delete edit images
             public function deleteImage($id, $imageIndex)
-            {
+              {
                 // Retrieve the post
                 $post = Post::findOrFail($id);
 
@@ -363,27 +363,50 @@ class HeadFamilyController extends Controller
             {
                 try {
 
-                    $comments = DB::table('comments')
-                        ->join('posts', 'comments.post_id', '=', 'posts.id')
-                        ->select('comments.comment')
-                        ->get();
+                         $comments = DB::table('comments')
+                            ->join('posts', 'comments.post_id', '=', 'posts.id')
+                            ->select('comments.comment')
+                            ->get();
 
-                    $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
-                        ->orderBy('posts.created_at', 'desc')
-                        ->select('posts.*', 'users.f_name', 'users.image_path')
-                        ->paginate(5); // Adjust the number per page as needed
+                         $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
+                            ->orderBy('posts.created_at', 'desc')
+                            ->select('posts.*', 'users.f_name', 'users.image_path')
+                            ->paginate(5); // Adjust the number per page as needed
 
-                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
-                    $profileData = User::where('parent_id', auth()->user()->id)->get();
+                            $memberCount = User::where('parent_id', auth()->user()->id)->count();
+                            $profileData = User::where('parent_id', auth()->user()->id)->get();
 
-                     // Get the current date
-                    $currentDate = now();
+                         // Get the current date
+                         $currentDate = now();
+                
+                         // Find users whose birthday matches today's date
+                          $birthdayUsers = User::whereMonth('bdy_date', $currentDate->month)
+                             ->whereDay('bdy_date', $currentDate->day)
+                             ->get();
 
-                    $birthdayUsers = User::whereMonth('bdy_date', $currentDate->month)
-                        ->whereDay('bdy_date', $currentDate->day)
-                        ->get();
+                             //dd($birthdayUsers);
+                          
 
+                            //  $existingPost = Post::where('posted_by', auth()->user()->id)
+                            //  ->whereDate('created_at', $currentDate)
+                            //  ->first();
+                             
+                             //dd($existingPost);
+               
+                            //  if (!$existingPost) {
+                            //     //  Auto-post birthday messages for matching users
+                            //     foreach ($birthdayUsers as $user) {
 
+                            //         $birthdayPost = new Post();
+                            //         $birthdayPost->post_message = 'Happy Birthday, ' . $user->f_name . '!';
+                            //         $birthdayPost->posted_by = auth()->user()->id;
+                            //         $birthdayPost->save();
+
+                            //         $postedToday[] = $user->id;
+
+                            // }
+
+                        // }
                     return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData','birthdayUsers'));
 
                 } catch (Exception $e) {
