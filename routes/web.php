@@ -177,3 +177,4 @@ Route::middleware('auth:web')->group(function(){
     // ********** Email otp template *********
    Route::get('emails.otp_verify', [AuthController::class, 'emailVerifyPage'])->name('emails.otp_verify');
 
+
