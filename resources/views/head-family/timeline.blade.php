@@ -237,7 +237,7 @@
                                             <button class="three-dots btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                                 aria-expanded="false">
                                                 <i class="fas fa-ellipsis-v"></i>
-                                            </button>
+                                            </button >
 
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="{{ route('post.edit', $post->id) }}"> <i class="fas fa-pencil"></i></a>
