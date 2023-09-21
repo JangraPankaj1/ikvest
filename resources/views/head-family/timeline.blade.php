@@ -166,7 +166,7 @@
 
                                                 <div class="accordion-body">
                                                 @foreach ($post->comments()->latest()->take(2)->get() as $comment)
-                                                @foreach ($comment->user()->latest()->get() as $user)
+                                                 @foreach ($comment->user()->latest()->get() as $user)
                                                       <div class="first-comnt">
                                                          <div class="inr-connents-for">
                                                             @if ($user->image_path)
@@ -229,8 +229,8 @@
                                      @foreach ($post->user()->latest()->get() as $user)
 
 
-                                   <div class="full-data-profile">
-                                  @if (auth()->user()->id === $user->id)
+                                    <div class="full-data-profile">
+                                      @if (auth()->user()->id === $user->id)
 
                                     <div class="dropdown">
 
@@ -302,7 +302,7 @@
                                                                     $extension = pathinfo($imageNames[$index], PATHINFO_EXTENSION);
                                                                     @endphp
                                                                   <div class="swiper-slide">
-                                                                     @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm']))
+                                                                     @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
                                                                       @if ($imageCount)
 
                                                                         @php

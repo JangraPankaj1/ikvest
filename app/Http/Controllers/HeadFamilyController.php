@@ -244,7 +244,7 @@ class HeadFamilyController extends Controller
                     $request->validate(
                           [
                             'post' => 'required',
-                            'image.*' => 'mimetypes:image/png,image/jpg,image/jpeg,image/svg+xml,video/mp4|max:512000', // Allow PNG, JPG, SVG, and MP4 files with a max file size of 50MB
+                            // 'image.*' => 'mimetypes:image/png,image/jpg,image/jpeg,image/svg+xml,video/mp4|max:512000', // Allow PNG, JPG, SVG, and MP4 files with a max file size of 50MB
                             ]
                     );
 
