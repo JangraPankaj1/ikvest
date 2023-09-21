@@ -67,7 +67,7 @@
 
                                                         <div class="col-md-12 text-md-start text-sm-start">
                                                             <div class="mail-address">
-                                                                <h4><span>{{ Auth::user()->bdy_date}}</span><i class="fa-solid fa-calendar-day"></i></h4>
+                                                                <h4><span>{{ Auth::user()->bdy_date}}</span><i class="fa-solid fa-birthday-cake"></i></h4>
                                                             </div>
                                                         </div>
                                                         @endif
@@ -327,7 +327,6 @@
 
                                                                                         @endif
                                                                                     </a>
-
                                                                                 </div>
                                                                                     @endforeach
                                                                                 </div>
