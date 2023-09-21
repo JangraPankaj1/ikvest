@@ -48,13 +48,7 @@
                                                     <img src="{{ asset('web-images/mdi_family-tree.svg') }}" height="90" width="90" alt="Default Profile Image" id="existing-image-preview">
                                                     <p><span>{{ $memberCount }}</span>Family Members</p>
                                                 </div>
-                                            @if(Auth::user()->bdy_date)
 
-                                            <div class="inr-edit">
-                                                <img src="{{ asset('web-images/la_birthday-cake.svg') }}" />
-                                                <p>{{ Auth::user()->bdy_date}}</p>
-                                            </div>
-                                            @endif
                                             <div class="inr-edit">
                                                 <a href="{{ route('profile.post'); }}">
                                                     <img src="{{ asset('web-images/edit.svg') }}" />

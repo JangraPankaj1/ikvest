@@ -96,7 +96,7 @@ Helping everyone get there, is the Ikvest creed. </p>
                                             Across the Globe, are Family members unknown,
                                             Do they know I exist, has my profile been shown.
                                             A Family tree, a mechanism for communications,
-                                            This is the <span>Defam</span> creed, to know all our relations.</p>
+                                            This is the <span>Defam</span>creed, to know all our relations.</p>
                                         </div>
                                         <!-- <div class="icon-right">
                                             <img src="{{ asset('web-images/defam-tree.svg') }}" />

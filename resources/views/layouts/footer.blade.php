@@ -31,7 +31,7 @@
                         <div class="col-md-3">
                             <div class="adders-ftr contact">
                                 <h4>Contact Us</h4>
-                                <a href="tel:9876 5431 236">
+                                <a href="tel:31 6 22428425">
                                     <div class="list-icon">
                                         <div class="icon-lft-ftr">
                                             <img src="{{ asset('web-images/phone.svg') }}" />
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="mailto:ian.knight@gmail.com">
+                                <a href="mailto:Ian.Knight@Enluse.com">
                                     <div class="list-icon">
                                         <div class="icon-lft-ftr">
                                             <img src="{{ asset('web-images/envelope.svg')}}" />
