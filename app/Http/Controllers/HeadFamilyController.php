@@ -387,26 +387,26 @@ class HeadFamilyController extends Controller
                              //dd($birthdayUsers);
                           
 
-                            //  $existingPost = Post::where('posted_by', auth()->user()->id)
-                            //  ->whereDate('created_at', $currentDate)
-                            //  ->first();
+                             $existingPost = Post::where('posted_by', auth()->user()->id)
+                             ->whereDate('created_at', $currentDate)
+                             ->first();
                              
-                             //dd($existingPost);
+                            //  dd($existingPost);
                
-                            //  if (!$existingPost) {
-                            //     //  Auto-post birthday messages for matching users
-                            //     foreach ($birthdayUsers as $user) {
+                             if (!$existingPost) {
+                                //  Auto-post birthday messages for matching users
+                                foreach ($birthdayUsers as $user) {
 
-                            //         $birthdayPost = new Post();
-                            //         $birthdayPost->post_message = 'Happy Birthday, ' . $user->f_name . '!';
-                            //         $birthdayPost->posted_by = auth()->user()->id;
-                            //         $birthdayPost->save();
+                                    $birthdayPost = new Post();
+                                    $birthdayPost->post_message = 'Happy Birthday, ' . $user->f_name . '!';
+                                    $birthdayPost->posted_by = auth()->user()->id;
+                                    $birthdayPost->save();
+                                    $postedToday[] = $user->id;
 
-                            //         $postedToday[] = $user->id;
+                            }
 
-                            // }
+                        }
 
-                        // }
                     return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData','birthdayUsers'));
 
                 } catch (Exception $e) {

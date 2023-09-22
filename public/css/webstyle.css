@@ -285,13 +285,14 @@ input[type=number] {
   padding: 134px 0 82px;
 }
 .main-all-page-back-image .main-who-we-are .who-we-are-left h1 {
-  color: #4877cc;
+  color: #009e61;
   text-align: left;
   font-family: "Poppins", sans-serif !important;
   font-size: 48px;
   font-style: normal;
   line-height: normal;
   margin-bottom: 12px;
+  font-weight: 600;
 }
 .main-all-page-back-image .main-who-we-are .who-we-are-left p {
   color: #575757;
@@ -335,6 +336,41 @@ input[type=number] {
 .main-all-page-back-image .main-who-we-are .who-we-are-right img {
   width: 474px;
 }
+.main-all-page-back-image .ikvest-right {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  float: right;
+}
+.main-all-page-back-image .ikvest-right .text-for-icon.ikvest_cread_section ul {
+  padding-left: 15px;
+  margin: 0;
+  text-align: left;
+}
+.main-all-page-back-image .ikvest-right .text-for-icon.ikvest_cread_section ul li {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  position: relative;
+  color: #575757;
+}
+.main-all-page-back-image .ikvest-right .text-for-icon.ikvest_cread_section ul li::marker {
+  content: "";
+  display: none;
+}
+.main-all-page-back-image .ikvest-right .text-for-icon.ikvest_cread_section ul li::before {
+  font-weight: 800;
+  font-size: 18px;
+  color: #4877cc;
+  content: "";
+  position: absolute;
+  background-image: url("../../../web-images/logoGreen.png");
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  left: -18px;
+  top: 5px;
+}
 .main-all-page-back-image .main-we-do {
   padding: 0 0 120px;
 }
@@ -345,13 +381,14 @@ input[type=number] {
   text-align: left;
 }
 .main-all-page-back-image .main-we-do .we-do-right h2 {
-  color: #4877cc;
+  color: #009e61;
   text-align: left;
   font-family: "Poppins", sans-serif !important;
   font-size: 48px;
   font-style: normal;
   line-height: normal;
   margin-bottom: 12px;
+  font-weight: 600;
 }
 .main-all-page-back-image .main-we-do .we-do-right p {
   max-width: 555px;
@@ -456,6 +493,36 @@ input[type=number] {
   color: rgba(255, 255, 255, 0.7);
 }
 
+.text-for-icon.ikvest_cread_section ul {
+  padding-left: 15px;
+  margin: 0;
+  text-align: left;
+}
+.text-for-icon.ikvest_cread_section ul li {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  position: relative;
+  color: #575757;
+}
+.text-for-icon.ikvest_cread_section ul li::marker {
+  content: "";
+  display: none;
+}
+.text-for-icon.ikvest_cread_section ul li::before {
+  font-weight: 800;
+  font-size: 18px;
+  color: #4877cc;
+  content: "";
+  position: absolute;
+  background-image: url("../../../web-images/logoGreen.png");
+  background-size: 16px 16px;
+  height: 16px;
+  width: 16px;
+  left: -18px;
+  top: 5px;
+}
+
 .main-ikvest {
   padding: 117px 0 71px;
 }
@@ -466,7 +533,7 @@ input[type=number] {
   width: 291px;
 }
 .main-ikvest .ikvest-right {
-  text-align: right;
+  text-align: left;
 }
 .main-ikvest .ikvest-right h2 {
   color: #4877cc;
@@ -475,6 +542,7 @@ input[type=number] {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  text-align: left;
 }
 .main-ikvest .ikvest-right .icon-list {
   display: flex;
@@ -1527,11 +1595,13 @@ input[type=number] {
   border-radius: 0px;
   background: #009456;
 }
-.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-prev, .inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-next {
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-prev,
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-next {
   width: 40px;
   height: 40px;
 }
-.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-prev::after, .inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-next::after {
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-prev::after,
+.inner-profile-data .full-data-profile .col-md-12 .inr-dis-data .swiper-button-next::after {
   color: #009456;
   background: #fff;
   border-radius: 50%;
@@ -2308,7 +2378,8 @@ section.let-started form .right-get-started button:hover {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 19px; /* 95% */
+  line-height: 19px;
+  /* 95% */
 }
 .main-inr-ian-vest .inr-right-data .inr-name-data h5 {
   width: calc(50% - 10px);
@@ -2506,20 +2577,24 @@ section.let-started form .right-get-started button:hover {
   gap: 20px;
   padding: 10px;
 }
-.dropdown-menu.show a, .dropdown-menu.show button {
+.dropdown-menu.show a,
+.dropdown-menu.show button {
   padding: 0;
   transition: 0.5s;
 }
-.dropdown-menu.show a:hover, .dropdown-menu.show button:hover {
+.dropdown-menu.show a:hover,
+.dropdown-menu.show button:hover {
   background: transparent;
 }
-.dropdown-menu.show a:hover i, .dropdown-menu.show button:hover i {
+.dropdown-menu.show a:hover i,
+.dropdown-menu.show button:hover i {
   color: #009456;
   transition: 0.5s;
 }
 
 .comment-text.collapsed {
-  max-height: 6em; /* Adjust the number of lines (2em for 2 lines) */
+  max-height: 6em;
+  /* Adjust the number of lines (2em for 2 lines) */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2611,7 +2686,8 @@ section.let-started form .right-get-started button:hover {
 }
 
 .image-pair .image.kfade img {
-  opacity: 0.7; /* Adjust the opacity as needed */
+  opacity: 0.7;
+  /* Adjust the opacity as needed */
 }
 
 .image-pair .image.kfade .fade-overlay {

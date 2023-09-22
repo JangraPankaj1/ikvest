@@ -30,15 +30,17 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="ikvest-right">
-                                    <h2>Ikvest Creed</h2>
+                                    <h2>Ikvest&nbsp; Creed</h2>
                                     <div class="icon-list">
-                                        <div class="text-for-icon">
-                                            <p>Trading in stocks and shares, investors are we,
-Managing our families assets, always risk free.
-We share our processes, the best ways to invest,
-For interested parties, to be better than the rest.
-Being debt free, is every family members need,
-Helping everyone get there, is the Ikvest creed. </p>
+                                        <div class="text-for-icon ikvest_cread_section">
+                                            <ul>
+                                                <li>Private investment company</li>
+                                                <li>Portfolio Management</li>
+                                                <li>Retail Equities Trading</li>
+                                                <li>Certified Trading Processes</li>
+                                                <li>Education / Learning for Private Investors and Family Members</li>
+                                            <ul>
+                                         
                                         </div>
                                         <!-- <div class="icon-right">
                                             <img src="{{ asset('web-images/IkVest-tree.svg') }}" />
@@ -88,15 +90,18 @@ Helping everyone get there, is the Ikvest creed. </p>
                         <div class="row">
                             <div class="col-md-7">
                                 <div class="defam-right">
-                                    <h2>Defam Creed</h2>
+                                    <h2>Defam&nbsp; Creed</h2>
                                     <div class="icon-list">
-                                        <div class="text-for-icon">
-                                            <p>Our family four generation ago, who was who,
-                                            The impact of their life, tell us what was true.
-                                            Across the Globe, are Family members unknown,
-                                            Do they know I exist, has my profile been shown.
-                                            A Family tree, a mechanism for communications,
-                                            This is the <span>Defam</span>creed, to know all our relations.</p>
+                                        <div class="text-for-icon ikvest_cread_section">
+                                            <ul>
+                                                <li>Create and Manage the Tree</li>
+                                                <li>Editing Family Changes</li>
+                                                <li>Family Communications</li>
+                                                <li>Build a new Family Tree</li>
+                                                <li>Social Media Connections</li>
+                                                <li>Events Announcements</li>
+                                              
+                                            <ul>
                                         </div>
                                         <!-- <div class="icon-right">
                                             <img src="{{ asset('web-images/defam-tree.svg') }}" />
