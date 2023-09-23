@@ -1,0 +1,122 @@
+
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif; 
+}
+.birthdayCard {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.birthdayCard .card  h1 {
+  margin: 10px 0 0 0;
+  text-shadow: 1px 1px 2px rgba(0,0,00.5);
+}
+.birthdayCard .card {
+  border-radius: 30px;
+  height: 400px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  overflow: hidden;
+  color:#fff;
+  background-image: url('../images/bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.birthdayCard .card p {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 5px;
+  text-shadow: 1px 1px 2px rgba(0,0,00.5);
+}
+.birthdayCard .card img {
+  width: 100px !important;
+}
+
+@media only screen and (min-width: 1000px) {
+  .birthdayCard .card {
+    flex-direction: row-reverse;
+  }
+  .birthdayCard .card img.birthday {
+    width: 60%;
+    max-width: 50vw;
+    max-height: unset;
+    border-radius: 30px;
+  }
+}
+
+@media only screen and (max-height: 640px) {
+  .birthdayCard .card {
+    flex-direction: row-reverse;
+  }
+  .birthdayCard .card img.birthday {
+    width: 100%;
+    max-width: 50vw;
+    max-height: unset;
+  }
+}
+
+img.birthday {
+  max-height: 40vh;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.birthdayCard .text {
+  padding: 1em;
+  width: 100%;
+}
+.birthdayCard .credit a{
+  text-decoration: none;
+  color: #fff;
+}
+
+.birthdayCard .credit {
+  margin-top: 10px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,00.5);
+}
+
+
+
+.anniversaryCard .card {
+  border-radius: 30px;
+  height: 400px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  overflow: hidden;
+  color:#fff;
+  background-image: url('../images/Blue.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.anniversaryCard .card h1 {
+  font-family: 'Alex Brush', cursive;
+}
+.anniversaryCard .card .d-flex.justify-content-between.w-100 {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+}

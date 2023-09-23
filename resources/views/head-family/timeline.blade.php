@@ -268,7 +268,8 @@
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="inr-dis-data">
-                                                              <p>{{ ucfirst($post->post_message) }}</p>
+                                            
+                                                            {!! $post->post_message !!}
 
                                                             @if ($post->docs && $post->docs_path)
                                                                 @php
@@ -338,16 +339,6 @@
                                                                     </div>
                                                                 @endif
                                                             @endif
-
-                                                                                 {{-- @if ($birthdayUsers->isNotEmpty())
-                                                                                    <div class="birthday-users">
-                                                                                        <ul>
-                                                                                            @foreach ($birthdayUsers as $user)
-                                                                                                <li>Happy Birthday {{ $user->f_name }} {{ $user->l_name }} ({{ $user->bdy_date }})</li>
-                                                                                            @endforeach
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                @endif  --}}
 
                                                     </div>
                                                 </div>

@@ -359,60 +359,83 @@ class HeadFamilyController extends Controller
 
     // ********* Show timeline *******
 
-        public function showTimelineHead(Request $request)
-            {
-                try {
+    public function showTimelineHead(Request $request)
+      {
+          try {
 
-                         $comments = DB::table('comments')
-                            ->join('posts', 'comments.post_id', '=', 'posts.id')
-                            ->select('comments.comment')
-                            ->get();
+                $comments = DB::table('comments')
+                    ->join('posts', 'comments.post_id', '=', 'posts.id')
+                    ->select('comments.comment')
+                    ->get();
 
-                         $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
-                            ->orderBy('posts.created_at', 'desc')
-                            ->select('posts.*', 'users.f_name', 'users.image_path')
-                            ->paginate(5); // Adjust the number per page as needed
+                 $data = Post::join('users', 'posts.posted_by', '=', 'users.id')
+                    ->orderBy('posts.created_at', 'desc')
+                    ->select('posts.*', 'users.f_name', 'users.image_path')
+                    ->paginate(5); // Adjust the number per page as needed
 
-                            $memberCount = User::where('parent_id', auth()->user()->id)->count();
-                            $profileData = User::where('parent_id', auth()->user()->id)->get();
+                 $checkUserExist = Post::select('posts.birthday_user')
+                        ->join('users', 'posts.birthday_user', '=', 'users.id')
+                        ->exists();
 
-                         // Get the current date
-                         $currentDate = now();
-                
-                         // Find users whose birthday matches today's date
-                          $birthdayUsers = User::whereMonth('bdy_date', $currentDate->month)
-                             ->whereDay('bdy_date', $currentDate->day)
-                             ->get();
+                        // dd($birthday_users);
 
-                             //dd($birthdayUsers);
-                          
+                    $memberCount = User::where('parent_id', auth()->user()->id)->count();
+                    $profileData = User::where('parent_id', auth()->user()->id)->get();
 
-                             $existingPost = Post::where('posted_by', auth()->user()->id)
-                             ->whereDate('created_at', $currentDate)
-                             ->first();
-                             
-                            //  dd($existingPost);
-               
-                             if (!$existingPost) {
-                                //  Auto-post birthday messages for matching users
-                                foreach ($birthdayUsers as $user) {
+                       // ... Your other code ...
 
-                                    $birthdayPost = new Post();
-                                    $birthdayPost->post_message = 'Happy Birthday, ' . $user->f_name . '!';
-                                    $birthdayPost->posted_by = auth()->user()->id;
-                                    $birthdayPost->save();
-                                    $postedToday[] = $user->id;
+                $currentDate = now();
 
-                            }
+                $birthdayUsers = User::whereMonth('bdy_date', $currentDate->month)
+                    ->whereDay('bdy_date', $currentDate->day)
+                    ->get();
 
-                        }
+                $anniversaryUsers = User::whereMonth('mrg_date', $currentDate->month)
+                    ->whereDay('mrg_date', $currentDate->day)
+                    ->get();
 
-                    return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData','birthdayUsers'));
+                foreach ($birthdayUsers as $user) {
+                    // Check if a post already exists for this user's birthday
+                    $existingPost = Post::where('birthday_user', $user->id)
+                        ->whereDate('created_at', $currentDate->toDateString())
+                        ->first();
 
-                } catch (Exception $e) {
-                    return back()->withErrors($e->getMessage());
+                    if (!$existingPost) {
+                        $template = view('birthdayTemplate.birthday', ['user' => $user])->render();
+                        $birthdayPost = new Post();
+                        $birthdayPost->post_message = $template;
+                        $birthdayPost->posted_by = auth()->user()->id;
+                        $birthdayPost->birthday_user = $user->id;
+
+                        $birthdayPost->save();
+                        // Mail::to($user->email)->send(new BirthdayEmail($user));
+                    }
                 }
-            }
+
+                foreach ($anniversaryUsers as $user) {
+                    // Check if a post already exists for this user's anniversary
+                    $existingPost = Post::where('anniversary_user', $user->id)
+                        ->whereDate('created_at', $currentDate->toDateString())
+                        ->first();
+
+                    if (!$existingPost) {
+                        $template = view('birthdayTemplate.anniversary', ['user' => $user])->render();
+                        $birthdayPost = new Post();
+                        $birthdayPost->post_message = $template;
+                        $birthdayPost->posted_by = auth()->user()->id;
+                        $birthdayPost->anniversary_user = $user->id;
+
+                        $birthdayPost->save();
+                        $postedToday[] = $user->id;
+                    }
+                }
+    
+            return view('head-family/timeline', compact('data', 'comments', 'memberCount', 'profileData','birthdayUsers', 'anniversaryUsers'));
+
+        } catch (Exception $e) {
+            return back()->withErrors(dd($e));
+        }
+    }
 
         // ********* Search Family Member*******
         public function searchFamilyMember(Request $request)
